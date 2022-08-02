@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Usando EL e TagLibs</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            .alinharDireita {
+                text-align: right;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div>
+            
+            <h1>Dados do Produto</h1>
+        
+            <form method="post" action="processaDadosProduto">
+                
+                <table>
+                    <tr>
+                        <td class="alinharDireita">Código:</td>
+                        <td><input type="text" name="codigo"/></td>
+                    </tr>
+                    <tr>
+                        <td class="alinharDireita">Descrição:</td>
+                        <td><input type="text" name="descricao"/></td>
+                    </tr>
+                    <tr>
+                        <td class="alinharDireita">Unidade de Medida:</td>
+                        <td>
+                            <select name="unidade">
+                                <option value="kg">Quilograma</option>
+                                <option value="l">Litro</option>
+                                <option value="un">Unidade</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="alinharDireita">Quant. em Estoque:</td>
+                        <td><input type="text" name="quantidade"/></td>
+                    </tr>
+                    <tr>
+                        <td class="alinharDireita" colspan="2">
+                            <input type="submit" value="Enviar Dados"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+            
+        </div>
+    </body>
+</html>

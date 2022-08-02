@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Meu Primeiro Formulário</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <h1>Dados Pessoais do Cliente</h1>
+
+        <form method="post" action="processaDadosCliente">
+
+            <label>Nome: </label>
+            <input type="text" size="20" name="nome"/>
+            <br>
+
+            <label>Sobrenome: </label>
+            <input type="text" size="20" name="sobrenome"/>
+            <br>
+
+            <label>CPF: </label>
+            <input type="text" size="15" name="cpf"/>
+            <br>
+
+            <label>Data de Nascimento: </label>
+            <input type="text" size="10" name="dataNasc"/>
+            <br>
+
+            <label>Sexo: </label>
+            <input type="radio" name="sexo" value="M"/> Masculino
+            <input type="radio" name="sexo" value="F"/> Feminino
+            <br>
+
+            <label>Observações: </label>
+            <br>
+            <textarea cols="40" rows="10" name="observacoes"></textarea>
+            <br>
+
+            <input type="submit" value="Enviar Dados"/>
+
+        </form>
+        
+    </body>
+</html>

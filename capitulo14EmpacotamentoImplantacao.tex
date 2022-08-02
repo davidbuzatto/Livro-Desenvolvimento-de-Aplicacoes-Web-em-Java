@@ -1,0 +1,57 @@
+\chapter{Empacotamento em Web Archive (\texttt{.war}) e Implantação}\label{cap:empacotamento}
+\epigraph{``\textit{Information about the package is as important as the package itself}''.}{Frederick W. Smith}
+
+\lettrine[lines=4, lhang=0.1, lraise=0, loversize=0.2, findent=0.1em]{\textcolor{corTema}{N}}{ESTE} Capítulo aaa.
+
+\vfill
+
+\section{Introdução}
+
+- extensão de SpringBootServletInitializer na classe da aplicação
+
+- implementação do método configure
+
+- mudança do packaging no pom.xml para war
+
+- adicionar a dependência:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
+
+- falar do Heroku
+
+- se precisar usar CORS
+
+<filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+    <init-param>
+        <param-name>cors.allowed.origins</param-name>
+        <param-value>*</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowed.methods</param-name>
+        <param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowed.headers</param-name>
+        <param-value>Content-Type,X-Requested-With,Accept,Authorization,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.exposed.headers</param-name>
+        <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+\section{Resumo}
+
+\section{Exercícios}
+
+\section{Projetos}

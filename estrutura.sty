@@ -1,0 +1,564 @@
+% para o pacote minted:
+% instalar o Winpython (2.x)
+% colocar no path:
+%     D:\Utilitários\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64
+%     D:\Utilitários\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Scripts
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{estrutura}[2022/01/06 Desenvolvimento de Aplicações Web Em Java e Outras Tecnologias - Prof. Dr. David Buzatto]
+
+\RequirePackage{lmodern}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[portuges]{babel}
+\RequirePackage{lastpage}
+\RequirePackage{color}
+\RequirePackage[final]{graphicx}
+\RequirePackage{microtype}
+\RequirePackage[table,xcdraw,dvipsnames,usenames]{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{tocloft}
+\RequirePackage{subcaption}
+\RequirePackage{epigraph}
+\RequirePackage{url}
+\RequirePackage{xurl}
+\RequirePackage{placeins}
+\RequirePackage{multirow}
+\RequirePackage[figuresright]{rotating}
+\RequirePackage{chemfig}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{enumitem}
+\RequirePackage{bigints}
+\RequirePackage{environ}
+\RequirePackage[cache=false]{minted}
+\RequirePackage[final]{pdfpages}
+\RequirePackage{calc,soul,fourier}
+\RequirePackage{lettrine}
+\RequirePackage{calligra}
+\RequirePackage{xparse}
+\RequirePackage{textcomp}
+\RequirePackage{wrapfig}
+\RequirePackage{etoolbox}
+\RequirePackage{xpatch}
+\RequirePackage{geometry}
+\RequirePackage[export]{adjustbox}
+\RequirePackage[alf,abnt-emphasize=bf]{abntex2cite}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{minted,skins,breakable,xparse}
+\RequirePackage{tikz}
+\RequirePackage{tkz-euclide}
+\usetikzlibrary{positioning}
+\RequirePackage{epstopdf}
+\RequirePackage{scalerel}
+
+% força para não quebrar notas de rodapé em mais de uma página
+\interfootnotelinepenalty=10000
+
+% código a partir daqui
+% cores primeira edição
+%\definecolor{corTema}{RGB}{0, 66, 137}
+%\definecolor{corFundoCaixas}{RGB}{245,245,245}
+%\definecolor{corTextoCaixas}{RGB}{0,0,0}
+%\definecolor{corFundoCaixasES}{RGB}{0,0,0}
+%\definecolor{corTextoCaixasES}{RGB}{245,245,245}
+%\definecolor{corExercicios}{RGB}{0, 66, 137}
+%\definecolor{corDesafios}{RGB}{59, 0, 108}
+%\definecolor{corProjetos}{RGB}{0,153,102}
+%\definecolor{corCaixaBoaPratica}{RGB}{0,153,102}
+%\definecolor{corCaixaSaibaMais}{RGB}{0,153,204}
+%\definecolor{corCaixaAtencao}{RGB}{255, 102, 0}
+%\definecolor{corCaixaDestaque}{RGB}{0, 0, 255}
+
+% cores segunda edição
+\definecolor{corTema}{RGB}{0, 100, 90}
+\definecolor{corFundoCaixas}{RGB}{245,245,245}
+\definecolor{corTextoCaixas}{RGB}{0,0,0}
+\definecolor{corFundoCaixasES}{RGB}{0,0,0}
+\definecolor{corTextoCaixasES}{RGB}{245,245,245}
+\definecolor{corExercicios}{RGB}{0, 66, 137}
+\definecolor{corDesafios}{RGB}{59, 0, 108}
+\definecolor{corProjetos}{RGB}{0,153,102}
+\definecolor{corCaixaObservacao}{RGB}{105, 0, 153}
+\definecolor{corCaixaBoaPratica}{RGB}{0,153,102}
+\definecolor{corCaixaSaibaMais}{RGB}{0,153,204}
+\definecolor{corCaixaAtencao}{RGB}{255, 102, 0}
+\definecolor{corCaixaDestaque}{RGB}{0, 0, 255}
+
+
+% listas compactas
+\setlist[itemize]{noitemsep,nolistsep}
+\setlist[enumerate]{noitemsep,nolistsep}
+
+% caractere para espaço
+%\definecolor{phantom}{RGB}{220, 220, 220}
+\definecolor{phantom}{RGB}{40, 40, 40}
+\newcommand{\phs}{\textcolor{phantom}{\texttt{*}}}
+
+\setsecnumdepth{subsection}
+\maxtocdepth{subsection}
+
+%\makeatletter não é necessário em arquivos .sty
+\newlength\dlf@normtxtw
+\setlength\dlf@normtxtw{\textwidth}
+\def\myhelvetfont{\def\sfdefault{mdput}}
+\newsavebox{\feline@chapter}
+\newcommand\feline@chapter@marker[1][4cm]{%
+    \sbox\feline@chapter{%
+        \resizebox{!}{#1}{\fboxsep=1pt%
+            \colorbox{corTema}{\color{white}\bfseries\sffamily\thechapter}%
+    }}%
+    \rotatebox{90}{%
+        \resizebox{%
+            \heightof{\usebox{\feline@chapter}}+\depthof{\usebox{\feline@chapter}}}%
+        {!}{\scshape\so\@chapapp}}\quad%
+    \raisebox{\depthof{\usebox{\feline@chapter}}}{\usebox{\feline@chapter}}%
+}
+\newcommand\feline@chm[1][4cm]{%
+    \sbox\feline@chapter{\feline@chapter@marker[#1]}%
+    \makebox[0pt][l]{% aka \rlap
+        \makebox[1cm][r]{\usebox\feline@chapter}%
+}}
+\makechapterstyle{daleif1}{
+    \renewcommand\chapnamefont{\normalfont\Large\scshape\raggedleft\so}
+    \renewcommand\chapternamenum{}
+    \renewcommand\printchaptername{}
+    \renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
+    \renewcommand\afterchapternum{\par\vskip\midchapskip}
+    \renewcommand\printchaptertitle[1]{\chaptitlefont\raggedleft ##1\par}
+}
+%\makeatother não é necessário em arquivos .sty
+\chapterstyle{daleif1}
+
+
+\tcbset{
+    listing engine=minted,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema!40,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    before skip=\baselineskip,
+    grow to left by=13mm,grow to right by=25mm,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}}
+}
+
+% remove fcolorbox do minted caso haja caracteres não válidos no código
+%\makeatletter não é necessário em arquivos .sty
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
+%\makeatother não é necessário em arquivos .sty
+
+\newcounter{exercicio}[chapter]
+\newcounter{desafio}[chapter]
+\newcounter{projeto}[chapter]
+\newcounter{listagens}[chapter]
+
+%\newtcblisting{inlineJavaCode}{
+%    minted language=java%
+%}
+%
+%\newtcblisting{inlineHTMLCode}{
+%    minted language=html%
+%}
+%
+%\newtcblisting{inlineJavascriptCode}{
+%    minted language=javascript%
+%}
+%
+%\newtcblisting{inlineCssCode}{
+%    minted language=css%
+%}
+%
+%\newtcblisting{inlineSqlCode}{
+%    minted language=sql%
+%}
+
+\newtcbinputlisting{\javaCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=java
+}
+
+\newtcbinputlisting{\htmlCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=html
+}
+
+\newtcbinputlisting{\javaScriptCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=javascript
+}
+
+\newtcbinputlisting{\cssCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=css
+}
+
+\newtcbinputlisting{\sqlCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=sql
+}
+
+\newtcbinputlisting{\propertiesCode}[3][]{%
+    listing file={#3},
+    title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},
+    colframe=corTema,
+    minted language=properties
+}
+
+
+
+\newcommand{\entradaSaidaBase}[3]
+{%
+    \if\relax\detokenize{#2}\relax%
+    %
+    \else%
+    \begin{tcolorbox}[reset,enhanced,title=\textbf{Entrada},colback=corFundoCaixasES,colframe=#1,drop fuzzy shadow,left=2mm]
+        \textcolor{corTextoCaixasES}{\texttt{#2}}
+    \end{tcolorbox}
+    \fi%
+    \if\relax\detokenize{#3}\relax%
+    %
+    \else%
+    \begin{tcolorbox}[reset,enhanced,title=\textbf{Saída},colback=corFundoCaixasES,colframe=#1,drop fuzzy shadow,left=2mm]
+        \textcolor{corTextoCaixasES}{\texttt{#3}}
+    \end{tcolorbox}
+    \fi\vspace{0.3cm}%
+}%
+{}%
+
+\newcommand{\entradaSaidaListagem}[2]{\entradaSaidaBase{corTema}{#1}{#2}}%
+\newcommand{\entradaSaidaExercicio}[2]{\entradaSaidaBase{corExercicios}{#1}{#2}}%
+\newcommand{\entradaSaidaExercicioE}[2]{\entradaSaidaBase{corExercicios!60!black}{#1}{#2}}%
+\newcommand{\entradaSaidaDesafio}[2]{\entradaSaidaBase{corDesafios}{#1}{#2}}%
+\newcommand{\entradaSaidaDesafioE}[2]{\entradaSaidaBase{corDesafios!60!black}{#1}{#2}}%
+\newcommand{\entradaSaidaProjeto}[2]{\entradaSaidaBase{corProjetos}{#1}{#2}}%
+\newcommand{\entradaSaidaProjetoE}[2]{\entradaSaidaBase{corProjetos!60!black}{#1}{#2}}%
+
+\newcommand{\dadosArquivoTextoBase}[3]
+{%
+    \begin{tcolorbox}[reset,enhanced,title=\textbf{#2},colback=corFundoCaixas,colframe=#1,drop fuzzy shadow,left=2mm]
+        \textcolor{corTextoCaixas}{\texttt{#3}}
+    \end{tcolorbox}%
+}%
+{}%
+
+\newcommand{\dadosArquivoTextoEx}[2]{\dadosArquivoTextoBase{corExercicios}{#1}{#2}}%
+\newcommand{\dadosArquivoTextoExE}[2]{\dadosArquivoTextoBase{corExercicios!60!black}{#1}{#2}}%
+\newcommand{\dadosArquivoTextoDe}[2]{\dadosArquivoTextoBase{corDesafios}{#1}{#2}}%
+\newcommand{\dadosArquivoTextoDeE}[2]{\dadosArquivoTextoBase{corDesafios!60!black}{#1}{#2}}%
+\newcommand{\dadosArquivoTextoPr}[2]{\dadosArquivoTextoBase{corProjetos}{#1}{#2}}%
+\newcommand{\dadosArquivoTextoPrE}[2]{\dadosArquivoTextoBase{corProjetos!60!black}{#1}{#2}}%
+
+\NewDocumentEnvironment{tarefaBase}{mmmmmm}
+{%
+    \refstepcounter{#1}\par\medskip%
+    \noindent \textcolor{#3}{\textbf{#2~\thechapter.\ifthenelse{\equal{#1}{exercicio}}{\theexercicio}{\ifthenelse{\equal{#1}{desafio}}{\thedesafio}{\ifthenelse{\equal{#1}{projeto}}{\theprojeto}{ERRO}}}\if\relax\detokenize{#6}\relax\else~\cite{#6}\fi:}} \rmfamily%
+}%
+{%
+    
+    \textcolor{#3}{\textbf{Arquivo com a solução: \underline{\ifthenelse{\equal{#1}{exercicio}}{ex}{\ifthenelse{\equal{#1}{desafio}}{de}{\ifthenelse{\equal{#1}{projeto}}{pr}{ERRO}}}\thechapter.\ifthenelse{\equal{#1}{exercicio}}{\theexercicio}{\ifthenelse{\equal{#1}{desafio}}{\thedesafio}{\ifthenelse{\equal{#1}{projeto}}{\theprojeto}{ERRO}}}.\ifdefined\linguagemC c\fi\ifdefined\linguagemJava java\fi}}}
+    
+    \entradaSaidaBase{#3}{#4}{#5}
+}%
+
+\NewDocumentEnvironment{tarefaBaseSemArquivo}{mmmmmm}
+{%
+    \refstepcounter{#1}\par\medskip%
+    \noindent \textcolor{#3}{\textbf{#2~\thechapter.\ifthenelse{\equal{#1}{exercicio}}{\theexercicio}{\ifthenelse{\equal{#1}{desafio}}{\thedesafio}{\ifthenelse{\equal{#1}{projeto}}{\theprojeto}{ERRO}}}\if\relax\detokenize{#6}\relax\else~\cite{#6}\fi:}} \rmfamily%
+}%
+{%
+    
+    %\textcolor{#3}{\textbf{Arquivo com a solução: \underline{\ifthenelse{\equal{#1}{exercicio}}{ex}{\ifthenelse{\equal{#1}{desafio}}{de}{\ifthenelse{\equal{#1}{projeto}}{pr}{ERRO}}}\thechapter.\ifthenelse{\equal{#1}{exercicio}}{\theexercicio}{\ifthenelse{\equal{#1}{desafio}}{\thedesafio}{\ifthenelse{\equal{#1}{projeto}}{\theprojeto}{ERRO}}}.\ifdefined\linguagemC c\fi\ifdefined\linguagemJava java\fi}}}
+    
+    %\entradaSaidaBase{#3}{#4}{#5}
+}%
+
+\begin{comment}
+\NewDocumentEnvironment{tarefaBase}{mmmmmm}
+{%
+    \refstepcounter{#1}\par\medskip%
+    \noindent \textcolor{#3}{\textbf{#2~\thechapter.\ifthenelse{\equal{#1}{exercicio}}{\theexercicio}{\ifthenelse{\equal{#1}{desafio}}{\thedesafio}{\ifthenelse{\equal{#1}{projeto}}{\theprojeto}{ERRO}}}\if\relax\detokenize{#6}\relax\else~\cite{#6}\fi:}} \rmfamily%
+}%
+{%
+    \entradaSaidaBase{#3}{#4}{#5}
+}%
+\end{comment}
+
+\NewDocumentEnvironment{exercicioDissertativo}{mmm}
+{\begin{tarefaBaseSemArquivo}{exercicio}{Exercício}{corExercicios}{#1}{#2}{#3}}%
+    {\end{tarefaBaseSemArquivo}}%
+    
+\NewDocumentEnvironment{exercicio}{mmm}
+{\begin{tarefaBase}{exercicio}{Exercício}{corExercicios}{#1}{#2}{#3}}%
+    {\end{tarefaBase}}%
+
+\NewDocumentEnvironment{desafio}{mmm}
+{\begin{tarefaBase}{desafio}{Desafio}{corDesafios}{#1}{#2}{#3}}%
+    {\end{tarefaBase}}%
+
+\NewDocumentEnvironment{projeto}{mmm}
+{\begin{tarefaBase}{projeto}{Projeto}{corProjetos}{#1}{#2}{#3}}%
+    {\end{tarefaBase}}%
+    
+\NewDocumentEnvironment{exercicioSemArquivo}{mmm}
+{\begin{tarefaBaseSemArquivo}{exercicio}{Exercício}{corExercicios}{#1}{#2}{#3}}%
+    {\end{tarefaBaseSemArquivo}}%
+
+\NewDocumentEnvironment{desafioSemArquivo}{mmm}
+{\begin{tarefaBaseSemArquivo}{desafio}{Desafio}{corDesafios}{#1}{#2}{#3}}%
+    {\end{tarefaBaseSemArquivo}}%
+
+\NewDocumentEnvironment{projetoSemArquivo}{mmm}
+{\begin{tarefaBaseSemArquivo}{projeto}{Projeto}{corProjetos}{#1}{#2}{#3}}%
+    {\end{tarefaBaseSemArquivo}}%
+
+
+\def\iconeFogo{\scalerel*{\includegraphics{imagens/icones/iconeFogo.eps}}{\textrm{\textbigcircle}}}
+\def\iconeInformacao{\scalerel*{\includegraphics{imagens/icones/iconeInformacao.eps}}{\textrm{\textbigcircle}}}
+\def\iconeLampada{\scalerel*{\includegraphics{imagens/icones/iconeLampada.eps}}{\textrm{\textbigcircle}}}
+\def\iconeAtencao{\scalerel*{\includegraphics{imagens/icones/iconeAtencao.eps}}{\textrm{\textbigcircle}}}
+
+\NewDocumentEnvironment{mensagemBase}{mm}
+{%
+    \begin{tcolorbox}[reset,enhanced,colback=#1!5!corFundoCaixas,shadow={0.5mm}{-0.5mm}{0mm}{black!30!white},colbacktitle=#1!85!black,frame hidden,fonttitle=\bfseries\sffamily,left=4mm,right=4mm,top=4mm,bottom=2mm,attach boxed title to top left={xshift=-2mm,yshift=-3mm},boxed title style={frame hidden},title=#2]%
+    
+%        \begin{tabular}{ m{13.5cm} }%
+%            \color{#1!30!black}
+%        }%
+%        {%
+%        \end{tabular}%
+        \color{#1!30!black}
+        }%
+        {%
+    \end{tcolorbox}%
+}%
+
+\NewDocumentEnvironment{boaPratica}{}%
+{\begin{mensagemBase}{corCaixaBoaPratica}{\iconeFogo \texttt{|} Boa Prática}}%
+    {\end{mensagemBase}}%
+
+\NewDocumentEnvironment{saibaMais}{}%
+{\begin{mensagemBase}{corCaixaSaibaMais}{\iconeInformacao \texttt{|} Saiba Mais}}%
+    {\end{mensagemBase}}%
+
+\NewDocumentEnvironment{observacao}{}%
+{\begin{mensagemBase}{corCaixaObservacao}{\iconeLampada \texttt{|} Observação}}%
+    {\end{mensagemBase}}%
+    
+\NewDocumentEnvironment{atencao}{}%
+{\begin{mensagemBase}{corCaixaAtencao}{\iconeAtencao \texttt{|} Atenção!}}%
+    {\end{mensagemBase}}%
+    
+    
+    
+\NewDocumentEnvironment{mensagemBaseAntiga}{mm}
+{%
+    \begin{tcolorbox}[reset,enhanced,colback=#1!5!corFundoCaixas,colframe=#1,drop fuzzy shadow,left=2mm,right=2mm,top=2mm,bottom=2mm]%
+        \begin{tabular}{ >{\centering}m{0.7cm} >{\centering}m{0.05cm} m{10.4cm} }%
+            \includegraphics[scale=0.08]{imagens/icones/#2} && \color{#1!30!black}
+        }%
+        {%
+        \end{tabular}%
+    \end{tcolorbox}%
+}%
+
+\NewDocumentEnvironment{boaPraticaAntiga}{}%
+{\begin{mensagemBaseAntiga}{corCaixaBoaPratica}{iconeBoasPraticasAntigo}}%
+    {\end{mensagemBaseAntiga}}%
+
+\NewDocumentEnvironment{saibaMaisAntiga}{}%
+{\begin{mensagemBaseAntiga}{corCaixaSaibaMais}{iconeSaibaMaisAntigo}}%
+    {\end{mensagemBaseAntiga}}%
+
+\NewDocumentEnvironment{atencaoAntiga}{}%
+{\begin{mensagemBaseAntiga}{corCaixaAtencao}{iconeAtencaoAntigo}}%
+    {\end{mensagemBaseAntiga}}%
+
+
+%\makeatletter não é necessário em arquivos .sty
+\hypersetup{
+    pdftitle={\@title}, 
+    pdfauthor={\@author},
+    pdfsubject={Programação para Web em Java},
+    pdfcreator={David Buzatto},
+    pdfkeywords={Aplicações para Web}{Linguagem de Programação}{Linguagem Java}{Banco de Dados}, 
+    colorlinks=false,
+    hidelinks,
+    bookmarksdepth=4
+}
+%\makeatother não é necessário em arquivos .sty
+
+
+\newcommand{\citeauthorandyear}[1]{\citeauthoronline{#1} (\citeyear{#1})}
+
+% células com quebra de linha automática
+\newcommand{\specialcell}[2][c]{%
+    \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{0cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+\input{tipografia/GoudyIn.fd}
+\newcommand*\GoudyInFamily{\usefont{U}{GoudyIn}{xl}{n}}
+\renewcommand{\LettrineFontHook}{\GoudyInFamily}
+
+%\input{tipografia/Acorn.fd}
+%\newcommand*\LettrineFamily{\usefont{U}{Acorn}{xl}{n}}
+%\renewcommand{\LettrineFontHook}{\LettrineFamily}
+
+% caixinhas de destaque
+\newtcbox{\destaque}{
+    reset,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colframe=corTema,
+    coltext=black,
+    colback=black!5!white,
+    drop fuzzy shadow,
+    arc=3pt
+}
+
+\MakeRobust\destaque
+
+\ifdefined\pdfstringdefDisableCommands
+  \pdfstringdefDisableCommands{\def\destaque#1{'#1'}}
+\fi
+
+
+% códigos inline
+\DeclareTotalTCBox{\inlineJavaCode}{ s v }{
+    reset,
+    listing only,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    drop fuzzy shadow,
+    arc=3pt}
+{\mintinline{java}{#2}}%
+
+\DeclareTotalTCBox{\inlineHTMLCode}{ s v }{
+    reset,
+    listing only,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    drop fuzzy shadow,
+    arc=3pt}
+{\mintinline{html}{#2}}%
+
+\DeclareTotalTCBox{\inlineJavaScriptCode}{ s v }{
+    reset,
+    listing only,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    drop fuzzy shadow,
+    arc=3pt}
+{\mintinline{javascript}{#2}}%
+
+\DeclareTotalTCBox{\inlineCSSCode}{ s v }{
+    reset,
+    listing only,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    drop fuzzy shadow,
+    arc=3pt}
+{\mintinline{css}{#2}}%
+
+\DeclareTotalTCBox{\inlineSQLCode}{ s v }{
+    reset,
+    listing only,
+    on line,
+    enhanced,
+    nobeforeafter,
+    tcbox raise base,
+    boxrule=0.7pt,
+    top=1mm,
+    bottom=0mm,
+    right=1mm,
+    left=1mm,
+    boxsep=0.5pt,
+    before upper={\vphantom{dlg}},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    drop fuzzy shadow,
+    arc=3pt}
+{\mintinline{sql}{#2}}%
+
+% borda em texto
+\newcommand{\cfbox}[1]{%
+    \adjustbox{cfbox=#1}%
+}
+
+% código até aqui
+
+\endinput

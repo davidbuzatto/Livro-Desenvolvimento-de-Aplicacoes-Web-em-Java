@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title></title>
+    <meta charset="UTF-8"/>
+  </head>
+
+  <body>
+
+    <div th:fragment="insercaoAlteracao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="descricao">Descrição: </label>
+          </td>
+          <td>
+            <input type="text" 
+                   th:field="*{descricao}" 
+                   id="descricao" 
+                   placeholder="Descrição"
+                   size="20"
+                   maxlength="60"
+                   required="required"/>
+          </td>
+          <td>
+            <small 
+              th:if="${#fields.hasErrors('descricao')}" 
+              th:errors="*{descricao}"
+              class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="codigoBarras">Código de Barras: </label>
+          </td>
+          <td>
+            <input type="text" 
+                   th:field="*{codigoBarras}" 
+                   id="codigoBarras" 
+                   size="20"
+                   pattern="\d{13}"
+                   placeholder="9999999999999"
+                   required="required"/>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('codigoBarras')}" 
+                   th:errors="*{codigoBarras}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="valorVenda">Valor de Venda: </label>
+          </td>
+          <td>
+            <input type="number"
+                   th:field="*{valorVenda}" 
+                   id="valorVenda" 
+                   placeholder="R$ 9,99"
+                   min="0"
+                   step="0.01"
+                   required="required"/>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('valorVenda')}" 
+                   th:errors="*{valorVenda}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="estoque">Estoque: </label>
+          </td>
+          <td>
+            <input type="number"
+                   th:field="*{estoque}" 
+                   id="estoque" 
+                   placeholder="9,99"
+                   step="0.01"
+                   required="required"/>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('estoque')}" 
+                   th:errors="*{estoque}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="fornecedor">Fornecedor: </label>
+          </td>
+          <td>
+            <select th:field="*{fornecedor}" id="fornecedor">
+              <option value="">Selecione um Fornecedor</option>
+              <option th:each="fornecedor : ${fornecedores}" 
+                      th:value="${fornecedor.id}" 
+                      th:text="${fornecedor.razaoSocial}"/>
+            </select>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('fornecedor')}" 
+                   th:errors="*{fornecedor}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="unidadeMedida">Unidade de Medida: </label>
+          </td>
+          <td>
+            <select th:field="*{unidadeMedida}" id="unidadeMedida">
+              <option value="">Selecione uma Unidade de Medida</option>
+              <option th:each="unidadeMedida : ${unidadesMedida}" 
+                      th:value="${unidadeMedida.id}" 
+                      th:text="${unidadeMedida.sigla}"/>
+            </select>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('unidadeMedida')}" 
+                   th:errors="*{unidadeMedida}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/produtos/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Salvar"/>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+
+    </div>
+
+
+    <div th:fragment="exclusao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="descricao">Descrição: </label>
+          </td>
+          <td>
+            <span th:text="*{descricao}" 
+                  id="descricao"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="codigoBarras">Código de Barras: </label>
+          </td>
+          <td>
+            <span th:text="*{codigoBarras}" 
+                  id="codigoBarras"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="valorVenda">Valor de Venda: </label>
+          </td>
+          <td>
+            <span th:text="'R$ ' + *{#numbers.formatDecimal(valorVenda, 1, 2, 'COMMA')}" 
+                  id="valorVenda"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="estoque">Estoque: </label>
+          </td>
+          <td>
+            <span th:text="*{#numbers.formatDecimal(estoque, 1, 2, 'COMMA')}" 
+                  id="estoque"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="fornecedor">Fornecedor: </label>
+          </td>
+          <td>
+            <span th:text="*{fornecedor.razaoSocial}" 
+                  id="fornecedor"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="unidadeMedida">Unidade de Medida: </label>
+          </td>
+          <td>
+            <span th:text="*{unidadeMedida.sigla}" 
+                  id="unidadeMedida"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/produtos/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Excluir"/>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </body>
+
+</html>

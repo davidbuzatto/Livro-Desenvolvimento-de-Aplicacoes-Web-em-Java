@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Nova Venda</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="" rel="" th:replace="~{fragmentos/cssJs :: css}"/>
+    <script th:replace="~{fragmentos/cssJs :: js}"></script>
+    <script th:src="@{/js/formularios/vendas/inserir.js}"></script>
+  </head>
+
+  <body>
+
+    <div th:replace="~{fragmentos/cabecalho :: cabecalho}"></div>
+
+    <h2>Nova Venda</h2>
+
+    <form action="#"
+          id="formNovaVenda"
+          th:action="@{/vendas/inserir}"
+          th:object="${venda}"
+          method="post">
+
+      <input id="hiddenItensVenda" name="itensVenda" type="hidden"/>
+      <input name="data" value="2000-01-01" type="hidden"/>
+
+      <div id="divCliente">
+        <label for="selectCliente">Cliente: </label>
+        <br/>
+        <select th:field="*{cliente}" id="selectCliente">
+          <option value="">Selecione um Cliente</option>
+          <option th:each="cliente : ${clientes}" 
+                  th:value="${cliente.id}" 
+                  th:text="${cliente.nome} + ' ' + ${cliente.sobrenome}"/>
+        </select>
+        <br/>
+        <small th:if="${#fields.hasErrors('cliente')}" 
+               th:errors="*{cliente}"
+               class="erroFormulario"/>
+      </div>
+
+      <div id="divItensVenda">
+        <table>
+          <tr>
+            <td>
+              <p>
+                <label for="selectProduto">Produto: </label>
+                <br/>
+                <select id="selectProduto">
+                  <option th:each="produto : ${produtos}" 
+                          th:value="${produto.id}"
+                          th:data-valor="${produto.valorVenda}"
+                          th:data-descricao="${produto.descricao}"
+                          th:text="${produto.descricao} + ' (R$ ' + ${#numbers.formatDecimal(produto.valorVenda, 1, 2, 'COMMA')} + ' por ' + ${produto.unidadeMedida.sigla} + ')'"/>
+                </select>
+              </p>
+              <p>
+                <label for="txtQuantidade">Quantidade: </label>
+                <br/>
+                <input id="txtQuantidade"
+                       type="number"
+                       placeholder="9,99"
+                       step="0.01"
+                       min="0"/>
+              </p>
+            </td>
+            <td class="btnsItensVenda">
+              <p><input id="btnInserir" type="button" value="&#x2795;"/></p>
+              <p><input id="btnRemover" type="button" value="&#x2796;"/></p>
+              <p><input id="btnLimpar" type="button" value="&#x274C;"/></p>
+            </td>
+            <td>
+              <label for="selectItensVenda">Itens da Venda:</label>
+              <br/>
+              <select id="selectItensVenda" size="10" multiple="multiple">
+              </select>
+              <br/>
+              <div>
+                <div id="divTotal">Total: R$ 0,00</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="alinharDireita">
+              <input id="btnSalvar" type="submit" value="Salvar"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <a th:href="@{/vendas/listar}">Voltar</a>   
+
+    </form>
+
+    <div th:replace="~{fragmentos/rodape :: rodape}"></div>
+
+  </body>
+
+</html>

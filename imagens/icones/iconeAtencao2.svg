@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   preserveAspectRatio="none"
+   x="0px"
+   y="0px"
+   width="600px"
+   height="600px"
+   viewBox="0 0 600 600"
+   id="svg86"
+   sodipodi:docname="iconeAtencao2.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview88"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     showgrid="false"
+     inkscape:zoom="1.4033333"
+     inkscape:cx="300"
+     inkscape:cy="300.35629"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg86" />
+  <defs
+     id="defs78">
+    <path
+       id="outro_0_Layer0_0_1_STROKES"
+       stroke="#FFFFFF"
+       stroke-width="8"
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       fill="none"
+       d=" M 0.05 46 L 0 19.05 19 0.05 45.95 0 65 19.1 64.95 46 45.9 65 19 65 0.05 46 Z M 32.1 18.85 L 32.1 32.75 M 32.1 45.25 L 32.1 46.25" />
+  </defs>
+  <g
+     transform="matrix( 7.199951171875, 0, 0, 7.199951171875, 66,66) "
+     id="g84">
+    <g
+       transform="matrix( 1, 0, 0, 1, 0,0) "
+       id="g82">
+      <use
+         xlink:href="#outro_0_Layer0_0_1_STROKES"
+         id="use80" />
+    </g>
+  </g>
+</svg>

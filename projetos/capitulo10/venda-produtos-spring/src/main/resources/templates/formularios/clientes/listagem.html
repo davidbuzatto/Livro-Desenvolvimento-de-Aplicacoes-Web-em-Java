@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Clientes Cadastrados</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="" rel="" th:replace="~{fragmentos/cssJs :: css}"/>
+    <script th:replace="~{fragmentos/cssJs :: js}"></script>  
+  </head>
+
+  <body>
+
+    <div th:replace="~{fragmentos/cabecalho :: cabecalho}"></div>
+
+
+    <div th:if="${clientes.empty}">
+      <h2>Não há clientes cadastrados</h2>
+      <a th:href="@{/clientes/prepararInsercao}">
+        Novo Cliente
+      </a>
+    </div>
+
+
+    <div th:if="${!clientes.empty}">
+
+      <h2>Clientes Cadastrados</h2>
+
+      <p>
+        <a th:href="@{/clientes/prepararInsercao}">
+          Novo Cliente
+        </a>
+      </p>
+
+      <table class="tabelaListagem">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>E-mail</th>
+            <th>CPF</th>
+            <th>Cidade</th>
+            <th>Alterar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.id}"></td>
+            <td th:text="${cliente.nome}"></td>
+            <td th:text="${cliente.sobrenome}"></td>
+            <td th:text="${cliente.email}"></td>
+            <td th:text="${cliente.cpf}"></td>
+            <td th:text="${cliente.cidade.nome}"></td>
+            <td>
+              <a th:href="@{/clientes/prepararAlteracao/{id}(id=${cliente.id})}">
+                Alterar
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/clientes/prepararExclusao/{id}(id=${cliente.id})}">
+                Excluir
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <a th:href="@{/clientes/prepararInsercao}">
+          Novo Cliente
+        </a>
+      </p>
+
+    </div>
+
+    <div th:replace="~{fragmentos/rodape :: rodape}"></div>
+
+  </body>
+
+</html>

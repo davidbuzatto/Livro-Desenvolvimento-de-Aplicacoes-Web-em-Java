@@ -1,0 +1,62 @@
+/* estilos para a tag body */
+body {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* estilos para o seletor de classe .divExemplo
+ * seletores de classe iniciam com ponto (.) e são
+ * aplicados usando o atributo class das tags.
+ */
+.divExemplo {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    height: 300px;
+    width: 600px;
+    overflow: scroll;  /* se houver estouro, permitir rolagem */
+    overflow-style: scrollbar;    /* mostrar barra de rolagem */
+}
+
+/* estilo para o seletor de classe .pDOM usando
+ * a pseudo-classe nth-child, indicando a seleção
+ * de todos os filhos pares
+ */
+.pDOM:nth-child(even) {
+    background-color: #006699;
+}
+
+.canvasExemplo10 {
+    border: solid thin #000000;
+    margin: 10px;   /* margin (margem) é o espaçamento externo da tag */
+}
+
+.dadosPessoa {
+    border: solid thin #006699;
+    background-color: #ffa800;
+    margin-bottom: 5px;
+}
+
+.dadosPessoa p {
+    margin: 0px;
+}
+
+/* seleção da primeira tag <p> filha do elemento
+ * que usar a classe .dadosPessoa
+ */
+.dadosPessoa p:nth-child(1) {
+    background-color: #489eff;
+}
+
+/* seleção da segunda tag <p> filha do elemento
+ * que usar a classe .dadosPessoa
+ */
+.dadosPessoa p:nth-child(2) {
+    background-color: #248bff;
+}
+
+/* já deu para entender, não é? */
+.dadosPessoa p:nth-child(3) {
+    background-color: #0068dd;
+}

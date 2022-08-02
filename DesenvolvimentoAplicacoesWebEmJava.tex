@@ -1,0 +1,90 @@
+% !TeX document-id = {52ccfad0-b367-4734-939e-4350e7d34ffb}
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
+
+\documentclass[
+    12pt,     
+    openright,
+    twoside,  
+    a4paper,  
+    english,  
+    brazil,   
+    %draft
+]{memoir}
+
+\usepackage{estrutura}
+
+\title{Desenvolvimento de Aplicações Web Em Java e Outras Tecnologias}
+\author{David Buzatto}
+
+ 
+\makeindex
+
+
+\begin{document}
+
+\selectlanguage{portuges}
+\frenchspacing 
+
+
+\frontmatter
+
+%\input{pre01Capa}
+\input{pre02FolhaDeRosto}
+%\input{pre03FichaCatalografica}
+%\input{pre04Dedicatoria}
+
+\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{corTema}}
+    
+%\pdfbookmark[0]{\listfigurename}{lof}
+%\listoffigures*
+%\cleardoublepage
+
+%\pdfbookmark[0]{\listtablename}{lot}
+%\listoftables*
+%\cleardoublepage
+
+\renewcommand\contentsname{Sumário}
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+\input{capitulo00Prefacio}
+
+
+\mainmatter
+
+%\part{O Básico do Básico...}
+\input{capitulo01JavaParaWeb}
+%\input{capitulo02ProcessamentoDeFormularios}
+%\input{capitulo03ExpressionLanguageTagLibs}
+%\input{capitulo04PadroesDeProjeto}
+%\input{capitulo05SistemaControleClientes}
+%\input{capitulo06PrimeiroProjeto}
+%
+%\part{O Que Falta do Básico?}
+%\input{capitulo07JavaScript}
+%\input{capitulo08SistemaVendaProdutos}
+%\input{capitulo09SegundoProjeto}
+
+%\part{O Mundo Real}
+%\input{parteIIISobre}
+%\input{capitulo10FrameworksMVCPersistencia}
+%\input{capitulo11WebServicesRESTful}
+%\input{capitulo12FrameworksBibliotecasFrontEnd}
+%\input{capitulo13TerceiroProjeto}
+%\input{capitulo14EmpacotamentoImplantacao}
+%\input{capitulo15Autenticacao}
+%\input{capitulo16GerenciamentoSessoes}
+%\input{capitulo17Relatorios}
+%\input{capitulo18WebSockesWebStorage}
+%\input{capitulo19NodeJsReact}
+%\input{capitulo20QuartoProjeto}
+
+
+\backmatter
+
+\bibliography{referencias}
+\input{pos01ISBN}
+
+
+\end{document}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title></title>
+    <meta charset="UTF-8"/>
+  </head>
+
+  <body>
+
+    <div th:fragment="insercaoAlteracao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="nome">Nome: </label>
+          </td>
+          <td>
+            <input type="text" 
+                   th:field="*{nome}" 
+                   id="nome" 
+                   placeholder="Nome" 
+                   size="20"
+                   maxlength="30"
+                   required="required"/>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('nome')}" 
+                   th:errors="*{nome}" 
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="estado">Estado: </label>
+          </td>
+          <td>
+            <select th:field="*{estado}" id="estado">
+              <option value="">Selecione um Estado</option>
+              <option th:each="estado : ${estados}" 
+                      th:value="${estado.id}" 
+                      th:text="${estado.nome} + ' - ' + ${estado.sigla}"/>
+            </select>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('estado')}" 
+                   th:errors="*{estado}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/cidades/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Salvar"/>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+
+    <div th:fragment="exclusao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="nome">Nome: </label>
+          </td>
+          <td>
+            <span th:text="*{nome}" 
+                  id="nome"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="estado">Estado: </label>
+          </td>
+          <td>
+            <span th:text="*{estado.nome} + ' - ' + *{estado.sigla}" 
+                  id="estado"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/cidades/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Excluir"/>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </body>
+
+</html>

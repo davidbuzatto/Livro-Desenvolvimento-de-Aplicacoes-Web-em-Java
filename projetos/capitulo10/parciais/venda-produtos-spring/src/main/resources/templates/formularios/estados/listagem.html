@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Estados Cadastrados</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="" rel="" th:replace="~{fragmentos/cssJs :: css}"/>
+    <script th:replace="~{fragmentos/cssJs :: js}"></script>  
+  </head>
+
+  <body>
+
+    <div th:replace="~{fragmentos/cabecalho :: cabecalho}"></div>
+
+
+    <div th:if="${estados.empty}">
+      <h2>Não há estados cadastrados</h2>
+      <a th:href="@{/estados/prepararInsercao}">
+        Novo Estado
+      </a>
+    </div>
+
+
+    <div th:if="${!estados.empty}">
+
+      <h2>Estados Cadastrados</h2>
+
+      <p>
+        <a th:href="@{/estados/prepararInsercao}">
+          Novo Estado
+        </a>
+      </p>
+
+      <table class="tabelaListagem">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Sigla</th>
+            <th>Alterar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="estado : ${estados}">
+            <td th:text="${estado.id}"></td>
+            <td th:text="${estado.nome}"></td>
+            <td th:text="${estado.sigla}"></td>
+            <td>
+              <a th:href="@{/estados/prepararAlteracao/{id}(id=${estado.id})}">
+                Alterar
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/estados/prepararExclusao/{id}(id=${estado.id})}">
+                Excluir
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <a th:href="@{/estados/prepararInsercao}">
+          Novo Estado
+        </a>
+      </p>
+
+    </div>
+
+    <div th:replace="~{fragmentos/rodape :: rodape}"></div>
+
+  </body>
+
+</html>

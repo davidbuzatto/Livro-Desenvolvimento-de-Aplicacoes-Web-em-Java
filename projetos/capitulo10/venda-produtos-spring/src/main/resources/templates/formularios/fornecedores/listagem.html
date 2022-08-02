@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Fornecedors Cadastrados</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="" rel="" th:replace="~{fragmentos/cssJs :: css}"/>
+    <script th:replace="~{fragmentos/cssJs :: js}"></script>  
+  </head>
+
+  <body>
+
+    <div th:replace="~{fragmentos/cabecalho :: cabecalho}"></div>
+
+
+    <div th:if="${fornecedores.empty}">
+      <h2>Não há fornecedores cadastrados</h2>
+      <a th:href="@{/fornecedores/prepararInsercao}">
+        Novo Fornecedor
+      </a>
+    </div>
+
+
+    <div th:if="${!fornecedores.empty}">
+
+      <h2>Fornecedors Cadastrados</h2>
+
+      <p>
+        <a th:href="@{/fornecedores/prepararInsercao}">
+          Novo Fornecedor
+        </a>
+      </p>
+
+      <table class="tabelaListagem">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Razão Social</th>
+            <th>E-mail</th>
+            <th>CNPJ</th>
+            <th>Cidade</th>
+            <th>Alterar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="fornecedor : ${fornecedores}">
+            <td th:text="${fornecedor.id}"></td>
+            <td th:text="${fornecedor.razaoSocial}"></td>
+            <td th:text="${fornecedor.email}"></td>
+            <td th:text="${fornecedor.cnpj}"></td>
+            <td th:text="${fornecedor.cidade.nome}"></td>
+            <td>
+              <a th:href="@{/fornecedores/prepararAlteracao/{id}(id=${fornecedor.id})}">
+                Alterar
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/fornecedores/prepararExclusao/{id}(id=${fornecedor.id})}">
+                Excluir
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <a th:href="@{/fornecedores/prepararInsercao}">
+          Novo Fornecedor
+        </a>
+      </p>
+
+    </div>
+
+    <div th:replace="~{fragmentos/rodape :: rodape}"></div>
+
+  </body>
+
+</html>
