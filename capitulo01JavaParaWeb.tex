@@ -95,7 +95,7 @@ Para que possamos utilizar código Java em nossas aplicações Web, recorremos a
 
 Muito bem. Sabemos então que se usarmos Java para desenvolver nossas aplicações Web, os componentes que são capazes de processar dados nas nossas aplicações e retornar resultados são os Servlets. Os Servlets são executados e gerenciados pelos Contêineres de Servlets, que funcionam como um Servidor Web simples, mas com alguns ``poderes'' a mais. Esses Contêineres também podem ser componentes de infraestruturas ainda mais robustas, que no caso são os Servidores de Aplicações. Um Servidor de Aplicações é como se fosse um Contêiner de Servlets com anabolizantes, pois além de implementar toda a especificação dos Servlets e as especificações ligadas a eles, esse tipo de servidor também implementa uma série de outras especificações da plataforma Jakarta EE (\textit{Enterprise Edition})\footnote{\url{https://jakarta.ee/}}, antigamente denominada Java EE, que fogem do propósito deste livro.
 
-Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar na nossa disciplina a implementação de referência das especificações do Jakarta EE 8, que é feita pelo Servidor de Aplicações Eclipse GlassFish 5.1.0. Trabalharemos com essa versão, que mesmo não sendo a mais recente, será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
+Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar a implementação de referência das especificações do Jakarta EE 8, que é feita pelo Servidor de Aplicações Eclipse GlassFish 5.1.0. Trabalharemos com essa versão, que mesmo não sendo a mais recente, será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
 
 
 \section{Servlets e JSPs}
@@ -118,13 +118,13 @@ Nesta seção você aprenderá a instalar e configurar a IDE Apache NetBeans e o
 
 \subsection{Apache NetBeans}
 
-Você conhece a linguagem Java, aprendeu a teoria e a prática da programação orientada a objetos e provavelmente usou a IDE Apache NetBeans para escrever seus códigos. Neste livro trabalharemos com a versão 12 desta IDE e nos passos abaixo é explicado como deve ser feito o \textit{download} e a instalação da mesma. Esses passos podem ser pulados caso você já tenha essa versão da ferramenta instalada em seu computador. Além disso, na playlist disponível no \textit{link} \url{https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U} você encontrará tutoriais de preparação de ambientes de desenvolvimento para trabalhar com Java para Web, que serão mantidos atualizados.
+Você conhece a linguagem Java, aprendeu a teoria e a prática da programação orientada a objetos e provavelmente usou a IDE Apache NetBeans para escrever seus códigos. Neste livro trabalharemos com a versão 14 desta IDE e nos passos abaixo é explicado como deve ser feito o \textit{download} e a instalação da mesma. Esses passos podem ser pulados caso você já tenha essa versão da ferramenta instalada em seu computador. Além disso, na playlist disponível no \textit{link} \url{https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U} você encontrará tutoriais de preparação de ambientes de desenvolvimento para trabalhar com Java para Web, que serão mantidos atualizados.
 
 \begin{enumerate}
 
-    \item Acesse o endereço: \url{https://www.apache.org/dyn/closer.cgi/netbeans/netbeans/12.4/Apache-NetBeans-12.4-bin-windows-x64.exe};
+    \item Acesse o endereço: \url{https://www.apache.org/dyn/closer.cgi/netbeans/netbeans-installers/14/Apache-NetBeans-14-bin-windows-x64.exe};
     
-    \item Ao acessar esse \textit{link}, a versão 12.4 do Apache NetBeans será baixada;
+    \item Ao acessar esse \textit{link}, a versão 14 do Apache NetBeans será baixada;
     
     \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE. Basta seguir o assistente, escolher o JDK instalado (8 ou superior) e aguardar o fim da instalação.
     
@@ -136,9 +136,9 @@ Com o NetBeans instalado, abra-o. Caso o esteja executando pela primeira vez, um
 \subsection{Eclipse GlassFish}
 
 Como já dito, iremos instalar a versão 5.1.0 do Eclipse GlassFish, que pode ser encontrado no \textit{link} 
-\url{https://www.eclipse.org/downloads/download.php?file=/GlassFish/web-5.1.0.zip}. Como não existe um instalador, faremos a instalação manualmente. Ao terminar de baixar o arquivo, descompacte-o na sua pasta de usuário do Windows. Se fez certo, vai ter algo como \texttt{C:\textbackslash Users\textbackslash <SeuUsuário>\textbackslash glassfish5\textbackslash} no seu sistema de arquivos. Pronto! O GlassFish está instalado! A última coisa que precisaremos fazer é copiar o \textit{Driver Java Database Conectivit}y (JDBC) do Sistema Gerenciador de Banco de Dados (SGBD) MariaDB/MySQL que usaremos nos próximos Capítulos deste livro.
+\url{https://www.eclipse.org/downloads/download.php?file=/glassfish/web-5.1.0.zip}. Como não existe um instalador, faremos a instalação manualmente. Ao terminar de baixar o arquivo, descompacte-o na sua pasta de usuário do Windows. Se fez certo, vai ter algo como \texttt{C:\textbackslash Users\textbackslash <SeuUsuário>\textbackslash glassfish5\textbackslash} no seu sistema de arquivos. Pronto! O GlassFish está instalado! A última coisa que precisaremos fazer é copiar o \textit{Driver Java Database Conectivit}y (JDBC) do Sistema Gerenciador de Banco de Dados (SGBD) MariaDB/MySQL que usaremos nos próximos Capítulos deste livro.
 
-Para isso, baixe o arquivo acessível através do \textit{link} \url{https://downloads.mariadb.com/Connectors/java/connector-java-2.7.3/mariadb-java-client-2.7.3.jar} e, ao terminar de baixar, copie-o para o diretório \texttt{C:\textbackslash Users\textbackslash SeuUsuario\textbackslash GlassFish5\textbackslash GlassFish\textbackslash\\domains\textbackslash domain1\textbackslash lib\textbackslash}.
+Para isso, baixe o arquivo acessível através do \textit{link} \url{https://dlm.mariadb.com/2338690/Connectors/java/connector-java-3.0.6/mariadb-java-client-3.0.6.jar} e, ao terminar de baixar, copie-o para o diretório \texttt{C:\textbackslash Users\textbackslash SeuUsuario\textbackslash glassfish5\textbackslash glassfish\textbackslash\\domains\textbackslash domain1\textbackslash lib\textbackslash}.
 
 Por fim, vamos registrar o GlassFish no NetBeans. Com o NetBeans aberto, do lado esquerdo, clique na aba \textit{Services}. Nessa aba, há um nó chamado \destaque{\textit{Servers}}. Clique com o botão direito do mouse nele e escolha \destaque{\textit{Add Server...}}. Veja a Figura~\ref{fig:cap01Servers}.
 
@@ -229,7 +229,7 @@ Salve o arquivo depois de editá-lo. Se o navegador ainda estiver aberto no \tex
 \end{figure}
 \FloatBarrier
 
-Poderíamos ter usado um arquivo \textit{JavaServer Pages} (JSP) ao invés de usar um arquivo HTML, permitindo a existência de outros tipos de estruturas que vamos aprender no decorrer da disciplina, mas por enquanto vamos manter o HTML. Vamos testar os Servlets agora? Como primeiro exemplo, nós vamos criar um Servlet manualmente, enquanto os outros que vamos desenvolver durante o nosso curso serão feitos usando um assistente do NetBeans, mas essa forma fácil nós só vamos aprender a partir do Capítulo~\ref{cap:processamentoFormularios}.
+Poderíamos ter usado um arquivo \textit{JavaServer Pages} (JSP) ao invés de usar um arquivo HTML, permitindo a existência de outros tipos de estruturas que vamos aprender no decorrer do livro, mas por enquanto vamos manter o HTML. Vamos testar os Servlets agora? Como primeiro exemplo, nós vamos criar um Servlet manualmente, enquanto os outros que vamos desenvolver durante o nosso curso serão feitos usando um assistente do NetBeans, mas essa forma fácil nós só vamos aprender a partir do Capítulo~\ref{cap:processamentoFormularios}.
 
 Aprenderemos como criar manualmente um Servlet, para que possamos aprender alguns detalhes importantes sobre o funcionamento de aplicações Web feitas em Java. Antes disso, e daqui por diante, sempre que você criar um projeto Web, antes de qualquer coisa, siga os seguintes passos para adicionar a biblioteca necessária para viablizar o desenvolvimento.
 

@@ -31,14 +31,14 @@ public class VendaDAO extends DAO<Venda> {
                 "    cancelada, " + 
                 "    cliente_id ) " + 
                 "VALUES( ?, ?, ? );",
-                new String[]{ "id" } );
+                new String[]{ "insert_id" } );
 
         stmt.setDate( 1, obj.getData() );
         stmt.setBoolean( 2, obj.getCancelada() );
         stmt.setLong( 3, obj.getCliente().getId() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }

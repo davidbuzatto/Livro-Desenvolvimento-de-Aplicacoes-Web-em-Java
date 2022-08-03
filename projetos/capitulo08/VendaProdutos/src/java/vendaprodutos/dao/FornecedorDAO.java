@@ -35,7 +35,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
                 "    cep, " + 
                 "    cidade_id ) " + 
                 "VALUES( ?, ?, ?, ?, ?, ?, ?, ? );",
-                new String[]{ "id" } );
+                new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getRazaoSocial() );
         stmt.setString( 2, obj.getCnpj() );
@@ -47,7 +47,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
         stmt.setLong( 8, obj.getCidade().getId() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }

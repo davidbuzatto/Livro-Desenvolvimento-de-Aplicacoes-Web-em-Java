@@ -35,8 +35,8 @@ public class ProdutoDAO extends DAO<Produto> {
                 "    fornecedor_id, " + 
                 "    unidade_medida_id ) " + 
                 "VALUES( ?, ?, ?, ?, ?, ? );",
-                new String[]{ "id" } ); // para retorno da chave
-                                        // primária gerada
+                new String[]{ "insert_id" } ); // para retorno da chave
+                                               // primária gerada
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setString( 2, obj.getCodigoBarras() );
@@ -46,7 +46,7 @@ public class ProdutoDAO extends DAO<Produto> {
         stmt.setLong( 6, obj.getUnidadeMedida().getId() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }

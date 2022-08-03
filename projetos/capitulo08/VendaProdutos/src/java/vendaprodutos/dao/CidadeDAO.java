@@ -26,13 +26,13 @@ public class CidadeDAO extends DAO<Cidade> {
                 "INSERT INTO " + 
                 "cidade( nome, estado_id ) " + 
                 "VALUES( ?, ? );",
-                new String[]{ "id" } );
+                new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getNome() );
         stmt.setLong( 2, obj.getEstado().getId() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }

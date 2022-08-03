@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/FornecedorDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/VendaDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/EstadoDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/ProdutoDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/CidadeDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/ClienteDAO.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Livro%20Desenvolvimento%20de%20Aplicações%20Web%20em%20Java/projetos/capitulo08/VendaProdutos/src/java/vendaprodutos/dao/UnidadeMedidaDAO.java</file>
+        </group>
     </open-files>
 </project-private>

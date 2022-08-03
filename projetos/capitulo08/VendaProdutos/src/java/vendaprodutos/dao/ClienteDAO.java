@@ -37,7 +37,7 @@ public class ClienteDAO extends DAO<Cliente> {
                 "    cep, " + 
                 "    cidade_id ) " + 
                 "VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );",
-                new String[]{ "id" } );
+                new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getNome() );
         stmt.setString( 2, obj.getSobrenome() );
@@ -51,7 +51,7 @@ public class ClienteDAO extends DAO<Cliente> {
         stmt.setLong( 10, obj.getCidade().getId() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }

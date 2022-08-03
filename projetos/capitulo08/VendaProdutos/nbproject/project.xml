@@ -12,7 +12,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.MariaDB-ConnectorJ-2.7.3.classpath}</file>
+                    <file>${libs.MariaDB-ConnectorJ-3.0.6.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

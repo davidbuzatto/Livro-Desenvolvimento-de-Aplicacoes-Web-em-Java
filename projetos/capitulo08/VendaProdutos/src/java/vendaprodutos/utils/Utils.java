@@ -128,7 +128,7 @@ public abstract class Utils {
     
     /*
      * Faz a leitura da chave primária após inserção no banco.
-     * Assume que  o PreparedStatement foi configurado apropriadamente.
+     * Assume que o PreparedStatement foi configurado apropriadamente.
      */
     public static Long getChavePrimariaAposInsercao( 
             PreparedStatement stmt, String nomeColunaChave ) 

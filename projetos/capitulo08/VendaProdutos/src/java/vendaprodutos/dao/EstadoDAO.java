@@ -25,13 +25,13 @@ public class EstadoDAO extends DAO<Estado> {
                 "INSERT INTO " + 
                 "estado( nome, sigla ) " + 
                 "VALUES( ?, ? );",
-                new String[]{ "id" } );
+                new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getNome() );
         stmt.setString( 2, obj.getSigla() );
 
         stmt.executeUpdate();
-        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "id" ) );
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ) );
         stmt.close();
 
     }
