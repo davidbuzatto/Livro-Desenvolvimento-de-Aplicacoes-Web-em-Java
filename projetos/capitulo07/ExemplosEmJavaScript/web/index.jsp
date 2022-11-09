@@ -93,14 +93,14 @@
                    type="text" 
                    name="campo01" 
                    value="valor campo 01"/>
-            <br>
+            <br/>
             
             Campo 2:
             <input id="campo02" 
                    type="text" 
                    name="campo02" 
                    value="valor campo 02"/>
-            <br>
+            <br/>
             
             Select 3:
             <select id="select03" name="select03">
@@ -108,7 +108,7 @@
               <option value="o2">Opção 2</option>
               <option value="o3">Opção 3</option>
             </select>
-            <br>
+            <br/>
             
             Select 4:
             <select id="select04" name="select04" size="4">
@@ -157,7 +157,7 @@
             
           Campo (digite algo e veja o console):
           <input id="campoExemplo09"/>
-          <br>
+          <br/>
           
           <select id="selectExemplo09">
             <option value="o1">Opção 1</option>

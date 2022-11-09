@@ -38,7 +38,7 @@
             class="vendaprodutos.servicos.ClienteServices"/>
 
         Cliente:
-        <br>
+        <br/>
         <select id="selectCliente" name="idCliente" required>
           <c:forEach items="${servicosC.todos}" var="cliente">
             <option value="${cliente.id}">
@@ -60,7 +60,7 @@
 
               <p>
                 Produto:
-                <br>
+                <br/>
                 <select id="selectProduto">
                   <c:forEach items="${servicosP.todos}" var="produto">
                       
@@ -87,7 +87,7 @@
 
               <p>
               Quantidade:
-              <br>
+              <br/>
               <input id="txtQuantidade"
                      type="number"
                      size="3"
@@ -104,10 +104,10 @@
             </td>
             <td>
               Itens da Venda:
-              <br>
+              <br/>
               <select id="selectItensVenda" size="10" multiple>
               </select>
-              <br>
+              <br/>
               <div>
                 <div id="divTotal">Total: R$ 0,00</div>
               </div>

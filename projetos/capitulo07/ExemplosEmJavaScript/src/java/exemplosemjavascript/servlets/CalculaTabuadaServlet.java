@@ -33,7 +33,7 @@ public class CalculaTabuadaServlet extends HttpServlet {
                 request.getParameter( "numero" ) );
         
         for ( int i = 0; i <= 10; i++ ) {
-            sb.append( String.format( "%d * %d = %d<br>", 
+            sb.append( String.format( "%d * %d = %d<br/>", 
                     numero, i, numero * i ) );
         }
         
