@@ -6,12 +6,7 @@
             <name>ExemplosEmJavaScript</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <explicit-platform explicit-source-supported="true"/>
-            <web-module-libraries>
-                <library dirs="200">
-                    <file>${libs.jakartaee-web-api-8.0.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-            </web-module-libraries>
+            <web-module-libraries/>
             <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.dir"/>

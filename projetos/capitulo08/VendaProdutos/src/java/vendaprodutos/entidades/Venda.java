@@ -1,7 +1,7 @@
 package vendaprodutos.entidades;
 
 import java.sql.Date;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Entidade Venda.

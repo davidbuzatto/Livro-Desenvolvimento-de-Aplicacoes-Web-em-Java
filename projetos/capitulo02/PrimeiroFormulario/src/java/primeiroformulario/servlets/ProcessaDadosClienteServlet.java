@@ -1,11 +1,11 @@
 package primeiroformulario.servlets;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet para processamento dos dados do formulário.
@@ -57,7 +57,7 @@ public class ProcessaDadosClienteServlet extends HttpServlet {
             System.out.println( "Sexo: Feminino" );
         }
 
-        System.out.println( "Observações: " + observacoes );
+        System.out.println( "Observacoes: " + observacoes );
         
     }
 

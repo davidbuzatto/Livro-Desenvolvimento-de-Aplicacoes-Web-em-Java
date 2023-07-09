@@ -16,7 +16,6 @@
 /projetos/capitulo07/ExemplosEmJavaScript/dist/
 /projetos/capitulo08/VendaProdutos/build/
 /projetos/capitulo08/VendaProdutos/dist/
-/*.pdf
 /*.aux
 /*.bak
 /*.bbl
@@ -35,14 +34,19 @@
 /*.log
 /*.loq
 /*.lot
+/*.nav
 /*.out
+/*.pdf
+/*.pyg
 /*.sav
 /*.sigla
 /*.siglax
+/*.snm
 /*.stf
 /*.symbols
 /*.symbolsx
 /*.synctex
+/*.synctex(busy)
 /*.toc
 /*.xwm
 /projetos/capitulo01/OlaMundoWebX/nbproject/private/

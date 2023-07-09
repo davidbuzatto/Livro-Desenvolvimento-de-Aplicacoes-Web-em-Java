@@ -24,20 +24,20 @@ Cada um desses tipos de entidade tem uma determinada lista de características o
 	\begin{tabular}{cl}
 	    \hline
 	        \textbf{Entidade}     & \textbf{Atributos (características)} \\ \hline
-	    \multirow{10}{*}{Cliente} & - nome                                 \\
-	                              & - sobrenome                            \\
-	                              & - data de nascimento                   \\
-	                              & - CPF                                  \\
-	                              & - e-mail                               \\
-	                              & - logradouro                           \\ 
-	                              & - número                               \\
-	                              & - bairro                               \\
-	                              & - Cidade                               \\
-	                              & - CEP                                  \\ \hline
-	     \multirow{2}{*}{Cidade}  & - nome                                 \\
-	                              & - Estado                               \\ \hline
-	     \multirow{2}{*}{Estado}  & - nome                                 \\
-	                              & - sigla                                \\ \hline
+	    \multirow{10}{*}{Cliente} & - nome                               \\
+	                              & - sobrenome                          \\
+	                              & - data de nascimento                 \\
+	                              & - CPF                                \\
+	                              & - e-mail                             \\
+	                              & - logradouro                         \\ 
+	                              & - número                             \\
+	                              & - bairro                             \\
+	                              & - Cidade                             \\
+	                              & - CEP                                \\ \hline
+	     \multirow{2}{*}{Cidade}  & - nome                               \\
+	                              & - Estado                             \\ \hline
+	     \multirow{2}{*}{Estado}  & - nome                               \\
+	                              & - sigla                              \\ \hline
 	\end{tabular}
     \\ \vspace{0.2cm}
     \textbf{Fonte:} Elaborada pelo autor
@@ -75,7 +75,7 @@ O que ganhamos com isso? Ganhamos desempenho, pois estamos usando números para 
 
 \section{Projetando Banco de Dados}
 
-Não irei documentar aqui todo o processo de projeto do banco de dados, que vai desde a análise dos requisitos, passando pela criação do DER (Diagrama Entidade-Relacionamento) até a implementação do modelo físico, pois este não é o objetivo deste livro, mas note que no desenvolvimento de um sistema esses passos são normalmente realizados. Iremos partir diretamente para a implementação do modelo físico. Antes de criarmos o código escrito em \textit{Structured Query Language} (SQL) para a criação da estrutura da nossa base de dados, vamos organizar os atributos das nossas tabelas –que são baseadas nas características dos tipos de entidade– e especificar suas características. Veja a Tabela~\ref{tab:detalhesTabelas}.
+Não irei documentar aqui todo o processo de projeto do banco de dados, que vai desde a análise dos requisitos, passando pela criação do Diagrama Entidade-Relacionamento (DER) até a implementação do modelo físico, pois este não é o objetivo deste livro, mas note que no desenvolvimento de um sistema esses passos são normalmente realizados. Iremos partir diretamente para a implementação do modelo físico usando como base o DER modelado no MySQL Workbench. Antes de criarmos o código escrito em \textit{Structured Query Language} (SQL) para a criação da estrutura da nossa base de dados, vamos organizar os atributos das nossas tabelas –que são baseadas nas características dos tipos de entidade– e especificar suas características. Veja a Tabela~\ref{tab:detalhesTabelas}.
 
 \FloatBarrier
 \begin{table}[ht]
@@ -111,15 +111,15 @@ Não irei documentar aqui todo o processo de projeto do banco de dados, que vai 
 \end{table}
 \FloatBarrier
 
-Usei o MySQL Workbench para criar um diagrama do nosso modelo físico. Veja como ficou na Figura~\ref{fig:cap05ModeloFisico}.
+Usei o MySQL Workbench para criar um DER com essas tabelas. Veja como ficou na Figura~\ref{fig:cap05DER}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
     \centering
-    \caption{Diagrama do modelo físico da base de dados}
-    \includegraphics[scale=0.5]{imagens/cap05ModeloFisico}
+    \caption{DER com as tabelas apresentadas}
+    \includegraphics[scale=0.5]{imagens/cap05DER}
     \\\textbf{Fonte:} Elaborada pelo autor
-    \label{fig:cap05ModeloFisico}
+    \label{fig:cap05DER}
 \end{figure}
 \FloatBarrier
 
@@ -154,12 +154,6 @@ Outro detalhe é que criei apenas o diagrama das classes que são as entidades d
 
 
 \section{Construindo o Sistema}
-
-Antes de qualquer coisa precisamos fazer um ajuste no GlassFish, pois ele precisa que todas as biblitecas/APIs que não fazem parte do Java \textit{Standard Edition} (SE), ou do Java/Jakarta EE, sejam fornecidas à ele. Para isso, faça uma cópia do arquivo \texttt{.jar} do \textit{driver} JDBC do MariaDB para o diretório:
-
-\destaque{\texttt{C:\textbackslash Users\textbackslash <SeuUsuário>\textbackslash glassfish5\textbackslash glassfish\textbackslash domains\textbackslash domain1\textbackslash lib\textbackslash}}
-
-Com isso, nossa aplicação poderá usar o \textit{driver} quando estiver implantada no servidor, mas note que ainda precisaremos configurá-lo do projeto, visto que ele será necessário no processo de \textit{build}.
 
 Agora nossa tarefa será criar o projeto no NetBeans. Para isso, abra o NetBeans e crie um novo projeto do tipo Java Web com o nome de ``CadastroClientes'' (sem as aspas). Siga os passos que você tem seguido em todos os projetos criados, além de, é claro, configurar a bibliteca do \textit{driver} JDBC do MariaDB, como descrito no Capítulo~\ref{cap:padroesDeProjeto}. Em \destaque{\textit{Source Packages}}, crie o pacote ``\texttt{cadastroclientes}'' (sem as aspas) e, dentro dele, os pacotes ``controladores'', ``dao'', ``entidades'', ``jdbc'' e ``testes'' dentro do pacote ``cadastroclientes''. Em \destaque{\textit{Web Pages}}, crie os diretórios ``\texttt{css}'' e ``\texttt{formularios}'' (sem acento) e dentro deste, crie os diretórios ``\texttt{cidades}'', ``\texttt{clientes}'' e ``\texttt{estados}''. Apague o arquivo \texttt{index.html} e crie um arquivo JSP chamado \texttt{index.jsp}. Veja na Figura~\ref{fig:cap05EstruturaProjeto} como deve ficar a estrutura do projeto. Ignore os pacotes \texttt{...filtros} e \texttt{...servicos} por enquanto!
 

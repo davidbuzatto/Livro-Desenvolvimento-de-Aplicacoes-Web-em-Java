@@ -1,11 +1,11 @@
 package olamundoweb.servlets;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**
@@ -81,7 +81,7 @@ public class OlaServlet extends HttpServlet {
          * Aqui vem o código que queremos que o
          * nosso Servlet execute.
          */
-        System.out.println( "Olá Mundo!" );
+        System.out.println( "Ola Mundo!" );
         System.out.println( "Meu Primeiro Servlet!" );
         
     }
