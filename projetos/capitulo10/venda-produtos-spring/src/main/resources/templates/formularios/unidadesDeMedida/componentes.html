@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title></title>
+    <meta charset="UTF-8"/>
+  </head>
+
+  <body>
+
+    <div th:fragment="insercaoAlteracao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="descricao">Descrição: </label>
+          </td>
+          <td>
+            <input type="text" 
+                   th:field="*{descricao}" 
+                   id="descricao"
+                   placeholder="Descrição"
+                   size="20"
+                   maxlength="45"
+                   required="required"/>
+          </td>
+          <td>
+            <small 
+              th:if="${#fields.hasErrors('descricao')}" 
+              th:errors="*{descricao}"
+              class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="sigla">Sigla: </label>
+          </td>
+          <td>
+            <input type="text" 
+                   th:field="*{sigla}" 
+                   id="sigla"
+                   placeholder="Sigla"
+                   size="3"
+                   maxlength="4"
+                   required="required"/>
+          </td>
+          <td>
+            <small th:if="${#fields.hasErrors('sigla')}" 
+                   th:errors="*{sigla}"
+                   class="erroFormulario"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/unidadesMedida/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Salvar"/>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+
+    </div>
+
+
+    <div th:fragment="exclusao" th:remove="tag">
+
+      <table>
+        <tr>
+          <td class="alinharDireita">
+            <label for="descricao">Descrição: </label>
+          </td>
+          <td>
+            <span th:text="*{descricao}" 
+                  id="descricao"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="alinharDireita">
+            <label for="sigla">Sigla: </label>
+          </td>
+          <td>
+            <span th:text="*{sigla}" 
+                  id="sigla"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a th:href="@{/unidadesMedida/listar}">Voltar</a>
+          </td>
+          <td class="alinharDireita">
+            <input type="submit" value="Excluir"/>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </body>
+
+</html>

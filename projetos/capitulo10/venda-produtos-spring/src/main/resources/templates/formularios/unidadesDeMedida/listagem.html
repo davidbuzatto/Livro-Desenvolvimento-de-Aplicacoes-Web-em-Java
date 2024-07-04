@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Unidades de Medida Cadastradas</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="" rel="" th:replace="~{fragmentos/cssJs :: css}"/>
+    <script th:replace="~{fragmentos/cssJs :: js}"></script>  
+  </head>
+
+  <body>
+
+    <div th:replace="~{fragmentos/cabecalho :: cabecalho}"></div>
+
+
+    <div th:if="${unidadesMedida.empty}">
+      <h2>Não há unidades de medida cadastradas</h2>
+      <a th:href="@{/unidadesMedida/prepararInsercao}">
+        Nova Unidade de Medida
+      </a>
+    </div>
+
+
+    <div th:if="${!unidadesMedida.empty}">
+
+      <h2>Unidades de Medida Cadastradas</h2>
+
+      <p>
+        <a th:href="@{/unidadesMedida/prepararInsercao}">
+          Nova Unidade de Medida
+        </a>
+      </p>
+
+      <table class="tabelaListagem">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Descricao</th>
+            <th>Sigla</th>
+            <th>Alterar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="unidadeMedida : ${unidadesMedida}">
+            <td th:text="${unidadeMedida.id}"></td>
+            <td th:text="${unidadeMedida.descricao}"></td>
+            <td th:text="${unidadeMedida.sigla}"></td>
+            <td>
+              <a th:href="@{/unidadesMedida/prepararAlteracao/{id}(id=${unidadeMedida.id})}">
+                Alterar
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/unidadesMedida/prepararExclusao/{id}(id=${unidadeMedida.id})}">
+                Excluir
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <a th:href="@{/unidadesMedida/prepararInsercao}">
+          Nova Unidade de Medida
+        </a>
+      </p>
+
+    </div>
+
+    <div th:replace="~{fragmentos/rodape :: rodape}"></div>
+
+  </body>
+
+</html>
