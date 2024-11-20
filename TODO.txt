@@ -1,0 +1,2 @@
+Nome do banco no capítulo 9 (locacaomidias) deveria ser "locacao_midias".
+Alterar o diretório de cópia do .jar do mariadb para lib ao invés de databases

@@ -16,6 +16,8 @@
 /projetos/capitulo07/ExemplosEmJavaScript/dist/
 /projetos/capitulo08/VendaProdutos/build/
 /projetos/capitulo08/VendaProdutos/dist/
+/projetos/capitulo09/LocacaoMidias/build/
+/projetos/capitulo09/LocacaoMidias/dist/
 /*.aux
 /*.bak
 /*.bbl
@@ -49,4 +51,3 @@
 /*.synctex(busy)
 /*.toc
 /*.xwm
-/projetos/capitulo01/OlaMundoWebX/nbproject/private/

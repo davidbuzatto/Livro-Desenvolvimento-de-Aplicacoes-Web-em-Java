@@ -1,0 +1,99 @@
+/* Estilos gerais */
+body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+a {
+    color: #0484AE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.alerta {
+    border: dashed thin #000000;
+    border-radius: 10px;
+    padding: 5px;
+    border-color: #ff3333;
+    background-color: #EEEEEE
+}
+
+.tabelaListagem {
+    background: #000000;
+}
+
+.tabelaListagem th {
+    background: #EEEEEE;
+    padding: 5px;
+}
+
+.tabelaListagem td {
+    background: #FFFFFF;
+    padding: 5px;
+}
+
+.alinharDireita {
+    text-align: right;
+}
+
+#divErros {
+    font-weight: bold;
+    border: solid 2px #660000;
+    border-radius: 10px;
+    background-color: #ff3333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* Estilos para a página de venda */
+#divCliente {
+    font-weight: bold;
+    width: 700px;
+    border: solid 2px #003366;
+    border-radius: 10px;
+    background-color: #0099cc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#divItensVenda {
+    font-weight: bold;
+    width: 700px;
+    border: solid 2px #993300;
+    border-radius: 10px;
+    background-color: #ff9933;
+    padding: 10px;
+}
+
+#selectCliente {
+    width: 100%;
+}
+
+#selectProduto {
+    width: 250px;
+}
+
+#selectItensVenda {
+    font-family: monospace;
+    width: 350px;
+    height: 200px;
+}
+
+#txtQuantidade {
+    width: 100px;
+}
+
+#divTotal {
+    text-align: right;
+}
+
+.btnsItensVenda {
+    text-align: center; padding: 20px;
+}
