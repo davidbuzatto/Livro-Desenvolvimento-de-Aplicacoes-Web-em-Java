@@ -1,5 +1,4 @@
-Nome do banco no capítulo 9 (locacaomidias) deveria ser "locacao_midias".
-Alterar o diretório de cópia do .jar do mariadb para lib ao invés de databases.
-Atualizar os modelos de banco (nomes de tabelas, atributos etc.)
-Atualizar projetos para Glassfish 7.0.15
-Atualizar SQL com string em bloco
+No material:
+    Alterar o diretório de cópia do .jar do mariadb para lib ao invés de databases. (mostrar driver atualizado, indicar onde baixar?)
+verificar questão da senha do banco (pode ser root ou vazio em maquinas de desenvolvimento) - verificar se no material indica a vazia. se sim, deixar nos projetos a vazia.
+Explicar os blocos de string. Aparecem pela primeira vez no padrões em prática (cap 4 se não me engano)

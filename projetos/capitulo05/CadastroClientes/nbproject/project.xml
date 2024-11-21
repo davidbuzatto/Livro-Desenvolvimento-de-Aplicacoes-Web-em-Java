@@ -5,11 +5,9 @@
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>CadastroClientes</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <explicit-platform explicit-source-supported="true"/>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${libs.MariaDB-ConnectorJ-3.1.4.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${libs.MariaDB-ConnectorJ-3.5.0.classpath}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>

@@ -26,7 +26,7 @@ public class ConnectionFactory {
         return DriverManager.getConnection(
                 "jdbc:mariadb://localhost/cadastro_clientes",
                 "root",
-                "" );
+                "root" );
 
     }
 

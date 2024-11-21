@@ -22,9 +22,11 @@ public class ItemVendaDAO extends DAO<ItemVenda> {
     public void salvar( ItemVenda obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "item_venda( venda_id, produto_id, valor, quantidade ) " + 
-                "VALUES( ?, ?, ?, ? );" );
+                """
+                INSERT INTO  
+                item_venda( venda_id, produto_id, valor, quantidade )  
+                VALUES( ?, ?, ?, ? );
+                """ );
 
         stmt.setLong( 1, obj.getVenda().getId() );
         stmt.setLong( 2, obj.getProduto().getId() );
@@ -82,15 +84,17 @@ public class ItemVendaDAO extends DAO<ItemVenda> {
         List<ItemVenda> itensVenda = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    iv.quantidade quantidadeItemVenda, " +
-                "    p.id idProduto, " + 
-                "    p.estoque estoqueProduto " +
-                "FROM" +
-                "    item_venda iv, " +
-                "    produto p " + 
-                "WHERE iv.produto_id = p.id AND " + 
-                "      iv.venda_id = ?;" );
+                """
+                SELECT 
+                    iv.quantidade quantidadeItemVenda, 
+                    p.id idProduto,  
+                    p.estoque estoqueProduto 
+                FROM
+                    item_venda iv, 
+                    produto p  
+                WHERE iv.produto_id = p.id AND  
+                      iv.venda_id = ?;
+                """ );
 
         stmt.setLong( 1, idVenda );
 

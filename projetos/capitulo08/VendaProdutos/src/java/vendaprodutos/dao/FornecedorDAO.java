@@ -24,17 +24,19 @@ public class FornecedorDAO extends DAO<Fornecedor> {
     public void salvar( Fornecedor obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "fornecedor(" + 
-                "    razaoSocial, " + 
-                "    cnpj, " + 
-                "    email, " + 
-                "    logradouro, " + 
-                "    numero, " + 
-                "    bairro, " + 
-                "    cep, " + 
-                "    cidade_id ) " + 
-                "VALUES( ?, ?, ?, ?, ?, ?, ?, ? );",
+                """
+                INSERT INTO  
+                fornecedor( 
+                    razao_social,  
+                    cnpj,  
+                    email,  
+                    logradouro,  
+                    numero,  
+                    bairro,  
+                    cep,  
+                    cidade_id )  
+                VALUES( ?, ?, ?, ?, ?, ?, ?, ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getRazaoSocial() );
@@ -56,18 +58,20 @@ public class FornecedorDAO extends DAO<Fornecedor> {
     public void atualizar( Fornecedor obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE fornecedor " + 
-                "SET" + 
-                "    razaoSocial = ?, " + 
-                "    cnpj = ?, " + 
-                "    email = ?, " + 
-                "    logradouro = ?, " + 
-                "    numero = ?, " + 
-                "    bairro = ?, " + 
-                "    cep = ?, " + 
-                "    cidade_id = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE fornecedor  
+                SET 
+                    razao_social = ?,  
+                    cnpj = ?,  
+                    email = ?,  
+                    logradouro = ?,  
+                    numero = ?,  
+                    bairro = ?,  
+                    cep = ?,  
+                    cidade_id = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getRazaoSocial() );
         stmt.setString( 2, obj.getCnpj() );
@@ -88,9 +92,11 @@ public class FornecedorDAO extends DAO<Fornecedor> {
     public void excluir( Fornecedor obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM fornecedor " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM fornecedor  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -105,28 +111,30 @@ public class FornecedorDAO extends DAO<Fornecedor> {
         List<Fornecedor> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    f.id idFornecedor, " + 
-                "    f.razaoSocial razaoSocialFornecedor, " + 
-                "    f.cnpj cnpjFornecedor, " + 
-                "    f.email emailFornecedor, " + 
-                "    f.logradouro logradouroFornecedor, " + 
-                "    f.numero numeroFornecedor, " + 
-                "    f.bairro bairroFornecedor, " + 
-                "    f.cep cepFornecedor, " + 
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    fornecedor f, " + 
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    f.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id " +
-                "ORDER BY f.razaoSocial, ci.nome;" );
+                """
+                SELECT 
+                    f.id idFornecedor,  
+                    f.razao_social razaoSocialFornecedor,  
+                    f.cnpj cnpjFornecedor,  
+                    f.email emailFornecedor,  
+                    f.logradouro logradouroFornecedor,  
+                    f.numero numeroFornecedor,  
+                    f.bairro bairroFornecedor,  
+                    f.cep cepFornecedor,  
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    fornecedor f,  
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    f.cidade_id = ci.id AND  
+                    ci.estado_id = e.id 
+                ORDER BY f.razao_social, ci.nome;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -171,28 +179,30 @@ public class FornecedorDAO extends DAO<Fornecedor> {
         Fornecedor fornecedor = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    f.id idFornecedor, " + 
-                "    f.razaoSocial razaoSocialFornecedor, " + 
-                "    f.cnpj cnpjFornecedor, " + 
-                "    f.email emailFornecedor, " + 
-                "    f.logradouro logradouroFornecedor, " + 
-                "    f.numero numeroFornecedor, " + 
-                "    f.bairro bairroFornecedor, " + 
-                "    f.cep cepFornecedor, " + 
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    fornecedor f, " + 
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    f.id = ? AND " +
-                "    f.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id;" );
+                """
+                SELECT 
+                    f.id idFornecedor,  
+                    f.razao_social razaoSocialFornecedor,  
+                    f.cnpj cnpjFornecedor,  
+                    f.email emailFornecedor,  
+                    f.logradouro logradouroFornecedor,  
+                    f.numero numeroFornecedor,  
+                    f.bairro bairroFornecedor,  
+                    f.cep cepFornecedor,  
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    fornecedor f,  
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    f.id = ? AND 
+                    f.cidade_id = ci.id AND  
+                    ci.estado_id = e.id;
+                """ );
 
         stmt.setLong( 1, id );
 

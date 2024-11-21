@@ -28,7 +28,7 @@ public class ConnectionFactory {
         return DriverManager.getConnection(
                 "jdbc:mariadb://localhost/testes_padroes",
                 "root",
-                "" );
+                "root" );
 
     }
 

@@ -21,9 +21,11 @@ public class EstadoDAO extends DAO<Estado> {
     public void salvar( Estado obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "estado( nome, sigla ) " + 
-                "VALUES( ?, ? );" );
+                """
+                INSERT INTO  
+                estado( nome, sigla )  
+                VALUES( ?, ? );
+                """ );
 
         stmt.setString( 1, obj.getNome() );
         stmt.setString( 2, obj.getSigla() );
@@ -37,12 +39,14 @@ public class EstadoDAO extends DAO<Estado> {
     public void atualizar( Estado obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE estado " + 
-                "SET" + 
-                "    nome = ?," + 
-                "    sigla = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE estado  
+                SET 
+                    nome = ?, 
+                    sigla = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getNome() );
         stmt.setString( 2, obj.getSigla() );
@@ -57,9 +61,11 @@ public class EstadoDAO extends DAO<Estado> {
     public void excluir( Estado obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM estado " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM estado  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setInt( 1, obj.getId() );
 
@@ -74,8 +80,10 @@ public class EstadoDAO extends DAO<Estado> {
         List<Estado> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM estado " + 
-                "ORDER BY nome, sigla;" );
+                """
+                SELECT * FROM estado  
+                ORDER BY nome, sigla;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -104,8 +112,10 @@ public class EstadoDAO extends DAO<Estado> {
         Estado estado = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM estado " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM estado  
+                WHERE id = ?;
+                """ );
 
         stmt.setInt( 1, id );
 

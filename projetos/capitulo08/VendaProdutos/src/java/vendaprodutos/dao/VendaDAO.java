@@ -25,12 +25,14 @@ public class VendaDAO extends DAO<Venda> {
     public void salvar( Venda obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "venda(" + 
-                "    data, " + 
-                "    cancelada, " + 
-                "    cliente_id ) " + 
-                "VALUES( ?, ?, ? );",
+                """
+                INSERT INTO  
+                venda( 
+                    data,  
+                    cancelada,  
+                    cliente_id )  
+                VALUES( ?, ?, ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setDate( 1, obj.getData() );
@@ -49,13 +51,15 @@ public class VendaDAO extends DAO<Venda> {
         // a atualização das vendas será a de cancelamento
         
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE venda " + 
-                "SET" + 
-                "    data = ?, " + 
-                "    cancelada = ?, " + 
-                "    cliente_id = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE venda  
+                SET 
+                    data = ?,  
+                    cancelada = ?,  
+                    cliente_id = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setDate( 1, obj.getData() );
         stmt.setBoolean( 2, obj.getCancelada() );
@@ -78,35 +82,37 @@ public class VendaDAO extends DAO<Venda> {
         List<Venda> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    v.id idVenda, " + 
-                "    v.data dataVenda, " +
-                "    v.cancelada vendaCancelada, " +
-                "    c.id idCliente, " + 
-                "    c.nome nomeCliente, " + 
-                "    c.sobreNome sobrenomeCliente, " + 
-                "    c.dataNascimento dataNascimentoCliente, " + 
-                "    c.cpf cpfCliente, " + 
-                "    c.email emailCliente, " + 
-                "    c.logradouro logradouroCliente, " + 
-                "    c.numero numeroCliente, " + 
-                "    c.bairro bairroCliente, " + 
-                "    c.cep cepCliente, " +
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    venda v, " + 
-                "    cliente c, " +
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    v.cliente_id = c.id AND " + 
-                "    c.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id " +
-                "ORDER BY v.data DESC, c.nome;" );
+                """
+                SELECT 
+                    v.id idVenda,  
+                    v.data dataVenda, 
+                    v.cancelada vendaCancelada, 
+                    c.id idCliente,  
+                    c.nome nomeCliente,  
+                    c.sobrenome sobrenomeCliente,  
+                    c.data_nascimento dataNascimentoCliente,  
+                    c.cpf cpfCliente,  
+                    c.email emailCliente,  
+                    c.logradouro logradouroCliente,  
+                    c.numero numeroCliente,  
+                    c.bairro bairroCliente,  
+                    c.cep cepCliente, 
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    venda v,  
+                    cliente c, 
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    v.cliente_id = c.id AND  
+                    c.cidade_id = ci.id AND  
+                    ci.estado_id = e.id 
+                ORDER BY v.data DESC, c.nome;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -159,35 +165,37 @@ public class VendaDAO extends DAO<Venda> {
         Venda venda = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    v.id idVenda, " + 
-                "    v.data dataVenda, " +
-                "    v.cancelada vendaCancelada, " +
-                "    c.id idCliente, " + 
-                "    c.nome nomeCliente, " + 
-                "    c.sobreNome sobrenomeCliente, " + 
-                "    c.dataNascimento dataNascimentoCliente, " + 
-                "    c.cpf cpfCliente, " + 
-                "    c.email emailCliente, " + 
-                "    c.logradouro logradouroCliente, " + 
-                "    c.numero numeroCliente, " + 
-                "    c.bairro bairroCliente, " + 
-                "    c.cep cepCliente, " +
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    venda v, " + 
-                "    cliente c, " +
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    v.id = ? AND " + 
-                "    v.cliente_id = c.id AND " + 
-                "    c.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id;" );
+                """
+                SELECT 
+                    v.id idVenda,  
+                    v.data dataVenda, 
+                    v.cancelada vendaCancelada, 
+                    c.id idCliente,  
+                    c.nome nomeCliente,  
+                    c.sobrenome sobrenomeCliente,  
+                    c.data_nascimento dataNascimentoCliente,  
+                    c.cpf cpfCliente,  
+                    c.email emailCliente,  
+                    c.logradouro logradouroCliente,  
+                    c.numero numeroCliente,  
+                    c.bairro bairroCliente,  
+                    c.cep cepCliente, 
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    venda v,  
+                    cliente c, 
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    v.id = ? AND  
+                    v.cliente_id = c.id AND  
+                    c.cidade_id = ci.id AND  
+                    ci.estado_id = e.id;
+                """ );
 
         stmt.setLong( 1, id );
 

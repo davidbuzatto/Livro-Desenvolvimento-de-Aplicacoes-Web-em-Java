@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS cliente (
   id INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
   sobrenome VARCHAR(45) NOT NULL,
-  dataNascimento DATE NOT NULL,
+  data_nascimento DATE NOT NULL,
   cpf VARCHAR(14) NOT NULL,
   email VARCHAR(60) NOT NULL,
   logradouro VARCHAR(50) NOT NULL,

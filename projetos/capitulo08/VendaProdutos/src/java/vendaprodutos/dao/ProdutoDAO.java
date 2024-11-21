@@ -26,15 +26,17 @@ public class ProdutoDAO extends DAO<Produto> {
     public void salvar( Produto obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "produto(" + 
-                "    descricao, " + 
-                "    codigoBarras, " + 
-                "    valorVenda, " + 
-                "    estoque, " + 
-                "    fornecedor_id, " + 
-                "    unidade_medida_id ) " + 
-                "VALUES( ?, ?, ?, ?, ?, ? );",
+                """
+                INSERT INTO  
+                produto( 
+                    descricao,  
+                    codigo_barras,  
+                    valor_venda,  
+                    estoque,  
+                    fornecedor_id,  
+                    unidade_medida_id )  
+                VALUES( ?, ?, ?, ?, ?, ? );
+                """,
                 new String[]{ "insert_id" } ); // para retorno da chave
                                                // primária gerada
 
@@ -55,16 +57,18 @@ public class ProdutoDAO extends DAO<Produto> {
     public void atualizar( Produto obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE produto " + 
-                "SET" + 
-                "    descricao = ?, " + 
-                "    codigoBarras = ?," + 
-                "    valorVenda = ?, " + 
-                "    estoque = ?, " + 
-                "    fornecedor_id = ?, " + 
-                "    unidade_medida_id = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE produto  
+                SET 
+                    descricao = ?,  
+                    codigo_barras = ?, 
+                    valor_venda = ?,  
+                    estoque = ?,  
+                    fornecedor_id = ?,  
+                    unidade_medida_id = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setString( 2, obj.getCodigoBarras() );
@@ -83,9 +87,11 @@ public class ProdutoDAO extends DAO<Produto> {
     public void excluir( Produto obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM produto " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM produto  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -100,40 +106,42 @@ public class ProdutoDAO extends DAO<Produto> {
         List<Produto> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    p.id idProduto, " + 
-                "    p.descricao descricaoProduto, " + 
-                "    p.codigoBarras codigoBarrasProduto, " + 
-                "    p.valorVenda valorVendaProduto, " + 
-                "    p.estoque estoqueProduto, " +
-                "    u.id idUnidadeMedida, " +
-                "    u.descricao descricaoUnidadeMedida, " +
-                "    u.sigla siglaUnidadeMedida, " +
-                "    f.id idFornecedor, " +
-                "    f.razaoSocial razaoSocialFornecedor, " +
-                "    f.cnpj cnpjFornecedor, " + 
-                "    f.email emailFornecedor, " + 
-                "    f.logradouro logradouroFornecedor, " + 
-                "    f.numero numeroFornecedor, " + 
-                "    f.bairro bairroFornecedor, " + 
-                "    f.cep cepFornecedor, " +
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    produto p, " + 
-                "    unidade_medida u, " +
-                "    fornecedor f, " +
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    p.unidade_medida_id = u.id AND " + 
-                "    p.fornecedor_id = f.id AND " + 
-                "    f.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id " +
-                "ORDER BY p.descricao;" );
+                """
+                SELECT 
+                    p.id idProduto,  
+                    p.descricao descricaoProduto,  
+                    p.codigo_barras codigoBarrasProduto,  
+                    p.valor_venda valorVendaProduto,  
+                    p.estoque estoqueProduto, 
+                    u.id idUnidadeMedida, 
+                    u.descricao descricaoUnidadeMedida, 
+                    u.sigla siglaUnidadeMedida, 
+                    f.id idFornecedor, 
+                    f.razao_social razaoSocialFornecedor, 
+                    f.cnpj cnpjFornecedor,  
+                    f.email emailFornecedor,  
+                    f.logradouro logradouroFornecedor,  
+                    f.numero numeroFornecedor,  
+                    f.bairro bairroFornecedor,  
+                    f.cep cepFornecedor, 
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    produto p,  
+                    unidade_medida u, 
+                    fornecedor f, 
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    p.unidade_medida_id = u.id AND  
+                    p.fornecedor_id = f.id AND  
+                    f.cidade_id = ci.id AND  
+                    ci.estado_id = e.id 
+                ORDER BY p.descricao;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -192,40 +200,42 @@ public class ProdutoDAO extends DAO<Produto> {
         Produto produto = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT" + 
-                "    p.id idProduto, " + 
-                "    p.descricao descricaoProduto, " + 
-                "    p.codigoBarras codigoBarrasProduto, " + 
-                "    p.valorVenda valorVendaProduto, " + 
-                "    p.estoque estoqueProduto, " +
-                "    u.id idUnidadeMedida, " +
-                "    u.descricao descricaoUnidadeMedida, " +
-                "    u.sigla siglaUnidadeMedida, " +
-                "    f.id idFornecedor, " +
-                "    f.razaoSocial razaoSocialFornecedor, " +
-                "    f.cnpj cnpjFornecedor, " + 
-                "    f.email emailFornecedor, " + 
-                "    f.logradouro logradouroFornecedor, " + 
-                "    f.numero numeroFornecedor, " + 
-                "    f.bairro bairroFornecedor, " + 
-                "    f.cep cepFornecedor, " +
-                "    ci.id idCidade, " + 
-                "    ci.nome nomeCidade, " + 
-                "    e.id idEstado, " + 
-                "    e.nome nomeEstado, " + 
-                "    e.sigla siglaEstado " + 
-                "FROM" + 
-                "    produto p, " + 
-                "    unidade_medida u, " +
-                "    fornecedor f, " +
-                "    cidade ci, " + 
-                "    estado e " + 
-                "WHERE" + 
-                "    p.id = ? AND " +
-                "    p.unidade_medida_id = u.id AND " + 
-                "    p.fornecedor_id = f.id AND " + 
-                "    f.cidade_id = ci.id AND " + 
-                "    ci.estado_id = e.id;" );
+                """
+                SELECT 
+                    p.id idProduto,  
+                    p.descricao descricaoProduto,  
+                    p.codigo_barras codigoBarrasProduto,  
+                    p.valor_venda valorVendaProduto,  
+                    p.estoque estoqueProduto, 
+                    u.id idUnidadeMedida, 
+                    u.descricao descricaoUnidadeMedida, 
+                    u.sigla siglaUnidadeMedida, 
+                    f.id idFornecedor, 
+                    f.razao_social razaoSocialFornecedor, 
+                    f.cnpj cnpjFornecedor,  
+                    f.email emailFornecedor,  
+                    f.logradouro logradouroFornecedor,  
+                    f.numero numeroFornecedor,  
+                    f.bairro bairroFornecedor,  
+                    f.cep cepFornecedor, 
+                    ci.id idCidade,  
+                    ci.nome nomeCidade,  
+                    e.id idEstado,  
+                    e.nome nomeEstado,  
+                    e.sigla siglaEstado  
+                FROM 
+                    produto p,  
+                    unidade_medida u, 
+                    fornecedor f, 
+                    cidade ci,  
+                    estado e  
+                WHERE 
+                    p.id = ? AND 
+                    p.unidade_medida_id = u.id AND  
+                    p.fornecedor_id = f.id AND  
+                    f.cidade_id = ci.id AND  
+                    ci.estado_id = e.id;
+                """ );
 
         stmt.setLong( 1, id );
 
@@ -284,11 +294,13 @@ public class ProdutoDAO extends DAO<Produto> {
     public void atualizarEstoque( Produto obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE produto " + 
-                "SET" + 
-                "    estoque = ? " +
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE produto  
+                SET 
+                    estoque = ? 
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setBigDecimal( 1, obj.getEstoque() );
         stmt.setLong( 2, obj.getId() );

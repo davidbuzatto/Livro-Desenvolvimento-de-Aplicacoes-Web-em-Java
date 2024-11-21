@@ -22,9 +22,11 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
     public void salvar( UnidadeMedida obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "unidade_medida( descricao, sigla ) " + 
-                "VALUES( ?, ? );",
+                """
+                INSERT INTO  
+                unidade_medida( descricao, sigla )  
+                VALUES( ?, ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getDescricao() );
@@ -40,12 +42,14 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
     public void atualizar( UnidadeMedida obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE unidade_medida " + 
-                "SET" + 
-                "    descricao = ?," + 
-                "    sigla = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE unidade_medida  
+                SET 
+                    descricao = ?, 
+                    sigla = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setString( 2, obj.getSigla() );
@@ -60,9 +64,11 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
     public void excluir( UnidadeMedida obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM unidade_medida " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM unidade_medida  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -77,8 +83,10 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
         List<UnidadeMedida> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM unidade_medida " + 
-                "ORDER BY descricao, sigla;" );
+                """
+                SELECT * FROM unidade_medida  
+                ORDER BY descricao, sigla;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -107,8 +115,10 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
         UnidadeMedida unidadeMedida = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM unidade_medida " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM unidade_medida  
+                WHERE id = ?;
+                """ );
 
         stmt.setLong( 1, id );
 
