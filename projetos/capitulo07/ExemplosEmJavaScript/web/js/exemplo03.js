@@ -61,11 +61,15 @@ function executarExemplo03( event ) {
         console.log( "pra NaN, só assim..." );
     }
     
-    // operadores relacionais:
-    //          igual: ==  (mesmo valor com conversão implícita)
-    //     identidade: === (mesmo valor e mesmo tipo)
+    // operadores de igualdade:
+    //      igualdade: ==  (mesmo valor com conversão implícita)
     //      diferente: !=  (valor diferente com conversão implícita)
+    
+    // operadores de identidade:
+    //     identidade: === (mesmo valor e mesmo tipo)
     // não identidade: !== (valor diferente e tipo diferente)
+    
+    // operadores relacionais:
     //          menor: <
     // menor ou igual: <=
     //          maior: >

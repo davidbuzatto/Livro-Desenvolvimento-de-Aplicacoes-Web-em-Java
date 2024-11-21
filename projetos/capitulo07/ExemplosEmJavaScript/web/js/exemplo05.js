@@ -88,7 +88,7 @@ function executarExemplo05( event ) {
     
     // uma string com um objeto codificado como
     // JavaScript Object Notation (JSON)
-    let json = '{ "nome": "Maria", "peso": 52.5}';
+    let json = '{ "nome": "Maria", "peso": 52.5 }';
     
     // converte json para objeto
     let jsonO = JSON.parse( json );

@@ -28,7 +28,7 @@ function executarExemplo01( event ) {
     // assim como prompt e confirm.
     alert( saida );
     
-    if ( confirm( "Mostrar saída no console?" ) ) {
+    if ( confirm( "Mostrar a saída no console?" ) ) {
         // saída no console
         console.log( saida );
     }
