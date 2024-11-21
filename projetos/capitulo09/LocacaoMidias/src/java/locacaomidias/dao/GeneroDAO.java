@@ -22,9 +22,11 @@ public class GeneroDAO extends DAO<Genero> {
     public void salvar( Genero obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "genero( descricao ) " + 
-                "VALUES( ? );",
+                """
+                INSERT INTO  
+                genero( descricao )  
+                VALUES( ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getDescricao() );
@@ -39,11 +41,13 @@ public class GeneroDAO extends DAO<Genero> {
     public void atualizar( Genero obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE genero " + 
-                "SET" + 
-                "    descricao = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE genero  
+                SET 
+                    descricao = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setLong( 2, obj.getId() );
@@ -57,9 +61,11 @@ public class GeneroDAO extends DAO<Genero> {
     public void excluir( Genero obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM genero " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM genero  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -74,8 +80,10 @@ public class GeneroDAO extends DAO<Genero> {
         List<Genero> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM genero " + 
-                "ORDER BY descricao;" );
+                """
+                SELECT * FROM genero  
+                ORDER BY descricao;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -103,8 +111,10 @@ public class GeneroDAO extends DAO<Genero> {
         Genero genero = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM genero " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM genero  
+                WHERE id = ?;
+                """ );
 
         stmt.setLong( 1, id );
 

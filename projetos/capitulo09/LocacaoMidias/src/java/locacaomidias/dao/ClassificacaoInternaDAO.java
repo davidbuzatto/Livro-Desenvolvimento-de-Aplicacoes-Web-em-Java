@@ -22,9 +22,11 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
     public void salvar( ClassificacaoInterna obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "classificacao_interna( descricao, valorAluguel ) " + 
-                "VALUES( ?, ? );",
+                """
+                INSERT INTO  
+                classificacao_interna( descricao, valor_aluguel )  
+                VALUES( ?, ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getDescricao() );
@@ -40,12 +42,14 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
     public void atualizar( ClassificacaoInterna obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE classificacao_interna " + 
-                "SET" + 
-                "    descricao = ?, " + 
-                "    valorAluguel = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE classificacao_interna  
+                SET 
+                    descricao = ?,  
+                    valor_aluguel = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setBigDecimal( 2, obj.getValorAluguel() );
@@ -60,9 +64,11 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
     public void excluir( ClassificacaoInterna obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM classificacao_interna " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM classificacao_interna  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -77,8 +83,10 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
         List<ClassificacaoInterna> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM classificacao_interna " + 
-                "ORDER BY descricao;" );
+                """
+                SELECT * FROM classificacao_interna  
+                ORDER BY descricao;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -88,7 +96,7 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
 
             e.setId( rs.getLong( "id" ) );
             e.setDescricao( rs.getString( "descricao" ) );
-            e.setValorAluguel( rs.getBigDecimal( "valorAluguel" ) );
+            e.setValorAluguel( rs.getBigDecimal( "valor_aluguel" ) );
 
             lista.add( e );
 
@@ -107,8 +115,10 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
         ClassificacaoInterna classificacaoInterna = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM classificacao_interna " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM classificacao_interna  
+                WHERE id = ?;
+                """ );
 
         stmt.setLong( 1, id );
 
@@ -120,7 +130,7 @@ public class ClassificacaoInternaDAO extends DAO<ClassificacaoInterna> {
 
             classificacaoInterna.setId( rs.getLong( "id" ) );
             classificacaoInterna.setDescricao( rs.getString( "descricao" ) );
-            classificacaoInterna.setValorAluguel( rs.getBigDecimal( "valorAluguel" ) );
+            classificacaoInterna.setValorAluguel( rs.getBigDecimal( "valor_aluguel" ) );
 
         }
 

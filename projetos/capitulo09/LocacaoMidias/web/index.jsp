@@ -39,8 +39,8 @@
     <hr/>
     
     <p>
-      <a href="${cp}/formularios/atorAtriz/listagem.jsp" class="alerta">
-        Ator/Atriz (Implementar)
+      <a href="${cp}/formularios/ator/listagem.jsp" class="alerta">
+        Ator (Implementar)
       </a>
     </p>
     <p>

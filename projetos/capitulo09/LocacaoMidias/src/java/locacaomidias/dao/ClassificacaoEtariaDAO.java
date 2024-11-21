@@ -22,9 +22,11 @@ public class ClassificacaoEtariaDAO extends DAO<ClassificacaoEtaria> {
     public void salvar( ClassificacaoEtaria obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "classificacao_etaria( descricao ) " + 
-                "VALUES( ? );",
+                """
+                INSERT INTO  
+                classificacao_etaria( descricao )  
+                VALUES( ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getDescricao() );
@@ -39,11 +41,13 @@ public class ClassificacaoEtariaDAO extends DAO<ClassificacaoEtaria> {
     public void atualizar( ClassificacaoEtaria obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE classificacao_etaria " + 
-                "SET" + 
-                "    descricao = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE classificacao_etaria  
+                SET 
+                    descricao = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setLong( 2, obj.getId() );
@@ -57,9 +61,11 @@ public class ClassificacaoEtariaDAO extends DAO<ClassificacaoEtaria> {
     public void excluir( ClassificacaoEtaria obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM classificacao_etaria " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM classificacao_etaria  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -74,8 +80,10 @@ public class ClassificacaoEtariaDAO extends DAO<ClassificacaoEtaria> {
         List<ClassificacaoEtaria> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM classificacao_etaria " + 
-                "ORDER BY descricao;" );
+                """
+                SELECT * FROM classificacao_etaria  
+                ORDER BY descricao;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -103,8 +111,10 @@ public class ClassificacaoEtariaDAO extends DAO<ClassificacaoEtaria> {
         ClassificacaoEtaria classificacaoEtaria = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM classificacao_etaria " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM classificacao_etaria  
+                WHERE id = ?;
+                """ );
 
         stmt.setLong( 1, id );
 

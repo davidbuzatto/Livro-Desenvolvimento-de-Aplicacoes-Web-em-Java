@@ -22,9 +22,11 @@ public class TipoDAO extends DAO<Tipo> {
     public void salvar( Tipo obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "INSERT INTO " + 
-                "tipo( descricao ) " + 
-                "VALUES( ? );",
+                """
+                INSERT INTO  
+                tipo( descricao )  
+                VALUES( ? );
+                """,
                 new String[]{ "insert_id" } );
 
         stmt.setString( 1, obj.getDescricao() );
@@ -39,11 +41,13 @@ public class TipoDAO extends DAO<Tipo> {
     public void atualizar( Tipo obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "UPDATE tipo " + 
-                "SET" + 
-                "    descricao = ? " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                UPDATE tipo  
+                SET 
+                    descricao = ?  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setString( 1, obj.getDescricao() );
         stmt.setLong( 2, obj.getId() );
@@ -57,9 +61,11 @@ public class TipoDAO extends DAO<Tipo> {
     public void excluir( Tipo obj ) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "DELETE FROM tipo " + 
-                "WHERE" + 
-                "    id = ?;" );
+                """
+                DELETE FROM tipo  
+                WHERE 
+                    id = ?;
+                """ );
 
         stmt.setLong( 1, obj.getId() );
 
@@ -74,8 +80,10 @@ public class TipoDAO extends DAO<Tipo> {
         List<Tipo> lista = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM tipo " + 
-                "ORDER BY descricao;" );
+                """
+                SELECT * FROM tipo  
+                ORDER BY descricao;
+                """ );
 
         ResultSet rs = stmt.executeQuery();
 
@@ -103,8 +111,10 @@ public class TipoDAO extends DAO<Tipo> {
         Tipo tipo = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
-                "SELECT * FROM tipo " + 
-                "WHERE id = ?;" );
+                """
+                SELECT * FROM tipo  
+                WHERE id = ?;
+                """ );
 
         stmt.setLong( 1, id );
 
