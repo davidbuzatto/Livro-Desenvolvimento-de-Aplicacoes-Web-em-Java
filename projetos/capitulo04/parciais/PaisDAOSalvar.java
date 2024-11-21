@@ -19,8 +19,10 @@ public class PaisDAO extends DAO<Pais> {
     @Override
     public void salvar( Pais obj ) throws SQLException {
 
-        String sql = "INSERT INTO pais( nome, sigla ) " +
-                     "VALUES( ?, ? );";
+        String sql = """
+                     INSERT INTO pais( nome, sigla )
+                     VALUES( ?, ? );
+                     """;
 
         PreparedStatement stmt = getConnection().prepareStatement( sql );
         stmt.setString( 1, obj.getNome() );

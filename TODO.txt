@@ -1,4 +1,0 @@
-No material:
-    Alterar o diretório de cópia do .jar do mariadb para lib ao invés de databases. (mostrar driver atualizado, indicar onde baixar?)
-verificar questão da senha do banco (pode ser root ou vazio em maquinas de desenvolvimento) - verificar se no material indica a vazia. se sim, deixar nos projetos a vazia.
-Explicar os blocos de string. Aparecem pela primeira vez no padrões em prática (cap 4 se não me engano)
