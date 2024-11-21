@@ -1,2 +1,3 @@
 revisar o texto inteiro, pois há conteúdo inconsistente, como por exemplo, adicionar bibliotecas do glassfish
 conferir números de linhas para o exemplo 3, pois no final os operadores foram separados
+atualizar foto (nos outros livros tbm!)
