@@ -31,7 +31,7 @@ $( () => {
         
         let idProduto = $selectProduto.val();
         let valorVenda = $selectProduto.find( ":selected" ).data( "valor" ).toString();
-        let descricao = $selectProduto.find( ":selected" ).data( "descricao" );
+        let descricao = $selectProduto.find( ":selected" ).data("descricao");
         let quantidade = null;
         
         // se o valor da venda tem vírgula, troca por ponto
