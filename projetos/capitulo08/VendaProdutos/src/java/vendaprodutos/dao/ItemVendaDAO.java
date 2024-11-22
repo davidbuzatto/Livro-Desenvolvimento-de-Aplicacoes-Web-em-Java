@@ -79,7 +79,7 @@ public class ItemVendaDAO extends DAO<ItemVenda> {
      * Esse método será utilizado para o ajuste do estoque das vendas
      * que forem canceladas. Apenas os valores necessários serão obtidos.
      */
-    public List<ItemVenda> obterPorIdVenda( Long idVenda ) throws SQLException {
+    public List<ItemVenda> obterPorIdVenda(Long idVenda) throws SQLException {
 
         List<ItemVenda> itensVenda = new ArrayList<>();
 

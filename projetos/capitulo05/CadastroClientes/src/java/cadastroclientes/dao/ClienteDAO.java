@@ -228,7 +228,7 @@ public class ClienteDAO extends DAO<Cliente> {
             cliente.setId( rs.getInt( "idCliente" ) );
             cliente.setNome( rs.getString( "nomeCliente" ) );
             cliente.setSobrenome( rs.getString( "sobrenomeCliente" ) );
-            cliente.setDataNascimento( rs.getDate( "dataNascimentoCliente" ) );
+            cliente.setDataNascimento( rs.getDate("dataNascimentoCliente") );
             cliente.setCpf( rs.getString( "cpfCliente" ) );
             cliente.setEmail( rs.getString( "emailCliente" ) );
             cliente.setLogradouro( rs.getString( "logradouroCliente" ) );

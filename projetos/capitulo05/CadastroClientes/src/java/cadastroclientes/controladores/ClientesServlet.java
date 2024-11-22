@@ -43,7 +43,7 @@ public class ClientesServlet extends HttpServlet {
 
                 String nome = request.getParameter( "nome" );
                 String sobrenome = request.getParameter( "sobrenome" );
-                String dataNascimento = request.getParameter( "dataNascimento" );
+                String dataNascimento = request.getParameter("dataNascimento");
                 String cpf = request.getParameter( "cpf" );
                 String email = request.getParameter( "email" );
                 String logradouro = request.getParameter( "logradouro" );

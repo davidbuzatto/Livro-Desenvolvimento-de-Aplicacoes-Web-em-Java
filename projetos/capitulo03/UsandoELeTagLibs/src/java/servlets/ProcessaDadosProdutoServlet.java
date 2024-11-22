@@ -38,7 +38,7 @@ public class ProcessaDadosProdutoServlet extends HttpServlet {
         }
 
         try {
-            quantidade = Integer.parseInt( request.getParameter( "quantidade" ) );
+            quantidade = Integer.parseInt(request.getParameter("quantidade"));
         } catch ( NumberFormatException exc ) {
             System.out.println( "Erro ao converter a quantidade." );
         }
@@ -58,7 +58,7 @@ public class ProcessaDadosProdutoServlet extends HttpServlet {
         // prepara um RequestDispatcher para direcionar para a página
         // "exibeDados.jsp" que está no mesmo diretório em relação
         // ao mapeamento deste Servlet
-        RequestDispatcher disp = request.getRequestDispatcher( "exibeDados.jsp" );
+        RequestDispatcher disp =request.getRequestDispatcher("exibeDados.jsp");
 
         // faz o direcionamento, chamando o método forward.
         disp.forward( request, response );

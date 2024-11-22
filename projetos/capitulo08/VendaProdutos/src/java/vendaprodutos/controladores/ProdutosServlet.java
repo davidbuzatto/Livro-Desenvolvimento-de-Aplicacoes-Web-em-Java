@@ -52,7 +52,7 @@ public class ProdutosServlet extends HttpServlet {
                         request, "idUnidadeMedida" );
 
                 Fornecedor f = daoFornecedor.obterPorId( idFornecedor );
-                UnidadeMedida u = daoUnidadeMedida.obterPorId( idUnidadeMedida );
+                UnidadeMedida u = daoUnidadeMedida.obterPorId(idUnidadeMedida);
 
                 Produto p = new Produto();
                 p.setDescricao( descricao );
@@ -82,7 +82,7 @@ public class ProdutosServlet extends HttpServlet {
                         request, "idUnidadeMedida" );
 
                 Fornecedor f = daoFornecedor.obterPorId( idFornecedor );
-                UnidadeMedida u = daoUnidadeMedida.obterPorId( idUnidadeMedida );
+                UnidadeMedida u = daoUnidadeMedida.obterPorId(idUnidadeMedida);
 
                 Produto p = daoProduto.obterPorId( id );
                 p.setDescricao( descricao );

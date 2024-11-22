@@ -296,8 +296,8 @@ function prepararCanvasExemplo10() {
             // recalcula as velocidades para
             // quando essa bolinha for solta
             // dando a impressão de arremesso
-            bolinhaEmArraste.velocidadeX = ( bolinhaEmArraste.x - xAntigo ) / 2;
-            bolinhaEmArraste.velocidadeY = ( bolinhaEmArraste.y - yAntigo ) / 2;
+            bolinhaEmArraste.velocidadeX = (bolinhaEmArraste.x - xAntigo) / 2;
+            bolinhaEmArraste.velocidadeY = (bolinhaEmArraste.y - yAntigo) / 2;
             
         }
         

@@ -17,9 +17,9 @@ function executarExemplo12jQuery( event ) {
         
         data.forEach( pessoa => {
             $div.append( 
-                    `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>` +
-                    `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
-                    `<p>Salário: R$ ${pessoa.salario}</p></div>` );
+                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
+                `<p>Salário: R$ ${pessoa.salario}</p></div>` );
         });
         
     }).fail( ( jqXHR, textStatus, errorThrown ) => {
@@ -49,9 +49,9 @@ function executarExemplo12Fetch( event ) {
         
         data.forEach( pessoa => {
             $div.append( 
-                    `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>` +
-                    `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
-                    `<p>Salário: R$ ${pessoa.salario}</p></div>` );
+                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
+                `<p>Salário: R$ ${pessoa.salario}</p></div>` );
         });
         
     }).catch( error => {
