@@ -5,7 +5,7 @@
 %     D:\Utilitários\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Scripts
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{estrutura}[2022/01/06 Desenvolvimento de Aplicações Web Em Java e Outras Tecnologias - Prof. Dr. David Buzatto]
+\ProvidesPackage{estrutura}[2024/11/30 Desenvolvimento de Aplicações Web Em Java e Outras Tecnologias - Prof. Dr. David Buzatto]
 
 \RequirePackage{lmodern}
 \RequirePackage[T1]{fontenc}
@@ -15,7 +15,7 @@
 \RequirePackage{color}
 \RequirePackage[final]{graphicx}
 \RequirePackage{microtype}
-\RequirePackage[table,xcdraw,dvipsnames,usenames]{xcolor}
+\RequirePackage[table,xcdraw,dvipsnames]{xcolor}
 \RequirePackage{hyperref}
 \RequirePackage{tocloft}
 \RequirePackage{subcaption}
@@ -31,7 +31,6 @@
 \RequirePackage{enumitem}
 \RequirePackage{bigints}
 \RequirePackage{environ}
-\RequirePackage[cache=false]{minted}
 \RequirePackage[final]{pdfpages}
 \RequirePackage{calc,soul,fourier}
 \RequirePackage{lettrine}
@@ -134,7 +133,7 @@
 
 \tcbset{
     listing engine=minted,
-    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    default minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
     colback=corFundoCaixas,
     colframe=corTema!40,
     fonttitle=\bfseries,

@@ -52,3 +52,6 @@
 /*.synctex(busy)
 /*.toc
 /*.xwm
+/_minted
+
+**/desktop.ini
