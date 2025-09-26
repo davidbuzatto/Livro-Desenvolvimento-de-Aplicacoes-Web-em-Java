@@ -1,0 +1,96 @@
+/* Estilos gerais */
+body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+a {
+    color: #0484AE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.tabelaListagem {
+    background: #000000;
+    border-spacing: 1px;
+}
+
+.tabelaListagem th {
+    background: #dddddd;
+    padding: 2px;
+}
+
+.tabelaListagem tr:nth-child(even) {
+    background: #f3f5f7;
+}
+
+.tabelaListagem tr:nth-child(odd) {
+    background: #e5f2ff;
+}
+
+.tabelaListagem td {
+    padding: 2px;
+}
+
+.tabelaListagem tr.linhaSelecionada td {
+    background: #99ccff;
+}
+
+.alinharDireita {
+    text-align: right;
+}
+
+.divValidacao {
+    color: red;
+}
+
+h1 {
+    margin: 5px;
+}
+
+h4 {
+    margin: 5px;
+}
+
+form {
+    margin: 10px;
+}
+
+.divTabela {
+    background: #eeeeee;
+    border: solid thin #000000;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.divFormulario {
+    background: #eeeeee;
+    border: solid thin #000000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.containerCadastro {
+    background: #ffffff;
+    border: solid thin #000000;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#divErros {
+    display: none;
+    font-weight: bold;
+    border: solid 2px #660000;
+    border-radius: 5px;
+    background-color: #ff3333;
+    padding: 5px;
+    margin: 5px;
+}

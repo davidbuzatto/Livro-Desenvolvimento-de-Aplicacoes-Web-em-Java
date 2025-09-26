@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 /**
  * Classe de métodos utilitários.
@@ -224,6 +226,25 @@ public abstract class Utils {
         request.setAttribute( "voltarPara", request.getHeader( "Referer" ) );
         
         return request.getRequestDispatcher( "/erro.jsp" );
+        
+    }
+    
+    /**
+     * Processa a requisição e extrai os dados da mesma. Usado quando
+     * é enviado JSON no body.
+     */
+    public static String obterDados( HttpServletRequest request ) throws IOException {
+        
+        StringBuilder sb = new StringBuilder();
+        String line;
+        
+        try ( BufferedReader reader = request.getReader() ) {
+            while ( ( line = reader.readLine() ) != null ) {
+                sb.append( line );
+            }
+        }
+        
+        return sb.toString();
         
     }
     
