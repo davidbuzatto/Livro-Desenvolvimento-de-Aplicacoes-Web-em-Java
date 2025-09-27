@@ -10,18 +10,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import vendaprodutos.dao.CidadeDAO;
-import vendaprodutos.dao.EstadoDAO;
-import vendaprodutos.entidades.Cidade;
+import vendaprodutos.dao.UnidadeMedidaDAO;
+import vendaprodutos.entidades.UnidadeMedida;
 import vendaprodutos.utils.Utils;
 
 /**
- * Servlet de serviços RESTful para Cidades.
+ * Servlet de serviços RESTful para Unidades de Medida.
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "CidadeRestfulServlet", urlPatterns = { "/api/cidades/*" } )
-public class CidadeRestfulServlet extends HttpServlet {
+@WebServlet( name = "UnidadeMedidaRestfulServlet", urlPatterns = { "/api/unidadesMedida/*" } )
+public class UnidadeMedidaRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
@@ -35,33 +34,33 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
 
-        try ( CidadeDAO dao = new CidadeDAO() ) {
+        try ( UnidadeMedidaDAO dao = new UnidadeMedidaDAO() ) {
             
             String pathInfo = request.getPathInfo();
             
             if ( pathInfo != null && pathInfo.length() > 1 ) {
                 
-                // GET /api/cidades/1 - busca específica
+                // GET /api/unidadesMedida/1 - busca específica
                 Long id = Long.valueOf( pathInfo.substring( 1 ) );
-                Cidade cidade = dao.obterPorId( id );
+                UnidadeMedida unidadeMedida = dao.obterPorId( id );
                 
-                if ( cidade != null ) {
+                if ( unidadeMedida != null ) {
                     status = HttpServletResponse.SC_OK;
-                    jsonResposta = jsonb.toJson( cidade );
+                    jsonResposta = jsonb.toJson( unidadeMedida );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Cidade não encontrada.", "" ) );
+                    jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida não encontrada.", "" ) );
                 }
                 
             } else {
-                // GET /api/cidades/ - listar todos
+                // GET /api/unidadesMedida/ - listar todos
                 status = HttpServletResponse.SC_OK;
                 jsonResposta = jsonb.toJson( dao.listarTodos() );
             }
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter cidade(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter unidade(s) de medida.", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -84,23 +83,23 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO dao = new CidadeDAO() ){
+        try ( UnidadeMedidaDAO dao = new UnidadeMedidaDAO() ){
             
-            Cidade cidade = jsonb.fromJson( 
+            UnidadeMedida unidadeMedida = jsonb.fromJson( 
                 Utils.obterDados( request ),
-                Cidade.class
+                UnidadeMedida.class
             );
             
-            Utils.validar( cidade, "id" );
-            dao.salvar( cidade );
+            Utils.validar( unidadeMedida, "id" );
+            dao.salvar( unidadeMedida );
             
             status = HttpServletResponse.SC_CREATED;
-            response.setHeader( "Location", "/api/cidades/" + cidade.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade inserida com successo!", cidade ) );
+            response.setHeader( "Location", "/api/unidadesMedida/" + unidadeMedida.getId() );
+            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida inserida com successo!", unidadeMedida ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a unidade de medida.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -120,33 +119,29 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO daoCidade = new CidadeDAO();
-              EstadoDAO daoEstado = new EstadoDAO() ){
+        try ( UnidadeMedidaDAO dao = new UnidadeMedidaDAO() ){
             
-            Cidade cidadeRecebida = jsonb.fromJson( 
+            UnidadeMedida unidadeMedidaRecebido = jsonb.fromJson( 
                 Utils.obterDados( request ),
-                Cidade.class
+                UnidadeMedida.class
             );
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
-            Cidade cidade = daoCidade.obterPorId( id );
-            cidade.setNome( cidadeRecebida.getNome() );
-            
-            if ( !cidade.getEstado().equals( cidadeRecebida.getEstado() ) ) {
-                cidade.setEstado( daoEstado.obterPorId( cidadeRecebida.getEstado().getId() ) );
-            }
+            UnidadeMedida unidadeMedida = dao.obterPorId( id );
+            unidadeMedida.setDescricao( unidadeMedidaRecebido.getDescricao() );
+            unidadeMedida.setSigla( unidadeMedidaRecebido.getSigla() );
         
-            Utils.validar( cidade, "id" );
-            daoCidade.atualizar( cidade );
+            Utils.validar( unidadeMedida, "id" );
+            dao.atualizar( unidadeMedida );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade atualizada com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida atualizada com successo!", unidadeMedida ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a unidade de medida.", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -169,20 +164,20 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO dao = new CidadeDAO() ){
+        try ( UnidadeMedidaDAO dao = new UnidadeMedidaDAO() ){
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
-            Cidade cidade = dao.obterPorId( id );
-            dao.excluir( cidade );
+            UnidadeMedida unidadeMedida = dao.obterPorId( id );
+            dao.excluir( unidadeMedida );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade excluída com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "UnidadeMedida excluída com successo!", unidadeMedida ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir a unidade de medida.", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -197,7 +192,7 @@ public class CidadeRestfulServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Servlet de Serviços RESTful para Cidades";
+        return "Servlet de Serviços RESTful para Unidades de Medida";
     }
 
 }

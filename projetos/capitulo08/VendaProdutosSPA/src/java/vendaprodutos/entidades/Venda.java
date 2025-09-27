@@ -2,6 +2,7 @@ package vendaprodutos.entidades;
 
 import java.sql.Date;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Entidade Venda.
@@ -52,6 +53,28 @@ public class Venda {
 
     public void setCliente( Cliente cliente ) {
         this.cliente = cliente;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode( this.id );
+        return hash;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null ) {
+            return false;
+        }
+        if ( getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Venda other = (Venda) obj;
+        return Objects.equals( this.id, other.id );
     }
 
 }

@@ -11,17 +11,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import vendaprodutos.dao.CidadeDAO;
-import vendaprodutos.dao.EstadoDAO;
-import vendaprodutos.entidades.Cidade;
+import vendaprodutos.dao.FornecedorDAO;
+import vendaprodutos.entidades.Fornecedor;
 import vendaprodutos.utils.Utils;
 
 /**
- * Servlet de serviços RESTful para Cidades.
+ * Servlet de serviços RESTful para Fornecedores.
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "CidadeRestfulServlet", urlPatterns = { "/api/cidades/*" } )
-public class CidadeRestfulServlet extends HttpServlet {
+@WebServlet( name = "FornecedorRestfulServlet", urlPatterns = { "/api/fornecedores/*" } )
+public class FornecedorRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
@@ -35,33 +35,33 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
 
-        try ( CidadeDAO dao = new CidadeDAO() ) {
+        try ( FornecedorDAO dao = new FornecedorDAO() ) {
             
             String pathInfo = request.getPathInfo();
             
             if ( pathInfo != null && pathInfo.length() > 1 ) {
                 
-                // GET /api/cidades/1 - busca específica
+                // GET /api/fornecedores/1 - busca específica
                 Long id = Long.valueOf( pathInfo.substring( 1 ) );
-                Cidade cidade = dao.obterPorId( id );
+                Fornecedor fornecedor = dao.obterPorId( id );
                 
-                if ( cidade != null ) {
+                if ( fornecedor != null ) {
                     status = HttpServletResponse.SC_OK;
-                    jsonResposta = jsonb.toJson( cidade );
+                    jsonResposta = jsonb.toJson( fornecedor );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Cidade não encontrada.", "" ) );
+                    jsonResposta = jsonb.toJson( new Resposta( "Fornecedor não encontrado.", "" ) );
                 }
                 
             } else {
-                // GET /api/cidades/ - listar todos
+                // GET /api/fornecedores/ - listar todos
                 status = HttpServletResponse.SC_OK;
                 jsonResposta = jsonb.toJson( dao.listarTodos() );
             }
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter cidade(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter fornecedor(s).", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -84,23 +84,23 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO dao = new CidadeDAO() ){
+        try ( FornecedorDAO dao = new FornecedorDAO() ){
             
-            Cidade cidade = jsonb.fromJson( 
+            Fornecedor fornecedor = jsonb.fromJson( 
                 Utils.obterDados( request ),
-                Cidade.class
+                Fornecedor.class
             );
             
-            Utils.validar( cidade, "id" );
-            dao.salvar( cidade );
+            Utils.validar( fornecedor, "id" );
+            dao.salvar( fornecedor );
             
             status = HttpServletResponse.SC_CREATED;
-            response.setHeader( "Location", "/api/cidades/" + cidade.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade inserida com successo!", cidade ) );
+            response.setHeader( "Location", "/api/fornecedores/" + fornecedor.getId() );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor inserido com successo!", fornecedor ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o fornecedor.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -120,33 +120,39 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO daoCidade = new CidadeDAO();
-              EstadoDAO daoEstado = new EstadoDAO() ){
+        try ( FornecedorDAO daoFornecedor = new FornecedorDAO();
+              CidadeDAO daoCidade = new CidadeDAO() ){
             
-            Cidade cidadeRecebida = jsonb.fromJson( 
+            Fornecedor fornecedorRecebido = jsonb.fromJson( 
                 Utils.obterDados( request ),
-                Cidade.class
+                Fornecedor.class
             );
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
-            Cidade cidade = daoCidade.obterPorId( id );
-            cidade.setNome( cidadeRecebida.getNome() );
+            Fornecedor fornecedor = daoFornecedor.obterPorId( id );
+            fornecedor.setRazaoSocial( fornecedorRecebido.getRazaoSocial() );
+            fornecedor.setCnpj( fornecedorRecebido.getCnpj() );
+            fornecedor.setEmail( fornecedorRecebido.getEmail() );
+            fornecedor.setLogradouro( fornecedorRecebido.getLogradouro() );
+            fornecedor.setNumero( fornecedorRecebido.getNumero() );
+            fornecedor.setBairro( fornecedorRecebido.getBairro() );
+            fornecedor.setCep( fornecedorRecebido.getCep() );
             
-            if ( !cidade.getEstado().equals( cidadeRecebida.getEstado() ) ) {
-                cidade.setEstado( daoEstado.obterPorId( cidadeRecebida.getEstado().getId() ) );
+            if ( !fornecedor.getCidade().equals( fornecedorRecebido.getCidade() ) ) {
+                fornecedor.setCidade( daoCidade.obterPorId( fornecedorRecebido.getCidade().getId() ) );
             }
         
-            Utils.validar( cidade, "id" );
-            daoCidade.atualizar( cidade );
+            Utils.validar( fornecedor, "id" );
+            daoFornecedor.atualizar( fornecedor );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade atualizada com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor atualizado com successo!", fornecedor ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o fornecedor.", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -169,20 +175,20 @@ public class CidadeRestfulServlet extends HttpServlet {
         String jsonResposta;
         int status;
         
-        try ( CidadeDAO dao = new CidadeDAO() ){
+        try ( FornecedorDAO dao = new FornecedorDAO() ){
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
-            Cidade cidade = dao.obterPorId( id );
-            dao.excluir( cidade );
+            Fornecedor fornecedor = dao.obterPorId( id );
+            dao.excluir( fornecedor );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade excluída com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor excluído com successo!", fornecedor ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir o fornecedor.", exc.getMessage() ) );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
@@ -197,7 +203,7 @@ public class CidadeRestfulServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Servlet de Serviços RESTful para Cidades";
+        return "Servlet de Serviços RESTful para Fornecedores";
     }
 
 }

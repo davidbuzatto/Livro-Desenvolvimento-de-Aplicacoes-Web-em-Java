@@ -2,6 +2,7 @@ package vendaprodutos.entidades;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Entidade UnidadeMedida.
@@ -43,6 +44,28 @@ public class UnidadeMedida {
 
     public void setSigla( String sigla ) {
         this.sigla = sigla;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode( this.id );
+        return hash;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null ) {
+            return false;
+        }
+        if ( getClass() != obj.getClass() ) {
+            return false;
+        }
+        final UnidadeMedida other = (UnidadeMedida) obj;
+        return Objects.equals( this.id, other.id );
     }
 
 }

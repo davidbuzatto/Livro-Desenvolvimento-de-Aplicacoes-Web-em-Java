@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Entidade Fornecedor.
@@ -119,6 +120,28 @@ public class Fornecedor {
 
     public void setCidade( Cidade cidade ) {
         this.cidade = cidade;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode( this.id );
+        return hash;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null ) {
+            return false;
+        }
+        if ( getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Fornecedor other = (Fornecedor) obj;
+        return Objects.equals( this.id, other.id );
     }
 
 }

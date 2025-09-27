@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Entidade Produto.
@@ -92,6 +93,28 @@ public class Produto {
 
     public void setUnidadeMedida( UnidadeMedida unidadeMedida ) {
         this.unidadeMedida = unidadeMedida;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode( this.id );
+        return hash;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null ) {
+            return false;
+        }
+        if ( getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Produto other = (Produto) obj;
+        return Objects.equals( this.id, other.id );
     }
 
 }
