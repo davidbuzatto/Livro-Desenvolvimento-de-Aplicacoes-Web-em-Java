@@ -3,42 +3,42 @@
 @property --cor-botao-primario {
     syntax: "<color>";
     inherits: false;
-    initial-value: #3366ff;
+    initial-value: #0d6efd;
 }
 
 @property --cor-botao-primario-hover {
     syntax: "<color>";
     inherits: false;
-    initial-value: #1751ff;
+    initial-value: #0b5ed7;
 }
 
 @property --cor-botao-secundario {
     syntax: "<color>";
     inherits: false;
-    initial-value: #546dd5;
+    initial-value: #6c757d;
 }
 
 @property --cor-botao-secundario-hover {
     syntax: "<color>";
     inherits: false;
-    initial-value: #364689;
+    initial-value: #5c636a;
 }
 
 @property --cor-botao-terciario {
     syntax: "<color>";
     inherits: false;
-    initial-value: #e86b57;
+    initial-value: #dc3545;
 }
 
 @property --cor-botao-terciario-hover {
     syntax: "<color>";
     inherits: false;
-    initial-value: #b45343;
+    initial-value: #bb2d3b;
 }
 
 body {
     font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     background-color: #FFFFFF;
 }
 
@@ -59,16 +59,16 @@ a:hover {
 }
 
 .tabelaListagem th {
-    background: #dddddd;
+    background: #f5f5f5;
     padding: 2px;
 }
 
 .tabelaListagem tr:nth-child(even) {
-    background: #f3f5f7;
+    background: #F8FBFF;
 }
 
 .tabelaListagem tr:nth-child(odd) {
-    background: #e5f2ff;
+    background: #EDF6FF;
 }
 
 .tabelaListagem td {
@@ -84,7 +84,8 @@ a:hover {
 }
 
 .divValidacao {
-    color: red;
+    color: #dc3545;
+    font-size: 0.875em;
 }
 
 h1 {
@@ -108,25 +109,22 @@ form {
 }
 
 .divTabela {
-    background: #eeeeee;
-    border: solid thin #000000;
+    background: #ffffff;
     border-radius: 5px;
     padding: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
 .divFormulario {
-    background: #eeeeee;
-    border: solid thin #000000;
+    background: #ffffff;
     border-radius: 5px;
     padding: 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
 .containerCadastro {
-    background: #ffffff;
-    border: solid thin #000000;
-    border-radius: 5px;
-    padding: 5px;
+    padding: 0px;
     margin: 5px;
 }
 
@@ -212,4 +210,52 @@ form {
 
 .escondido {
     display: none;
+}
+
+.divMenuLateral {
+    background-color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 35pt;
+    height: calc(100% - 40pt);
+    width: 150px;
+    border-radius: 5px;
+    margin: 0px 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+.divPrincipal {
+    background-color: #ffffff;
+    position: fixed;
+    left: 160px;
+    top: 35pt;
+    height: calc(100% - 40pt);
+    width: calc(100% - 165px);
+    border-radius: 5px;
+    overflow: auto;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+.ulMenu {
+    padding: 0px;
+    padding-left: 5px;
+    list-style: none;
+}
+
+.ulMenu li {
+    margin-bottom: 5px;
+}
+
+#divHome:not(.escondido) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    text-align: center;
+}
+
+#divHome img {
+    margin: 0 auto;
+    width: 30vw;
 }

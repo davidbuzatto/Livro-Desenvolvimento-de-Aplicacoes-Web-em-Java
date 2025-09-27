@@ -39,7 +39,7 @@ public class EstadoRestfulServlet extends HttpServlet {
             jsonResposta = jsonb.toJson( dao.listarTodos() );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro!", "" ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter estado(s).", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
