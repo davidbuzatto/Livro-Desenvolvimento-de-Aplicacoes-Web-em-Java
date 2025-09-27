@@ -3,6 +3,7 @@
  * 
  * @author David Buzatto
  */
+import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 
 /**
  * Função customizada de "fetch" que carrega o token JWT e envia na requisição.
@@ -51,6 +52,102 @@ export function criarOption( valor, label ) {
     opt.value = valor;
     opt.innerHTML = label;
     return opt;
+}
+
+/**
+ * Carrega dados de um fragmento para um container.
+ * 
+ * @param {*} idContainer id do container que receberá o código HTML carregado.
+ * @param {*} url URL do fragmento.
+ * @param {*} replaceObj objeto que contém propriedades quer serão utilizadas para substituir itens dentro do fragmento carregado.
+ * No fragmento as posições quer serão substituídas devem ter o formato {{propriedade}}.
+ * 
+ * @returns a promise de carregamento.
+ */
+export async function carregarFragmento( idContainer, url, replaceObj = null ) {    
+
+    const node = document.getElementById( idContainer );
+
+    if ( !node ) {
+        throw new Error( `O nó de id=${idContainer} não existe!` );
+    }
+
+    // previne carregamento sucessivo em um container que já foi usado.
+    if ( !node.dataset.usado ) {
+        
+        return await fetch( url ).then( response => { 
+            if ( response.ok ) {
+                return response.text();
+            } else {
+                throw new Error( `Erro ao carregar recurso ${url}` );
+            }
+        }).then( html => {
+            if ( replaceObj ) {
+                for ( const property in replaceObj ) {
+                    html = html.replaceAll( `{{${property}}}`, replaceObj[property] );
+                }
+            }
+            node.dataset.usado = true;
+            node.innerHTML = html;
+        }).catch( error => {
+            throw error;
+        });
+
+    } else {
+        throw new ContainerUtizadoError( `O nó de id=${idContainer} já foi usado!` );
+    }
+
+}
+
+/**
+ * Esconde todos os nós de um nó.
+ * 
+ * @param {*} id id do nó que terá os filhos escondidos.
+ */
+export function esconderFilhos( id ) {
+
+    const container = document.getElementById( id );
+
+    Array.from( container.children ).forEach( element => {
+        element.style.display = "none";
+    });
+
+}
+
+/**
+ * Mostra um nó.
+ * 
+ * @param {*} idOuNo id do nó ou o nó em si.
+ */
+export function mostrar( idOuNo ) {
+    if ( typeof idOuNo === "string" ) {
+        idOuNo = document.getElementById( idOuNo );
+    }
+    idOuNo.style.display = "block";
+}
+
+/**
+ * Esconde um nó.
+ * 
+ * @param {*} idOuNo id do nó ou o nó em si.
+ */
+export function esconder( idOuNo ) {
+    if ( typeof idOuNo === "string" ) {
+        idOuNo = document.getElementById( idOuNo );
+    }
+    idOuNo.style.display = "none";
+}
+
+/**
+ * Esconde todos os filhos do elemento que tem id igual à idEsconder e exibe
+ * o elemento de idMostrar.
+ * 
+ * @param {*} idEsconder Id do nó que terá seus filhos escondidos.
+ * @param {*} idMostrar Id do nó que será mostrado.
+ */
+export function esconderMostrar( idEsconder, idMostrar ) {
+    esconderFilhos( idEsconder );
+    mostrar( idMostrar );
 }
 
 /**
@@ -350,14 +447,4 @@ export function montarMensagemErro( objErro ) {
     html += "</ul>";
     return html;
 
-}
-
-export function configurarMensagemErro( divErros, mensagem ) {
-    divErros.style.display = "block";
-    divErros.innerHTML = mensagem;
-}
-
-export function limparMensagemErro( divErros ) {
-    divErros.style.display = "none";
-    divErros.innerHTML = "";
 }

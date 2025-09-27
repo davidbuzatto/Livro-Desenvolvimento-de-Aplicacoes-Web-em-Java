@@ -4,7 +4,9 @@
  * @author Prof. Dr. David Buzatto
  */
 
+import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 import * as Estados from "./estados.js";
+import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
 
 // estado interno do módulo
@@ -27,7 +29,6 @@ let selEstado;
 let divValNome;
 let divValEstado;
 let camposValidacao;
-let divErros;
 
 // botões
 let btnNovo;
@@ -39,37 +40,44 @@ export function iniciar( urlBase ) {
     if ( !inicializado ) {
 
         _urlBase = urlBase;
-        objSelecionado = null;
-        dados = null;
-
-        tbody = document.getElementById( "bodyTblCidade" );
-        form = document.getElementById( "formCidade" );
-
-        txtNome = document.getElementById( "txtNomeCidade" );
-        selEstado = document.getElementById( "selEstadoCidade" );
-
-        divValNome = document.getElementById( "divValNomeCidade" );
-        divValEstado = document.getElementById( "divValEstadoCidade" );
-        camposValidacao = [
-            { campo: txtNome, div: divValNome },
-            { campo: selEstado, div: divValEstado }
-        ];
         
-        divErros = document.getElementById( "divErros" );
+        Utils.carregarFragmento( "divCidades", "fragmentos/cruds/cidades.html" ).then( () => {
+            
+            objSelecionado = null;
+            dados = null;
 
-        btnNovo = document.getElementById( "btnNovoCidade" );
-        btnSalvar = document.getElementById( "btnSalvarCidade" );
-        btnExcluir = document.getElementById( "btnExcluirCidade" );
+            tbody = document.getElementById( "bodyTblCidade" );
+            form = document.getElementById( "formCidade" );
+
+            txtNome = document.getElementById( "txtNomeCidade" );
+            selEstado = document.getElementById( "selEstadoCidade" );
+
+            divValNome = document.getElementById( "divValNomeCidade" );
+            divValEstado = document.getElementById( "divValEstadoCidade" );
+            camposValidacao = [
+                { campo: txtNome, div: divValNome },
+                { campo: selEstado, div: divValEstado }
+            ];
+
+            btnNovo = document.getElementById( "btnNovoCidade" );
+            btnSalvar = document.getElementById( "btnSalvarCidade" );
+            btnExcluir = document.getElementById( "btnExcluirCidade" );
+
+            Estados.adicionarSelectExterno( selEstado );
+
+            btnSalvar.addEventListener( "click", salvar );
+            btnExcluir.addEventListener( "click", excluir );
+            btnNovo.addEventListener( "click", resetarFormulario );
+
+            carregar();
+            Utils.carregarSelect( `${_urlBase}/estados`, selEstado, { id: "id", label: "nome" } );
+            inicializado = true;
         
-        Estados.adicionarSelectExterno( selEstado );
-
-        btnSalvar.addEventListener( "click", salvar );
-        btnExcluir.addEventListener( "click", excluir );
-        btnNovo.addEventListener( "click", resetarFormulario );
-
-        carregar();
-        Utils.carregarSelect( `${_urlBase}/estados`, selEstado, { id: "id", label: "nome" } );
-        inicializado = true;
+        }).catch( error => {
+            if ( !( error instanceof ContainerUtizadoError ) ) {
+                console.log( error );
+            }   
+        });
 
     } else {
         carregar( null );
@@ -106,7 +114,7 @@ async function carregar() {
         });
 
     } else {
-        Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
     }
 
 }
@@ -143,7 +151,7 @@ async function salvar() {
             resetarFormulario();
             carregar();
         } else {
-            Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
         }
 
     }
@@ -154,26 +162,34 @@ async function excluir() {
 
     if ( objSelecionado !== null ) {
 
-        if ( confirm( "Deseja mesmo excluir a Cidade selecionada?" ) ) {
+        Modais.modalConfirmacao.abrir( 
+            "Confirmação",
+            "Deseja mesmo excluir a Cidade selecionada?",
+            async () => {
+                
+                Modais.modalAguarde.abrir();
             
-            const response = await Utils.customFetch( 
-                `${_urlBase}/cidades/${objSelecionado.id}`, 
-                "DELETE"
-            );
+                const response = await Utils.customFetch( 
+                    `${_urlBase}/cidades/${objSelecionado.id}`, 
+                    "DELETE"
+                );
 
-            const dados = await response.json();
+                const dados = await response.json();
 
-            if ( response.ok ) {
-                resetarFormulario();
-                carregar();
-            } else {
-                Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+                Modais.modalAguarde.fechar();
+
+                if ( response.ok ) {
+                    resetarFormulario();
+                    carregar();
+                } else {
+                    Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                }
+                
             }
-            
-        }
+        );
 
     } else {
-        Utils.configurarMensagemErro( divErros, "Selecione uma Cidade!" );
+        Modais.modalMensagem.abrir( "ERRO", "Selecione uma Cidade!" );
     }
 
 }
@@ -188,5 +204,4 @@ function resetarFormulario() {
     Utils.limparFormulario( form, camposValidacao );
     objSelecionado = null;
     Utils.desselecionarLinhas( tbody );
-    Utils.limparMensagemErro( divErros );
 }

@@ -4,6 +4,8 @@
  * @author Prof. Dr. David Buzatto
  */
 
+import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
+import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
 
 // estado interno do módulo
@@ -26,7 +28,6 @@ let txtSigla;
 let divValNome;
 let divValSigla;
 let camposValidacao;
-let divErros;
 
 // botões
 let btnNovo;
@@ -41,34 +42,41 @@ export function iniciar( urlBase ) {
     if ( !inicializado ) {
 
         _urlBase = urlBase;
-        objSelecionado = null;
-        dados = null;
-
-        tbody = document.getElementById( "bodyTblEstado" );
-        form = document.getElementById( "formEstado" );
-
-        txtNome = document.getElementById( "txtNomeEstado" );
-        txtSigla = document.getElementById( "txtSiglaEstado" );
-
-        divValNome = document.getElementById( "divValNomeEstado" );
-        divValSigla = document.getElementById( "divValSiglaEstado" );
-        camposValidacao = [
-            { campo: txtNome, div: divValNome },
-            { campo: txtSigla, div: divValSigla }
-        ];
-
-        divErros = document.getElementById( "divErros" );
         
-        btnNovo = document.getElementById( "btnNovoEstado" );
-        btnSalvar = document.getElementById( "btnSalvarEstado" );
-        btnExcluir = document.getElementById( "btnExcluirEstado" );
+        Utils.carregarFragmento( "divEstados", "fragmentos/cruds/estados.html" ).then( () => {
+            
+            objSelecionado = null;
+            dados = null;
 
-        btnSalvar.addEventListener( "click", salvar );
-        btnExcluir.addEventListener( "click", excluir );
-        btnNovo.addEventListener( "click", resetarFormulario );
+            tbody = document.getElementById( "bodyTblEstado" );
+            form = document.getElementById( "formEstado" );
 
-        carregar();
-        inicializado = true;
+            txtNome = document.getElementById( "txtNomeEstado" );
+            txtSigla = document.getElementById( "txtSiglaEstado" );
+
+            divValNome = document.getElementById( "divValNomeEstado" );
+            divValSigla = document.getElementById( "divValSiglaEstado" );
+            camposValidacao = [
+                { campo: txtNome, div: divValNome },
+                { campo: txtSigla, div: divValSigla }
+            ];
+
+            btnNovo = document.getElementById( "btnNovoEstado" );
+            btnSalvar = document.getElementById( "btnSalvarEstado" );
+            btnExcluir = document.getElementById( "btnExcluirEstado" );
+
+            btnSalvar.addEventListener( "click", salvar );
+            btnExcluir.addEventListener( "click", excluir );
+            btnNovo.addEventListener( "click", resetarFormulario );
+
+            carregar();
+            inicializado = true;
+        
+        }).catch( error => {
+            if ( !( error instanceof ContainerUtizadoError ) ) {
+                console.log( error );
+            }   
+        });
 
     } else {
         carregar( null );
@@ -89,6 +97,8 @@ async function carregar() {
         selects.forEach( select => {
             select.innerHTML = "";
         });
+        
+        Modais.modalAguarde.abrir();
         
         dados.forEach( ( estado, index ) =>{
             
@@ -111,9 +121,11 @@ async function carregar() {
             });
 
         });
+        
+        Modais.modalAguarde.fechar();
 
     } else {
-        Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
     }
 
 }
@@ -139,14 +151,18 @@ async function salvar() {
             url += `/${obj.id}`;
         }
         
+        Modais.modalAguarde.abrir();
+        
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
+
+        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();
             carregar();
         } else {
-            Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
         }
 
     }
@@ -157,26 +173,34 @@ async function excluir() {
 
     if ( objSelecionado !== null ) {
 
-        if ( confirm( "Deseja mesmo excluir o Estado selecionado?" ) ) {
+        Modais.modalConfirmacao.abrir( 
+            "Confirmação",
+            "Deseja mesmo excluir o Estado selecionado?",
+            async () => {
+                
+                Modais.modalAguarde.abrir();
             
-            const response = await Utils.customFetch( 
-                `${_urlBase}/estados/${objSelecionado.id}`, 
-                "DELETE"
-            );
+                const response = await Utils.customFetch( 
+                    `${_urlBase}/estados/${objSelecionado.id}`, 
+                    "DELETE"
+                );
 
-            const dados = await response.json();
+                const dados = await response.json();
 
-            if ( response.ok ) {
-                resetarFormulario();
-                carregar();
-            } else {
-                Utils.configurarMensagemErro( divErros, Utils.montarMensagemErro( dados ) );
+                Modais.modalAguarde.fechar();
+
+                if ( response.ok ) {
+                    resetarFormulario();
+                    carregar();
+                } else {
+                    Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                }
+                
             }
-            
-        }
+        );
 
     } else {
-        Utils.configurarMensagemErro( divErros, "Selecione um Estado!" );
+        Modais.modalMensagem.abrir( "ERRO", "Selecione um Estado!" );
     }
 
 }
@@ -191,7 +215,6 @@ function resetarFormulario() {
     Utils.limparFormulario( form, camposValidacao );
     objSelecionado = null;
     Utils.desselecionarLinhas( tbody );
-    Utils.limparMensagemErro( divErros );
 }
 
 export function adicionarSelectExterno( select ) {

@@ -9,100 +9,44 @@
   <body>
     
     <div style="display: flex;">
-      
-      <div class="containerCadastro">
-        <h1>Cadastro de Estados</h1>
-        <div class="divTabela">
-          <h4>Estados Cadastrados</h4>
-          <table class="tabelaListagem">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Sigla</th>
-              </tr>
-            </thead>
-            <tbody id="bodyTblEstado">
-            </tbody>
-          </table>
-        </div>
-        <div class="divFormulario">
-          <h4>Dados do Estado</h4>
-          <form id="formEstado" novalidate>
-            <table>
-              <tr>
-                <td class="alinharDireita">
-                  <label for="txtNomeEstado">Nome:</label>
-                </td>
-                <td>
-                  <input id="txtNomeEstado" type="text" required maxlength="30"/>
-                  <div id="divValNomeEstado" class="divValidacao"></div>
-                </td>
-              </tr>
-              <tr>
-                <td class="alinharDireita">
-                  <label for="txtSiglaEstado">Sigla:</label>
-                </td>
-                <td>
-                  <input id="txtSiglaEstado" type="text" required maxlength="2"/>
-                  <div id="divValSiglaEstado" class="divValidacao"></div>
-                </td>
-              </tr>
-            </table>
-          </form>
-          <button id="btnNovoEstado">Novo</button>
-          <button id="btnSalvarEstado">Salvar</button>
-          <button id="btnExcluirEstado">Excluir</button>
-        </div>
-      </div>
-      
-      <div class="containerCadastro">
-        <h1>Cadastro de Cidades</h1>
-        <div class="divTabela">
-          <h4>Cidades Cadastradas</h4>
-          <table class="tabelaListagem">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody id="bodyTblCidade">
-            </tbody>
-          </table>
-        </div>
-        <div class="divFormulario">
-          <h4>Dados da Cidade</h4>
-          <form id="formCidade" novalidate>
-            <table>
-              <tr>
-                <td class="alinharDireita">
-                  <label for="txtNomeCidade">Nome:</label>
-                </td>
-                <td>
-                  <input id="txtNomeCidade" type="text" required />
-                  <div id="divValNomeCidade" class="divValidacao"></div>
-                </td>
-              </tr>
-              <tr>
-                <td class="alinharDireita">
-                  <label for="txtSiglaCidade">Sigla:</label>
-                </td>
-                <td>
-                  <select id="selEstadoCidade"></select>
-                  <div id="divValEstadoCidade" class="divValidacao"></div>
-                </td>
-              </tr>
-            </table>
-          </form>
-          <button id="btnNovoCidade">Novo</button>
-          <button id="btnSalvarCidade">Salvar</button>
-          <button id="btnExcluirCidade">Excluir</button>
-        </div>
-      </div>
-      
+      <div id="divEstados" class="containerCadastro"></div>
+      <div id="divCidades" class="containerCadastro"></div>
     </div>
     
-    <div id="divErros"></div>
+    <div id="modalAguarde" class="escondido">
+      <div class="overlay">
+        <div class="conteudoModal">
+          <div class="corpoModal">Aguarde...</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="modalMensagem" class="escondido">
+      <div class="overlay">
+        <div class="conteudoModal">
+          <button class="btnFechar">&times;</button>
+          <h3 class="tituloModal"></h3>
+          <div class="corpoModal"></div>
+          <div class="rodapeModal">
+            <button class="btn btn-primario btnOk">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="modalConfirmacao" class="escondido">
+      <div class="overlay">
+        <div class="conteudoModal">
+          <button class="btnFechar">&times;</button>
+          <h3 class="tituloModal"></h3>
+          <div class="corpoModal"></div>
+          <div class="rodapeModal">
+            <button class="btn btn-terciario btnOk">OK</button>
+            <button class="btn btn-secundario btnCancelar">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <script src="js/app.js" type="module"></script>
     

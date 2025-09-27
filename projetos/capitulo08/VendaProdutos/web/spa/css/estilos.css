@@ -1,4 +1,41 @@
 /* Estilos gerais */
+
+@property --cor-botao-primario {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #3366ff;
+}
+
+@property --cor-botao-primario-hover {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #1751ff;
+}
+
+@property --cor-botao-secundario {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #546dd5;
+}
+
+@property --cor-botao-secundario-hover {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #364689;
+}
+
+@property --cor-botao-terciario {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #e86b57;
+}
+
+@property --cor-botao-terciario-hover {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #b45343;
+}
+
 body {
     font-family: Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
@@ -54,6 +91,14 @@ h1 {
     margin: 5px;
 }
 
+h2 {
+    margin: 5px;
+}
+
+h3 {
+    margin: 5px;
+}
+
 h4 {
     margin: 5px;
 }
@@ -85,12 +130,86 @@ form {
     margin: 5px;
 }
 
-#divErros {
-    display: none;
-    font-weight: bold;
-    border: solid 2px #660000;
+.overlay {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000055;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudoModal {
+    position: absolute;
+    background: #ffffff;
+    padding: 10px;
     border-radius: 5px;
-    background-color: #ff3333;
+    max-width: 500px;
+    width: 30%;
+    box-shadow: 0 4px 20px rgba( 0, 0, 0, 0.5 );
+}
+
+.corpoModal {
     padding: 5px;
-    margin: 5px;
+}
+
+.rodapeModal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.btn {
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primario {
+    background-color: var(--cor-botao-primario);
+}
+
+.btn-secundario {
+    background-color: var(--cor-botao-secundario);
+}
+
+.btn-terciario {
+    background-color: var(--cor-botao-terciario);
+}
+
+.btn-primario:hover {
+    background-color: var(--cor-botao-primario-hover);
+}
+
+.btn-secundario:hover {
+    background-color: var(--cor-botao-secundario-hover);
+}
+
+.btn-terciario:hover {
+    background-color: var(--cor-botao-terciario-hover);
+}
+
+.btnFechar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.btnFechar:hover {
+    color: #000000;
+}
+
+.escondido {
+    display: none;
 }

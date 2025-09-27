@@ -35,10 +35,10 @@ public class EstadoRestfulServlet extends HttpServlet {
         int status;
 
         try ( EstadoDAO dao = new EstadoDAO() ) {
-            status = 201;
+            status = HttpServletResponse.SC_OK;
             jsonResposta = jsonb.toJson( dao.listarTodos() );
         } catch ( SQLException exc ) {
-            status = 500;
+            status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro!", "" ) );
         }
         
@@ -69,11 +69,12 @@ public class EstadoRestfulServlet extends HttpServlet {
             Utils.validar( estado, "id" );
             dao.salvar( estado );
             
-            status = 201;
+            status = HttpServletResponse.SC_CREATED;
+            response.setHeader( "Location", "/api/estados/" + estado.getId() );
             jsonResposta = jsonb.toJson( new Resposta( "Estado inserido com successo!", estado ) );
 
         } catch ( SQLException exc ) {
-            status = 500;
+            status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o estado.", exc.getMessage() ) );
         }
         
@@ -111,11 +112,11 @@ public class EstadoRestfulServlet extends HttpServlet {
             Utils.validar( estado, "id" );
             dao.atualizar( estado );
             
-            status = 201;
+            status = HttpServletResponse.SC_OK;
             jsonResposta = jsonb.toJson( new Resposta( "Estado atualizado com successo!", estado ) );
 
         } catch ( SQLException exc ) {
-            status = 500;
+            status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o estado.", exc.getMessage() ) );
         }
         
@@ -144,11 +145,11 @@ public class EstadoRestfulServlet extends HttpServlet {
             Estado estado = dao.obterPorId( id );
             dao.excluir( estado );
             
-            status = 201;
+            status = HttpServletResponse.SC_OK;
             jsonResposta = jsonb.toJson( new Resposta( "Estado excluído com successo!", estado ) );
 
         } catch ( SQLException exc ) {
-            status = 500;
+            status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir o estado.", exc.getMessage() ) );
         }
         
