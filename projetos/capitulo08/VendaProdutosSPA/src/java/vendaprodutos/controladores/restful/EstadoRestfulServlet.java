@@ -35,11 +35,35 @@ public class EstadoRestfulServlet extends HttpServlet {
         int status;
 
         try ( EstadoDAO dao = new EstadoDAO() ) {
-            status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( dao.listarTodos() );
+            
+            String pathInfo = request.getPathInfo();
+            
+            if ( pathInfo != null && pathInfo.length() > 1 ) {
+                
+                // GET /api/estados/1 - busca específica
+                Long id = Long.valueOf( pathInfo.substring( 1 ) );
+                Estado estado = dao.obterPorId( id );
+                
+                if ( estado != null ) {
+                    status = HttpServletResponse.SC_OK;
+                    jsonResposta = jsonb.toJson( estado );
+                } else {
+                    status = HttpServletResponse.SC_NOT_FOUND;
+                    jsonResposta = jsonb.toJson( new Resposta( "Estado não encontrado.", "" ) );
+                }
+                
+            } else {
+                // GET /api/estados/ - listar todos
+                status = HttpServletResponse.SC_OK;
+                jsonResposta = jsonb.toJson( dao.listarTodos() );
+            }
+            
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter estado(s).", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -118,6 +142,9 @@ public class EstadoRestfulServlet extends HttpServlet {
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o estado.", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -151,6 +178,9 @@ public class EstadoRestfulServlet extends HttpServlet {
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir o estado.", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {

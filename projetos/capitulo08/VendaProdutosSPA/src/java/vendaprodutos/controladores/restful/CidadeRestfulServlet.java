@@ -36,11 +36,35 @@ public class CidadeRestfulServlet extends HttpServlet {
         int status;
 
         try ( CidadeDAO dao = new CidadeDAO() ) {
-            status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( dao.listarTodos() );
+            
+            String pathInfo = request.getPathInfo();
+            
+            if ( pathInfo != null && pathInfo.length() > 1 ) {
+                
+                // GET /api/cidades/1 - busca específica
+                Long id = Long.valueOf( pathInfo.substring( 1 ) );
+                Cidade cidade = dao.obterPorId( id );
+                
+                if ( cidade != null ) {
+                    status = HttpServletResponse.SC_OK;
+                    jsonResposta = jsonb.toJson( cidade );
+                } else {
+                    status = HttpServletResponse.SC_NOT_FOUND;
+                    jsonResposta = jsonb.toJson( new Resposta( "Cidade não encontrada.", "" ) );
+                }
+                
+            } else {
+                // GET /api/cidades/ - listar todos
+                status = HttpServletResponse.SC_OK;
+                jsonResposta = jsonb.toJson( dao.listarTodos() );
+            }
+            
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter cidade(s).", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -123,6 +147,9 @@ public class CidadeRestfulServlet extends HttpServlet {
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a cidade.", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -156,6 +183,9 @@ public class CidadeRestfulServlet extends HttpServlet {
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir a cidade.", exc.getMessage() ) );
+        } catch ( NumberFormatException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
