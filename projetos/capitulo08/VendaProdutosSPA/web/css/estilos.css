@@ -238,12 +238,20 @@ form {
 
 .ulMenu {
     padding: 0px;
-    padding-left: 5px;
     list-style: none;
 }
 
+.ulMenu a {
+    padding-left: 5px;
+}
+
 .ulMenu li {
-    margin-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+    padding: 10px 0;
+}
+
+.ulMenu li:hover {
+    background-color: #f5f5f5;
 }
 
 #divHome:not(.escondido) {

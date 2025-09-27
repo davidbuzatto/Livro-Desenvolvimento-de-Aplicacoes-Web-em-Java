@@ -1,3 +1,8 @@
+/**
+ * Módulo de gerenciamento de modais.
+ * 
+ * @author Prof. Dr. David Buzatto
+ */
 export class Modal {
     
     constructor( container, fecharAoClicarOverlay = false ) {

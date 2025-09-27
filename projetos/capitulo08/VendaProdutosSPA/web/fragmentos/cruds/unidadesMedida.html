@@ -1,0 +1,42 @@
+<h2>Cadastro de Unidades de Medida</h2>
+<div class="divTabela">
+  <h4>Unidades de Medida Cadastradas</h4>
+  <table class="tabelaListagem">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Sigla</th>
+      </tr>
+    </thead>
+    <tbody id="bodyTblUnidadeMedida">
+    </tbody>
+  </table>
+</div>
+<div class="divFormulario">
+  <h4>Dados da Unidade de Medida</h4>
+  <form id="formUnidadeMedida" novalidate>
+    <table>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtDescricaoUnidadeMedida">Descrição:</label>
+        </td>
+        <td>
+          <input id="txtDescricaoUnidadeMedida" type="text" required maxlength="45"/>
+          <div id="divValDescricaoUnidadeMedida" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtSiglaUnidadeMedida">Sigla:</label>
+        </td>
+        <td>
+          <input id="txtSiglaUnidadeMedida" type="text" required maxlength="4"/>
+          <div id="divValSiglaUnidadeMedida" class="divValidacao"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button id="btnNovoUnidadeMedida" class="btn btn-secundario">Novo</button>
+  <button id="btnSalvarUnidadeMedida" class="btn btn-primario">Salvar</button>
+  <button id="btnExcluirUnidadeMedida" class="btn btn-terciario">Excluir</button>
+</div>

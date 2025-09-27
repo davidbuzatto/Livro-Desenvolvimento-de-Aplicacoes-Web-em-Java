@@ -3,7 +3,6 @@
  * 
  * @author Prof. Dr. David Buzatto
  */
-
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 import * as Estados from "./estados.js";
 import * as Modais from "./modais.js";

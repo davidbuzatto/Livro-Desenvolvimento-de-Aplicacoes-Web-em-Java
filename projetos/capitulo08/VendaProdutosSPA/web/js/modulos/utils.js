@@ -1,7 +1,7 @@
 /**
  * Módulo de funções utilitárias.
  * 
- * @author David Buzatto
+ * @author Prof. Dr. David Buzatto
  */
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 

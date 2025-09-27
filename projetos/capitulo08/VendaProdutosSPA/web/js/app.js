@@ -3,9 +3,10 @@
  * 
  * @author Prof. Dr. David Buzatto
  */
-import * as Estados from "./modulos/estados.js";
 import * as Cidades from "./modulos/cidades.js";
+import * as Estados from "./modulos/estados.js";
 import * as Modais from "./modulos/modais.js";
+import * as UnidadesMedida from "./modulos/unidadesMedida.js";
 
 let _urlBase;
 
@@ -48,8 +49,9 @@ function prepararMenu() {
         Estados.iniciar( _urlBase );
     });
     
-    document.getElementById( "itemMenuUnidadesDeMedida" ).addEventListener( "click", event => {
-        esconderTodosContaineres( "divUnidadesDeMedida" );
+    document.getElementById( "itemMenuUnidadesMedida" ).addEventListener( "click", event => {
+        esconderTodosContaineres( "divUnidadesMedida" );
+        UnidadesMedida.iniciar( _urlBase );
     });
 
 }
