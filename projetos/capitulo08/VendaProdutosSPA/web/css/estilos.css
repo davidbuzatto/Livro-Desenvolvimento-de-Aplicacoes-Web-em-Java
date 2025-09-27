@@ -267,3 +267,14 @@ form {
     margin: 0 auto;
     width: 30vw;
 }
+
+.divAnimada {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    width: 100px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #eeeeee;
+}

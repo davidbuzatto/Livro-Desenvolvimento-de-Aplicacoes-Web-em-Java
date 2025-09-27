@@ -10,6 +10,10 @@ import * as UnidadesMedida from "./modulos/unidadesMedida.js";
 
 let _urlBase;
 
+// controle da animação
+let animationId = null;
+let ultimoTempo = 0;
+
 function iniciar( urlBase ) {
     _urlBase = urlBase;
     Modais.iniciar();
@@ -21,6 +25,7 @@ function prepararMenu() {
     
     document.getElementById( "itemMenuHome" ).addEventListener( "click", event => {
         esconderTodosContaineres( "divHome" );
+        prepararAnimacao();
     });
     
     document.getElementById( "itemMenuVendas" ).addEventListener( "click", event => {
@@ -61,6 +66,50 @@ function esconderTodosContaineres( idMostrar ) {
         container.classList.add( "escondido" );
     });
     document.getElementById( idMostrar ).classList.remove( "escondido" );
+}
+
+function prepararAnimacao() {
+    
+    const div = document.getElementById( "divAnimada" );
+    const logoRect = document.getElementById( "logoHome" ).getBoundingClientRect();
+    
+    let xCentro = logoRect.x + logoRect.width / 2 + 20 + window.pageXOffset;
+    let yCentro = logoRect.y + logoRect.height / 4 + 30 + window.pageYOffset;
+    let raio = logoRect.width / 2;
+    let tempo = 0;
+    let velocidade = 0.001;   // 0.05 grau por milisegundo
+    let largura = div.offsetWidth;
+    let altura = div.offsetHeight;
+    
+    if ( animationId ) {
+        cancelAnimationFrame( animationId );
+    }
+    
+    function animar( tempoAtual ) {
+        
+        if ( ultimoTempo === 0 ) {
+            ultimoTempo = tempoAtual;
+        }
+        
+        const delta = tempoAtual - ultimoTempo;
+        ultimoTempo = tempoAtual;
+        tempo += velocidade * delta;
+        
+        const angulo = Math.sin( tempo ) * 90 - 90;
+        
+        const aRad = angulo * Math.PI / 180;
+        const x = xCentro + Math.cos( aRad ) * raio;
+        const y = yCentro + Math.sin( aRad ) * raio;
+        
+        div.style.left = `${x - largura / 2}px`;
+        div.style.top = `${y - altura / 2}px`;
+        
+        animationId = requestAnimationFrame( animar );
+        
+    };
+    
+    animationId = requestAnimationFrame( animar );
+    
 }
 
 iniciar( "/VendaProdutosSPA/api" );
