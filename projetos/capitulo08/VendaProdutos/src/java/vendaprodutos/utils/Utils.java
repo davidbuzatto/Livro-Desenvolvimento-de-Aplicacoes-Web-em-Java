@@ -229,23 +229,4 @@ public abstract class Utils {
         
     }
     
-    /**
-     * Processa a requisição e extrai os dados da mesma. Usado quando
-     * é enviado JSON no body.
-     */
-    public static String obterDados( HttpServletRequest request ) throws IOException {
-        
-        StringBuilder sb = new StringBuilder();
-        String line;
-        
-        try ( BufferedReader reader = request.getReader() ) {
-            while ( ( line = reader.readLine() ) != null ) {
-                sb.append( line );
-            }
-        }
-        
-        return sb.toString();
-        
-    }
-    
 }
