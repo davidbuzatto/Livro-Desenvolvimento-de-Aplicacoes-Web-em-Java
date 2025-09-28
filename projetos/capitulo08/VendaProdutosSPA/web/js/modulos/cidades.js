@@ -34,6 +34,9 @@ let btnNovo;
 let btnSalvar;
 let btnExcluir;
 
+// referências para outros formulários
+let selects = [];
+
 export function iniciar( urlBase ) {
     
     if ( !inicializado ) {
@@ -93,7 +96,11 @@ async function carregar() {
         
         tbody.innerHTML = "";
         resetarFormulario();
-
+        
+        selects.forEach( select => {
+            select.innerHTML = "";
+        });
+        
         dados.forEach( ( cidade, index ) =>{
             
             let linha = document.createElement( "tr" );
@@ -109,6 +116,10 @@ async function carregar() {
             });
 
             tbody.append( linha );
+            
+            selects.forEach( select => {
+                select.append( Utils.criarOption( cidade.id, cidade.nome ) );
+            });
 
         });
 
@@ -201,4 +212,8 @@ function resetarFormulario() {
     Utils.limparFormulario( form, camposValidacao );
     objSelecionado = null;
     Utils.desselecionarLinhas( tbody );
+}
+
+export function adicionarSelectExterno( select ) {
+    selects.push( select );
 }

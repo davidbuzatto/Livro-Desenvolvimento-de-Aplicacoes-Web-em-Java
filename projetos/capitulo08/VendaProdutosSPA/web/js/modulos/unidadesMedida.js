@@ -116,7 +116,7 @@ async function carregar() {
             tbody.append( linha );
             
             selects.forEach( select => {
-                select.append( Utils.criarOption( unidadeMedida.id, unidadeMedida.descricao ) );
+                select.append( Utils.criarOption( unidadeMedida.id, unidadeMedida.sigla ) );
             });
 
         });

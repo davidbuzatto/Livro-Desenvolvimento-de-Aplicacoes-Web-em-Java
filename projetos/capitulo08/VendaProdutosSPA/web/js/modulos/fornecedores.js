@@ -4,7 +4,7 @@
  * @author Prof. Dr. David Buzatto
  */
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
-import * as Estados from "./estados.js";
+import * as Cidades from "./cidades.js";
 import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
 
@@ -45,6 +45,9 @@ let camposValidacao;
 let btnNovo;
 let btnSalvar;
 let btnExcluir;
+
+// referências para outros formulários
+let selects = [];
 
 export function iniciar( urlBase ) {
     
@@ -92,7 +95,7 @@ export function iniciar( urlBase ) {
             btnSalvar = document.getElementById( "btnSalvarFornecedor" );
             btnExcluir = document.getElementById( "btnExcluirFornecedor" );
 
-            Estados.adicionarSelectExterno( selCidade );
+            Cidades.adicionarSelectExterno( selCidade );
 
             btnSalvar.addEventListener( "click", salvar );
             btnExcluir.addEventListener( "click", excluir );
@@ -123,7 +126,11 @@ async function carregar() {
         
         tbody.innerHTML = "";
         resetarFormulario();
-
+        
+        selects.forEach( select => {
+            select.innerHTML = "";
+        });
+        
         dados.forEach( ( fornecedor, index ) =>{
             
             let linha = document.createElement( "tr" );
@@ -141,6 +148,10 @@ async function carregar() {
             });
 
             tbody.append( linha );
+            
+            selects.forEach( select => {
+                select.append( Utils.criarOption( fornecedor.id, fornecedor.razaoSocial ) );
+            });
 
         });
 
@@ -251,4 +262,8 @@ function resetarFormulario() {
     Utils.limparFormulario( form, camposValidacao );
     objSelecionado = null;
     Utils.desselecionarLinhas( tbody );
+}
+
+export function adicionarSelectExterno( select ) {
+    selects.push( select );
 }
