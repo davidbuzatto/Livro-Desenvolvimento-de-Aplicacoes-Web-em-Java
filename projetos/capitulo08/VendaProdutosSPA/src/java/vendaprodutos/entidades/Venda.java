@@ -1,5 +1,6 @@
 package vendaprodutos.entidades;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.sql.Date;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class Venda {
     private Boolean cancelada;
     
     @NotNull
+    @JsonbDateFormat( "yyyy-MM-dd" )
     private Date data;
     
     @NotNull

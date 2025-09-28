@@ -38,7 +38,7 @@
 
 body {
     font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size: 12px;
+    font-size: 10pt;
     background-color: #FFFFFF;
 }
 
@@ -159,6 +159,19 @@ form {
     display: flex;
     justify-content: flex-end;
     gap: 5px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
 }
 
 .btn {

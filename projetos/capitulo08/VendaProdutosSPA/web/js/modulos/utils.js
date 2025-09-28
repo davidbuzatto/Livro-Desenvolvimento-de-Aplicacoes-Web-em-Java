@@ -9,6 +9,23 @@ import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 export const fmtNumeroBrasil = new Intl.NumberFormat( "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const fmtNumeroUS = new Intl.NumberFormat( "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const fmtMonetario = new Intl.NumberFormat( "pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const fmtDataBrasil = new Intl.DateTimeFormat( "pt-BR" );
+
+export function formatarNumeroBrasil( numero ) {
+    return fmtNumeroBrasil.format( numero );
+}
+
+export function formatarNumeroUS( numero ) {
+    return fmtNumeroUS.format( numero );
+}
+
+export function formatarDinheiro( valor ) {
+    return fmtMonetario.format( valor );
+}
+
+export function formatarDataBrasil( data ) {
+    return fmtDataBrasil.format( Date.parse( data.replace( /-/g, '\/' ) ) );
+}
 
 /**
  * Função customizada de "fetch" que carrega o token JWT e envia na requisição.
@@ -49,6 +66,19 @@ export async function customFetch( url, metodo, dados = null, propToken = "token
 export function criarTd( dados ) {
     let td = document.createElement( "td" );
     td.innerHTML = dados;
+    return td;
+}
+
+export function criarTdBoolean( objeto, propriedade, funcaoClicar, textoTrue = "sim", textoFalse = "não", corTrue = "#198754", corFalse = "#dc3545" ) {
+    let td = criarTd( "" );
+    td.style.textAlign = "center";
+    td.style.cursor = "pointer";
+    if ( objeto[propriedade] ) {
+        td.innerHTML = `<span class="badge" style="background-color:${corTrue}">${textoTrue}</span>`;
+    } else {
+        td.innerHTML = `<span class="badge" style="background-color:${corFalse}">${textoFalse}</span>`;
+    }
+    td.addEventListener( "click", funcaoClicar );
     return td;
 }
 

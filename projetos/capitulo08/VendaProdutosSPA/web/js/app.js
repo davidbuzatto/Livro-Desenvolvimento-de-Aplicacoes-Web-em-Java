@@ -10,6 +10,7 @@ import * as Fornecedores from "./modulos/fornecedores.js";
 import * as Modais from "./modulos/modais.js";
 import * as Produtos from "./modulos/produtos.js";
 import * as UnidadesMedida from "./modulos/unidadesMedida.js";
+import * as Vendas from "./modulos/vendas.js";
 
 let _urlBase;
 
@@ -21,7 +22,7 @@ function iniciar( urlBase ) {
     _urlBase = urlBase;
     Modais.iniciar();
     prepararMenu();
-    document.getElementById( "itemMenuClientes" ).click();
+    document.getElementById( "itemMenuVendas" ).click();
 }
 
 function prepararMenu() {
@@ -33,6 +34,7 @@ function prepararMenu() {
     
     document.getElementById( "itemMenuVendas" ).addEventListener( "click", event => {
         esconderTodosContaineres( "divVendas" );
+        Vendas.iniciar( _urlBase );
     });
     
     document.getElementById( "itemMenuClientes" ).addEventListener( "click", event => {

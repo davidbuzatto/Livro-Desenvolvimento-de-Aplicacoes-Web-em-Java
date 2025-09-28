@@ -105,7 +105,7 @@ export function iniciar( urlBase ) {
         });
 
     } else {
-        carregar( null );
+        carregar();
     }
 
 }
@@ -130,8 +130,8 @@ async function carregar() {
 
             linha.dataset.indice = index;
             linha.append( Utils.criarTd( produto.descricao ) );
-            linha.append( Utils.criarTd( Utils.fmtMonetario.format( produto.valorVenda ) ) );
-            linha.append( Utils.criarTd( Utils.fmtNumeroBrasil.format( produto.estoque ) ) );
+            linha.append( Utils.criarTd( Utils.formatarDinheiro( produto.valorVenda ) ) );
+            linha.append( Utils.criarTd( Utils.formatarNumeroBrasil( produto.estoque ) ) );
             linha.append( Utils.criarTd( produto.fornecedor.razaoSocial ) );
             linha.append( Utils.criarTd( produto.unidadeMedida.sigla ) );
 

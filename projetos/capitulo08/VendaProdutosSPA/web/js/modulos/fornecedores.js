@@ -112,7 +112,7 @@ export function iniciar( urlBase ) {
         });
 
     } else {
-        carregar( null );
+        carregar();
     }
 
 }
