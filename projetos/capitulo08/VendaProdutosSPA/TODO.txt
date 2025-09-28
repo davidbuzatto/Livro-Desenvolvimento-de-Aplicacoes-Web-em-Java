@@ -1,3 +1,1 @@
-Verificar o que falta do RESTful para implementar corretamente;
-Melhorar os servlets, tratar path info, verificar se recurso existe, melhorar tratamento de exceções etc.
-Implementar o restante os cadastros.
+Amarrações entre formulários.

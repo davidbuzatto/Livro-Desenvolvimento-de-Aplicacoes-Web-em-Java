@@ -5,6 +5,11 @@
  */
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
 
+// formatadores
+export const fmtNumeroBrasil = new Intl.NumberFormat( "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const fmtNumeroUS = new Intl.NumberFormat( "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const fmtMonetario = new Intl.NumberFormat( "pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
 /**
  * Função customizada de "fetch" que carrega o token JWT e envia na requisição.
  * 

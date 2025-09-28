@@ -137,9 +137,7 @@ async function salvar() {
         } else {
             metodo = "PUT";
             obj.nome = txtNome.value;
-            obj.estado = {
-                id: selEstado.value
-            };
+            obj.estado.id = selEstado.value;
             url += `/${obj.id}`;
         }
         

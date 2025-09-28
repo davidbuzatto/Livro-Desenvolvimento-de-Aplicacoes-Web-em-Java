@@ -1,0 +1,81 @@
+<h2>Cadastro de Produtos</h2>
+<div class="divTabela">
+  <h4>Produtos Cadastrados</h4>
+  <table class="tabelaListagem">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Valor de Venda</th>
+        <th>Estoque</th>
+        <th>Fornecedor</th>
+        <th>Unidade de Medida</th>
+      </tr>
+    </thead>
+    <tbody id="bodyTblProduto">
+    </tbody>
+  </table>
+</div>
+<div class="divFormulario">
+  <h4>Dados do Produto</h4>
+  <form id="formProduto" novalidate>
+    <table>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtDescricaoProduto">Descrição:</label>
+        </td>
+        <td>
+          <input id="txtDescricaoProduto" type="text" required maxlength="60"/>
+          <div id="divValDescricaoProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtCodigoBarrasProduto">Código de Barras:</label>
+        </td>
+        <td>
+          <input id="txtCodigoBarrasProduto" type="text" placeholder="9999999999999" required pattern="\d{13}"/>
+          <div id="divValCodigoBarrasProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtValorVendaProduto">Valor de Venda:</label>
+        </td>
+        <td>
+          <input id="txtValorVendaProduto" type="number" required placeholder="R$ 9,99" step="0.01" min="0"/>
+          <div id="divValValorVendaProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtEstoqueProduto">Estoque</label>
+        </td>
+        <td>
+          <input id="txtEstoqueProduto" type="number" required placeholder="9,99" step="0.01"/>
+          <div id="divValEstoqueProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="selFornecedorProduto">Fornecedor:</label>
+        </td>
+        <td>
+          <select id="selFornecedorProduto"></select>
+          <div id="divValFornecedorProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="selUnidadeMedidaProduto">UnidadeMedida:</label>
+        </td>
+        <td>
+          <select id="selUnidadeMedidaProduto"></select>
+          <div id="divValUnidadeMedidaProduto" class="divValidacao"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button id="btnNovoProduto" class="btn btn-secundario">Novo</button>
+  <button id="btnSalvarProduto" class="btn btn-primario">Salvar</button>
+  <button id="btnExcluirProduto" class="btn btn-terciario">Excluir</button>
+</div>
