@@ -49,6 +49,7 @@
             <input name="email"
                    type="email"
                    size="20"
+                   minlength="3"
                    maxlength="60"
                    required/>
           </td>

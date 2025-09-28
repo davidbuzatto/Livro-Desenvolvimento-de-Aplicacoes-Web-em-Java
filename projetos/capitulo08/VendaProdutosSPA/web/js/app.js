@@ -5,6 +5,7 @@
  */
 import * as Cidades from "./modulos/cidades.js";
 import * as Estados from "./modulos/estados.js";
+import * as Fornecedores from "./modulos/fornecedores.js";
 import * as Modais from "./modulos/modais.js";
 import * as Produtos from "./modulos/produtos.js";
 import * as UnidadesMedida from "./modulos/unidadesMedida.js";
@@ -19,7 +20,7 @@ function iniciar( urlBase ) {
     _urlBase = urlBase;
     Modais.iniciar();
     prepararMenu();
-    document.getElementById( "itemMenuProdutos" ).click();
+    document.getElementById( "itemMenuFornecedores" ).click();
 }
 
 function prepararMenu() {
@@ -39,6 +40,7 @@ function prepararMenu() {
     
     document.getElementById( "itemMenuFornecedores" ).addEventListener( "click", event => {
         esconderTodosContaineres( "divFornecedores" );
+        Fornecedores.iniciar( _urlBase );
     });
     
     document.getElementById( "itemMenuProdutos" ).addEventListener( "click", event => {

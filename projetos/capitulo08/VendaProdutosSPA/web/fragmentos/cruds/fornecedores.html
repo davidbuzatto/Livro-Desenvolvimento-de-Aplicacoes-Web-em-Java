@@ -1,0 +1,98 @@
+<h2>Cadastro de Fornecedores</h2>
+<div class="divTabela">
+  <h4>Fornecedores Cadastrados</h4>
+  <table class="tabelaListagem">
+    <thead>
+      <tr>
+        <th>Razão Social</th>
+        <th>E-mail</th>
+        <th>CNPJ</th>
+        <th>Cidade</th>
+      </tr>
+    </thead>
+    <tbody id="bodyTblFornecedor">
+    </tbody>
+  </table>
+</div>
+<div class="divFormulario">
+  <h4>Dados do Fornecedor</h4>
+  <form id="formFornecedor" novalidate>
+    <table>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtRazaoSocialFornecedor">Razão Social:</label>
+        </td>
+        <td>
+          <input id="txtRazaoSocialFornecedor" type="text" required maxlength="100"/>
+          <div id="divValRazaoSocialFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtCNPJFornecedor">CNPJ:</label>
+        </td>
+        <td>
+          <input id="txtCNPJFornecedor" type="text" required placeholder="99.999.999/9999-99"/>
+          <div id="divValCNPJFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtEmailFornecedor">E-mail:</label>
+        </td>
+        <td>
+          <input id="txtEmailFornecedor" type="email" required minlength="3" maxlength="60"/>
+          <div id="divValEmailFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtLogradouroFornecedor">Logradouro:</label>
+        </td>
+        <td>
+          <input id="txtLogradouroFornecedor" type="text" required maxlength="50"/>
+          <div id="divValLogradouroFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtNumeroFornecedor">Número:</label>
+        </td>
+        <td>
+          <input id="txtNumeroFornecedor" type="text" required maxlength="6"/>
+          <div id="divValNumeroFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtBairroFornecedor">Bairro:</label>
+        </td>
+        <td>
+          <input id="txtBairroFornecedor" type="text" required maxlength="30"/>
+          <div id="divValBairroFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtCEPFornecedor">CEP:</label>
+        </td>
+        <td>
+          <input id="txtCEPFornecedor" type="text" required pattern="\d{5}-\d{3}" placeholder="99999-999"/>
+          <div id="divValCEPFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="selCidadeFornecedor">Cidade:</label>
+        </td>
+        <td>
+          <select id="selCidadeFornecedor"></select>
+          <div id="divValCidadeFornecedor" class="divValidacao"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button id="btnNovoFornecedor" class="btn btn-secundario">Novo</button>
+  <button id="btnSalvarFornecedor" class="btn btn-primario">Salvar</button>
+  <button id="btnExcluirFornecedor" class="btn btn-terciario">Excluir</button>
+</div>
