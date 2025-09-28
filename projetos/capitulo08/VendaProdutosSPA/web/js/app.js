@@ -22,7 +22,7 @@ function iniciar( urlBase ) {
     _urlBase = urlBase;
     Modais.iniciar();
     prepararMenu();
-    document.getElementById( "itemMenuVendas" ).click();
+    document.getElementById( "itemMenuHome" ).click();
 }
 
 function prepararMenu() {

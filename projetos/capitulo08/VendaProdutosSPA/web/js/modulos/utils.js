@@ -82,10 +82,15 @@ export function criarTdBoolean( objeto, propriedade, funcaoClicar, textoTrue = "
     return td;
 }
 
-export function criarOption( valor, label ) {
+export function criarOption( valor, label, objeto = null, propriedadesDataset = null ) {
     let opt = document.createElement( "option" );
     opt.value = valor;
     opt.innerHTML = label;
+    if ( objeto && propriedadesDataset ) {
+        propriedadesDataset.forEach( propriedade => {
+            opt.dataset[propriedade] = objeto[propriedade] ? objeto[propriedade] : null;
+        });
+    }
     return opt;
 }
 
@@ -144,7 +149,7 @@ export function esconderFilhos( id ) {
     const container = document.getElementById( id );
 
     Array.from( container.children ).forEach( element => {
-        element.style.display = "none";
+        esconder( element );
     });
 
 }
@@ -158,7 +163,7 @@ export function mostrar( idOuNo ) {
     if ( typeof idOuNo === "string" ) {
         idOuNo = document.getElementById( idOuNo );
     }
-    idOuNo.style.display = "block";
+    idOuNo.classList.remove( "escondido" );
 }
 
 /**
@@ -170,7 +175,7 @@ export function esconder( idOuNo ) {
     if ( typeof idOuNo === "string" ) {
         idOuNo = document.getElementById( idOuNo );
     }
-    idOuNo.style.display = "none";
+    idOuNo.classList.add( "escondido" );
 }
 
 /**
@@ -193,7 +198,7 @@ export function esconderMostrar( idEsconder, idMostrar ) {
  * @param {*} propriedades As propriedades que serão lidas dos objetos resultantes.
  * Os objetos devem vir na resposta codificados na propriedade items.
  */
-export async function carregarSelect( url, select, propriedades ) {
+export async function carregarSelect( url, select, propriedades, funcaoLabel = null, propriedadesDataset = null ) {
 
     const response = await customFetch( url, "GET" );
     const data = await response.json();
@@ -201,7 +206,11 @@ export async function carregarSelect( url, select, propriedades ) {
     if ( response.ok ) {
         select.innerHTML = "";
         data.forEach( ( dado, index ) =>{
-            select.append( criarOption( dado[propriedades.id], dado[propriedades.label] ) );
+            if ( funcaoLabel ) {
+                select.append( criarOption( dado[propriedades.id], funcaoLabel( dado ), dado, propriedadesDataset ) );
+            } else {
+                select.append( criarOption( dado[propriedades.id], dado[propriedades.label], dado, propriedadesDataset ) );
+            }
         });
     } else {
         Utils.abrirModalMensagem( "ERRO", Utils.montarMensagemErro( data ) );

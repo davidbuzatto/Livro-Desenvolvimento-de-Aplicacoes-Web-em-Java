@@ -120,8 +120,8 @@ async function carregar() {
         tbody.innerHTML = "";
         resetarFormulario();
 
-        selects.forEach( select => {
-            select.innerHTML = "";
+        selects.forEach( item => {
+            item.select.innerHTML = "";
         });
         
         dados.forEach( ( produto, index ) =>{
@@ -143,8 +143,11 @@ async function carregar() {
 
             tbody.append( linha );
             
-            selects.forEach( select => {
-                select.append( Utils.criarOption( produto.id, produto.descricao ) );
+            selects.forEach( item => {
+                let select = item.select;
+                let formatador = item.formatador;
+                let label = formatador ? formatador( produto ) : produto.descricao;
+                select.append( Utils.criarOption( produto.id, label ) );
             });
 
         });
@@ -254,6 +257,7 @@ function resetarFormulario() {
     Utils.desselecionarLinhas( tbody );
 }
 
-export function adicionarSelectExterno( select ) {
-    selects.push( select );
+export function adicionarSelectExterno( select, formatador = null ) {
+    selects.push( { select: select, formatador: formatador } );
 }
+

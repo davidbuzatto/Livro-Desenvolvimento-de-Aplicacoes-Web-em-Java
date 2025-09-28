@@ -38,7 +38,7 @@
 
 body {
     font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size: 10pt;
+    font-size: 9pt;
     background-color: #FFFFFF;
 }
 
@@ -290,4 +290,61 @@ form {
     border-radius: 5px;
     padding: 5px;
     background-color: #eeeeee;
+}
+
+.divFormularioVenda {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.divContainerCimaVenda {
+    display: flex;
+    background-color: #0099cc;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+.divContainerBaixoVenda {
+    background-color: #ff9933;
+    display: flex;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+.divComponenteVenda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+#selItensVenda {
+    font-family: monospace;
+    width: 350px;
+    height: 200px;
+}
+
+#selClienteVenda {
+    width: 100%;
+}
+
+#selProdutoVenda {
+    width: 220px;
+}
+
+#txtQuantidadeVenda {
+    width: 60px;
+}
+
+#divNovaVenda label, span {
+    font-weight: bold;
 }

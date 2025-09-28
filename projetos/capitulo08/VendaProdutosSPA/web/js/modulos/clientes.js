@@ -209,7 +209,6 @@ async function salvar() {
             obj.cep = txtCEP.value;
             obj.cidade.id = selCidade.value;
             url += `/${obj.id}`;
-            console.log( obj.dataNascimento );
         }
         
         const response = await Utils.customFetch( url, metodo, obj );

@@ -9,13 +9,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import vendaprodutos.dao.ClienteDAO;
 import vendaprodutos.dao.ItemVendaDAO;
 import vendaprodutos.dao.ProdutoDAO;
 import vendaprodutos.dao.VendaDAO;
+import vendaprodutos.entidades.Cliente;
 import vendaprodutos.entidades.ItemVenda;
+import vendaprodutos.entidades.vos.ItemVendaVO;
 import vendaprodutos.entidades.Produto;
 import vendaprodutos.entidades.Venda;
+import vendaprodutos.entidades.vos.VendaVO;
+import vendaprodutos.utils.Utils;
 
 /**
  * Servlet de serviços RESTful para Vendas.
@@ -81,18 +88,46 @@ public class VendaRestfulServlet extends HttpServlet {
         
         response.setContentType( "application/json" );
         
-        /*String jsonResposta;
+        String jsonResposta;
         int status;
         
-        try ( VendaDAO dao = new VendaDAO() ){
+        try ( VendaDAO daoVenda = new VendaDAO();
+              ClienteDAO daoCliente = new ClienteDAO();
+              ItemVendaDAO daoItemVenda = new ItemVendaDAO();
+              ProdutoDAO daoProduto = new ProdutoDAO() ) {
             
-            Venda venda = jsonb.fromJson( 
+            VendaVO vendaVO = jsonb.fromJson( 
                 Utils.obterDados( request ),
-                Venda.class
+                VendaVO.class
             );
             
+            Cliente c = daoCliente.obterPorId( vendaVO.idCliente() );
+            
+            Venda venda = new Venda();
+            venda.setData( Date.valueOf( LocalDate.now() ) );
+            venda.setCancelada( false );
+            venda.setCliente( c );
+            
             Utils.validar( venda, "id" );
-            dao.salvar( venda );
+            daoVenda.salvar( venda );
+            
+            for ( ItemVendaVO item : vendaVO.itens() ) {
+                
+                Produto produto = daoProduto.obterPorId( item.idProduto() );
+                produto.setEstoque( produto.getEstoque().subtract( item.quantidade() ) );
+                
+                ItemVenda novoItem = new ItemVenda();
+                novoItem.setVenda( venda );
+                novoItem.setProduto( produto );
+                novoItem.setValor( produto.getValorVenda() );
+                novoItem.setQuantidade( item.quantidade() );
+                
+                // não validaremos o produto, pois
+                // permitiremos estoque negativo na venda
+                daoProduto.atualizar( produto );
+                daoItemVenda.salvar( novoItem );
+                
+            }
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/vendas/" + venda.getId() );
@@ -106,7 +141,7 @@ public class VendaRestfulServlet extends HttpServlet {
         try ( PrintWriter out = response.getWriter() ) {
             response.setStatus( status );
             out.write( jsonResposta );
-        }*/
+        }
         
     }
     

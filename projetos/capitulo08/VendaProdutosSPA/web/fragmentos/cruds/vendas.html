@@ -1,5 +1,5 @@
 <h2>Vendas ao Cliente</h2>
-<div class="divTabela">
+<div id="divListagemVendas" class="divTabela escondido">
   <h4>Vendas Realizadas</h4>
   <table class="tabelaListagem">
     <thead>
@@ -12,12 +12,59 @@
     <tbody id="bodyTblVenda">
     </tbody>
   </table>
+  <button id="btnNovaVenda" class="btn btn-secundario" style="margin-top: 5px;">Nova</button>
 </div>
-<div class="divFormulario">
-  <h4>Dados da Venda</h4>
-  <form id="formVenda" novalidate>
-    
-  </form>
-  <button id="btnNovoVenda" class="btn btn-secundario">Novo</button>
-  <button id="btnSalvarVenda" class="btn btn-primario">Salvar</button>
+<div id="divNovaVenda" class="divFormulario">
+  <h4>Nova Venda</h4>
+  <div class="divFormularioVenda">
+    <div class="divContainerCimaVenda">
+      <div>
+        <div>
+          <label for="selClienteVenda">Cliente:</label>
+        </div>
+        <div>
+          <select id="selClienteVenda"></select>
+        </div>
+      </div>
+    </div>
+    <div class="divContainerBaixoVenda">
+      <div class="divComponenteVenda">
+        <div>
+          <div>
+            <label for="selProdutoVenda">Produto:</label>
+          </div>
+          <div style="display: flex; gap: 5px;">
+            <select id="selProdutoVenda"></select>
+            <button id="btnAtualizarProdutosVenda" class="btn btn-primario">&#x27F3;</button>
+          </div>
+        </div>
+        <div>
+          <div>
+            <label>Quantidade:</label>
+          </div>
+          <div>
+            <input id="txtQuantidadeVenda" type="number" placeholder="9,99" min="0" step="0.01"/>
+          </div>
+        </div>
+      </div>
+      <div class="divComponenteVenda">
+        <button id="btnAdicionarItemVenda" class="btn btn-primario">&#x2795;</button>
+        <button id="btnRemoverItemVenda" class="btn btn-primario">&#x2796;</button>
+        <button id="btnLimparItensVenda" class="btn btn-terciario">&#x274C;</button>
+      </div>
+      <div class="divComponenteVenda">
+        <div>
+          <label for="selItensVenda">Itens da Venda:</label>
+        </div>
+        <div>
+          <select id="selItensVenda" size="10" multiple></select>
+        </div>
+        <div style="text-align: right;">
+          <span id="spanTotalVenda"></span>
+        </div>
+      </div>
+    </div>
+    <button id="btnSalvarVenda" class="btn btn-primario">Salvar</button>
+    <button id="btnCancelarVenda" class="btn btn-secundario">Cancelar</button>
+  </div>
 </div>
