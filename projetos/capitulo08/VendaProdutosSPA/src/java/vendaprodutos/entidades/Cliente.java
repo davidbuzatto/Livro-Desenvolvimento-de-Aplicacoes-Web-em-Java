@@ -1,5 +1,6 @@
 package vendaprodutos.entidades;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.sql.Date;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class Cliente {
     private String sobrenome;
     
     @NotNull
+    @JsonbDateFormat( "yyyy-MM-dd" )
     private Date dataNascimento;
     
     @NotNull

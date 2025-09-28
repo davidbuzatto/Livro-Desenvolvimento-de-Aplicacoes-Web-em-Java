@@ -1,0 +1,117 @@
+<h2>Cadastro de Clientes</h2>
+<div class="divTabela">
+  <h4>Clientes Cadastrados</h4>
+  <table class="tabelaListagem">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>E-mail</th>
+        <th>CPF</th>
+        <th>Cidade</th>
+      </tr>
+    </thead>
+    <tbody id="bodyTblCliente">
+    </tbody>
+  </table>
+</div>
+<div class="divFormulario">
+  <h4>Dados do Cliente</h4>
+  <form id="formCliente" novalidate>
+    <table>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtNomeCliente">Nome:</label>
+        </td>
+        <td>
+          <input id="txtNomeCliente" type="text" required maxlength="45"/>
+          <div id="divValNomeCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtSobrenomeCliente">Sobrenome:</label>
+        </td>
+        <td>
+          <input id="txtSobrenomeCliente" type="text" required maxlength="45"/>
+          <div id="divValSobrenomeCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtDataNascimentoCliente">Data de Nascimento:</label>
+        </td>
+        <td>
+          <input id="txtDataNascimentoCliente" type="date" required/>
+          <div id="divValDataNascimentoCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtCPFCliente">CPF:</label>
+        </td>
+        <td>
+          <input id="txtCPFCliente" type="text" required placeholder="999.999.999-99" pattern="\d{3}.\d{3}.\d{3}-\d{2}"/>
+          <div id="divValCPFCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtEmailCliente">E-mail:</label>
+        </td>
+        <td>
+          <input id="txtEmailCliente" type="email" required minlength="3" maxlength="60"/>
+          <div id="divValEmailCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtLogradouroCliente">Logradouro:</label>
+        </td>
+        <td>
+          <input id="txtLogradouroCliente" type="text" required maxlength="50"/>
+          <div id="divValLogradouroCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtNumeroCliente">Número:</label>
+        </td>
+        <td>
+          <input id="txtNumeroCliente" type="text" required maxlength="6"/>
+          <div id="divValNumeroCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtBairroCliente">Bairro:</label>
+        </td>
+        <td>
+          <input id="txtBairroCliente" type="text" required maxlength="30"/>
+          <div id="divValBairroCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="txtCEPCliente">CEP:</label>
+        </td>
+        <td>
+          <input id="txtCEPCliente" type="text" required pattern="\d{5}-\d{3}" placeholder="99999-999"/>
+          <div id="divValCEPCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="alinharDireita">
+          <label for="selCidadeCliente">Cidade:</label>
+        </td>
+        <td>
+          <select id="selCidadeCliente"></select>
+          <div id="divValCidadeCliente" class="divValidacao"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button id="btnNovoCliente" class="btn btn-secundario">Novo</button>
+  <button id="btnSalvarCliente" class="btn btn-primario">Salvar</button>
+  <button id="btnExcluirCliente" class="btn btn-terciario">Excluir</button>
+</div>

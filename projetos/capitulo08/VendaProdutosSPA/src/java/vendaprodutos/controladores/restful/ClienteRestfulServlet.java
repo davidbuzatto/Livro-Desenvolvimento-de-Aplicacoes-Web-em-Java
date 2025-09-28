@@ -124,13 +124,16 @@ public class ClienteRestfulServlet extends HttpServlet {
                 Utils.obterDados( request ),
                 Cliente.class
             );
+            
+            System.out.println( clienteRecebido.getDataNascimento() );
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             Cliente cliente = daoCliente.obterPorId( id );
             cliente.setNome( clienteRecebido.getNome() );
-            cliente.setSobrenome( clienteRecebido.getSobrenome());
+            cliente.setSobrenome( clienteRecebido.getSobrenome() );
+            cliente.setDataNascimento( clienteRecebido.getDataNascimento() );
             cliente.setCpf( clienteRecebido.getCpf() );
             cliente.setEmail( clienteRecebido.getEmail() );
             cliente.setLogradouro( clienteRecebido.getLogradouro() );

@@ -4,6 +4,7 @@
  * @author Prof. Dr. David Buzatto
  */
 import * as Cidades from "./modulos/cidades.js";
+import * as Clientes from "./modulos/clientes.js";
 import * as Estados from "./modulos/estados.js";
 import * as Fornecedores from "./modulos/fornecedores.js";
 import * as Modais from "./modulos/modais.js";
@@ -20,7 +21,7 @@ function iniciar( urlBase ) {
     _urlBase = urlBase;
     Modais.iniciar();
     prepararMenu();
-    document.getElementById( "itemMenuFornecedores" ).click();
+    document.getElementById( "itemMenuClientes" ).click();
 }
 
 function prepararMenu() {
@@ -36,6 +37,7 @@ function prepararMenu() {
     
     document.getElementById( "itemMenuClientes" ).addEventListener( "click", event => {
         esconderTodosContaineres( "divClientes" );
+        Clientes.iniciar( _urlBase );
     });
     
     document.getElementById( "itemMenuFornecedores" ).addEventListener( "click", event => {
