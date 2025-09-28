@@ -14,8 +14,7 @@ import jakarta.servlet.annotation.WebFilter;
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebFilter( filterName = "ConfigurarEncodingFilter", 
-            urlPatterns = { "/*" } )
+@WebFilter( filterName = "ConfigurarEncodingFilter", urlPatterns = { "/*" } )
 public class ConfigurarEncodingFilter implements Filter {
     
     @Override
@@ -26,6 +25,8 @@ public class ConfigurarEncodingFilter implements Filter {
             throws IOException, ServletException {
         
         request.setCharacterEncoding( "UTF-8" );
+        response.setCharacterEncoding( "UTF-8" );
+        
         chain.doFilter( request, response );
         
     }

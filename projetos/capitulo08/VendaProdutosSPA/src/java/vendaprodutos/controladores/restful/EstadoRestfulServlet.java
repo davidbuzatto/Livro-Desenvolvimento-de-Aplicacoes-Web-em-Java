@@ -29,7 +29,6 @@ public class EstadoRestfulServlet extends HttpServlet {
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
-        response.setCharacterEncoding( "UTF-8" );
         
         String jsonResposta;
         int status;
@@ -78,7 +77,6 @@ public class EstadoRestfulServlet extends HttpServlet {
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
-        response.setCharacterEncoding( "UTF-8" );
         
         String jsonResposta;
         int status;
@@ -114,7 +112,6 @@ public class EstadoRestfulServlet extends HttpServlet {
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
-        response.setCharacterEncoding( "UTF-8" );
         
         String jsonResposta;
         int status;
@@ -159,7 +156,6 @@ public class EstadoRestfulServlet extends HttpServlet {
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
-        response.setCharacterEncoding( "UTF-8" );
         
         String jsonResposta;
         int status;
