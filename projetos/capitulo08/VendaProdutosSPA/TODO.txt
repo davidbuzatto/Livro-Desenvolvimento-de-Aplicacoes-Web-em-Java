@@ -1,1 +1,1 @@
-Implementar a venda para finalizar.
+Reorganizar o CSS.
