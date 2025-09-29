@@ -1,4 +1,4 @@
-/* Estilos gerais */
+/* variáveis */
 
 @property --cor-botao-primario {
     syntax: "<color>";
@@ -36,6 +36,9 @@
     initial-value: #bb2d3b;
 }
 
+
+/* geral */
+
 body {
     font-family: Verdana,Arial,Helvetica,sans-serif;
     font-size: 9pt;
@@ -51,6 +54,10 @@ a {
 a:hover {
     color: #000000;
     text-decoration: underline;
+}
+
+.escondido {
+    display: none;
 }
 
 .tabelaListagem {
@@ -128,39 +135,6 @@ form {
     margin: 5px;
 }
 
-.overlay {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000055;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.conteudoModal {
-    position: absolute;
-    background: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    max-width: 500px;
-    width: 30%;
-    box-shadow: 0 4px 20px rgba( 0, 0, 0, 0.5 );
-}
-
-.corpoModal {
-    padding: 5px;
-}
-
-.rodapeModal {
-    display: flex;
-    justify-content: flex-end;
-    gap: 5px;
-}
-
 .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
@@ -206,37 +180,6 @@ form {
     background-color: var(--cor-botao-terciario-hover);
 }
 
-.btnFechar {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-}
-
-.btnFechar:hover {
-    color: #000000;
-}
-
-.escondido {
-    display: none;
-}
-
-.divMenuLateral {
-    background-color: #ffffff;
-    position: fixed;
-    left: 0;
-    top: 35pt;
-    height: calc(100% - 40pt);
-    width: 150px;
-    border-radius: 5px;
-    margin: 0px 5px;
-    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
-}
-
 .divPrincipal {
     background-color: #ffffff;
     position: fixed;
@@ -247,24 +190,6 @@ form {
     border-radius: 5px;
     overflow: auto;
     box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
-}
-
-.ulMenu {
-    padding: 0px;
-    list-style: none;
-}
-
-.ulMenu a {
-    padding-left: 5px;
-}
-
-.ulMenu li {
-    border-bottom: 1px solid #cccccc;
-    padding: 10px 0;
-}
-
-.ulMenu li:hover {
-    background-color: #f5f5f5;
 }
 
 #divHome:not(.escondido) {
@@ -292,6 +217,92 @@ form {
     background-color: #eeeeee;
 }
 
+
+/* modais */
+
+.overlay {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000055;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudoModal {
+    position: absolute;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 30%;
+    box-shadow: 0 4px 20px rgba( 0, 0, 0, 0.5 );
+}
+
+.corpoModal {
+    padding: 5px;
+}
+
+.rodapeModal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.btnFechar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.btnFechar:hover {
+    color: #000000;
+}
+
+/* menu */
+
+.divMenuLateral {
+    background-color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 35pt;
+    height: calc(100% - 40pt);
+    width: 150px;
+    border-radius: 5px;
+    margin: 0px 5px;
+    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
+}
+
+.ulMenu {
+    padding: 0px;
+    list-style: none;
+}
+
+.ulMenu a {
+    padding-left: 5px;
+}
+
+.ulMenu li {
+    border-bottom: 1px solid #cccccc;
+    padding: 10px 0;
+}
+
+.ulMenu li:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* venda */
+
 .divFormularioVenda {
     display: flex;
     flex-direction: column;
@@ -300,7 +311,7 @@ form {
 
 .divContainerCimaVenda {
     display: flex;
-    background-color: #0099cc;
+    background-color: #ffffff;
     flex-direction: column;
     gap: 5px;
     border-radius: 5px;
@@ -309,12 +320,9 @@ form {
 }
 
 .divContainerBaixoVenda {
-    background-color: #ff9933;
+    background-color: #ffffff;
     display: flex;
     gap: 5px;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
 .divComponenteVenda {

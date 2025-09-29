@@ -18,10 +18,10 @@ import vendaprodutos.dao.ProdutoDAO;
 import vendaprodutos.dao.VendaDAO;
 import vendaprodutos.entidades.Cliente;
 import vendaprodutos.entidades.ItemVenda;
-import vendaprodutos.entidades.vos.ItemVendaVO;
 import vendaprodutos.entidades.Produto;
 import vendaprodutos.entidades.Venda;
-import vendaprodutos.entidades.vos.VendaVO;
+import vendaprodutos.entidades.dto.ItemVendaDTO;
+import vendaprodutos.entidades.dto.VendaDTO;
 import vendaprodutos.utils.Utils;
 
 /**
@@ -96,12 +96,11 @@ public class VendaRestfulServlet extends HttpServlet {
               ItemVendaDAO daoItemVenda = new ItemVendaDAO();
               ProdutoDAO daoProduto = new ProdutoDAO() ) {
             
-            VendaVO vendaVO = jsonb.fromJson( 
-                Utils.obterDados( request ),
-                VendaVO.class
+            VendaDTO vendaDTO = jsonb.fromJson( Utils.obterDados( request ),
+                VendaDTO.class
             );
             
-            Cliente c = daoCliente.obterPorId( vendaVO.idCliente() );
+            Cliente c = daoCliente.obterPorId( vendaDTO.idCliente() );
             
             Venda venda = new Venda();
             venda.setData( Date.valueOf( LocalDate.now() ) );
@@ -111,7 +110,7 @@ public class VendaRestfulServlet extends HttpServlet {
             Utils.validar( venda, "id" );
             daoVenda.salvar( venda );
             
-            for ( ItemVendaVO item : vendaVO.itens() ) {
+            for ( ItemVendaDTO item : vendaDTO.itens() ) {
                 
                 Produto produto = daoProduto.obterPorId( item.idProduto() );
                 produto.setEstoque( produto.getEstoque().subtract( item.quantidade() ) );

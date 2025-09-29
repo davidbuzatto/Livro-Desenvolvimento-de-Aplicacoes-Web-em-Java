@@ -1,4 +1,4 @@
-package vendaprodutos.entidades.vos;
+package vendaprodutos.entidades.dto;
 
 import java.math.BigDecimal;
 
@@ -7,5 +7,5 @@ import java.math.BigDecimal;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public record ItemVendaVO( Long idProduto, BigDecimal quantidade ) {
+public record ItemVendaDTO( Long idProduto, BigDecimal quantidade ) {
 }
