@@ -39,26 +39,43 @@ export function formatarDataBrasil( data ) {
  */
 export async function customFetch( url, metodo, dados = null, propToken = "token" ) {
 
-    let headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    };
+    const controller = new AbortController();
+    const timeoutId = setTimeout( () => controller.abort(), 30000 ); // 30 segundos
 
-    if ( propToken ) {
-        headers[ "Authorization" ] = "Bearer " + localStorage.getItem( propToken );
-    }
+    try {
 
-    if ( dados ) {
-        return await fetch( url, {
+        let headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        };
+
+        if ( propToken ) {
+            const token = localStorage.getItem( propToken );
+            if ( token ) {
+                headers[ "Authorization" ] = "Bearer " + token;
+            }
+        }
+
+        const config = {
             method: metodo,
             headers: headers,
-            body: JSON.stringify( dados )
-        });
-    } else {
-        return await fetch( url, {
-            method: metodo,
-            headers: headers
-        });
+            signal: controller.signal
+        };
+
+        if ( dados ) {
+            config.body = JSON.stringify( dados );
+        }
+
+        const response = await fetch( url, config );
+        clearTimeout( timeoutId );
+        return response;
+
+    } catch ( error ) {
+        clearTimeout( timeoutId );
+        if ( error.name === "AbortError" ) {
+            throw new Error( "A requisição excedeu o tempo limite" );
+        }
+        throw error;
     }
 
 }
@@ -653,5 +670,30 @@ export function montarMensagemErro( objErro ) {
 
     html += "</ul>";
     return html;
+
+}
+
+/**
+ * A partir de uma URL base gera uma URL com parâmetros codificados para uso do método GET.
+ * 
+ * @param {*} urlBase A URL base que será usada.
+ * @param {*} parametros Os parâmetros que serão adicionados.
+ * 
+ * @returns Uma URL com parâmetros, não codificada.
+ */
+export function gerarUrlComParametros( urlBase, parametros ) {
+
+    const [base, queryExistente] = urlBase.split( "?" );
+
+    const parametrosBusca = new URLSearchParams( queryExistente || "" );
+
+    if ( parametros ) {
+        Object.keys( parametros ).forEach( key => {
+            parametrosBusca.append( key, parametros[key] );
+        });
+    }
+
+    const queryString = parametrosBusca.toString();
+    return queryString ? `${base}?${queryString}` : base;
 
 }

@@ -14,7 +14,6 @@ let _urlBase;
 let inicializado = false;
 
 // dados
-let objSelecionado;
 let dados;
 
 // tabela
@@ -52,7 +51,6 @@ export function iniciar( urlBase ) {
         
         Utils.carregarFragmento( "divVendas", "fragmentos/cruds/vendas.html" ).then( () => {
             
-            objSelecionado = null;
             dados = null;
             
             tbody = document.getElementById( "bodyTblVenda" );
