@@ -56,3 +56,7 @@
 
 **/desktop.ini
 /projetos/capitulo08/VendaProdutosSPA/build/
+/projetos/capitulo08/backend/build/
+/projetos/capitulo08/VendaProdutosSPA/backend/build/
+/projetos/capitulo08/VendaProdutosSPA/backend/nbproject/private/
+/projetos/capitulo08/VendaProdutosSPA/backend/dist/

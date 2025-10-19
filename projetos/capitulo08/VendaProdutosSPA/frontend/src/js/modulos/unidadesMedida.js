@@ -1,10 +1,9 @@
 /**
- * Módulo de cidades.
+ * Módulo de unidades de medida.
  * 
  * @author Prof. Dr. David Buzatto
  */
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
-import * as Estados from "./estados.js";
 import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
 
@@ -21,12 +20,12 @@ let tbody;
 
 // formulário
 let form;
-let txtNome;
-let selEstado;
+let txtDescricao;
+let txtSigla;
 
 // validação
-let divValNome;
-let divValEstado;
+let divValDescricao;
+let divValSigla;
 let camposValidacao;
 
 // botões
@@ -43,36 +42,33 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divCidades", "fragmentos/cruds/cidades.html" ).then( () => {
+        Utils.carregarFragmento( "divUnidadesMedida", "/public/fragmentos/cruds/unidadesMedida.html" ).then( () => {
             
             objSelecionado = null;
             dados = null;
 
-            tbody = document.getElementById( "bodyTblCidade" );
-            form = document.getElementById( "formCidade" );
+            tbody = document.getElementById( "bodyTblUnidadeMedida" );
+            form = document.getElementById( "formUnidadeMedida" );
 
-            txtNome = document.getElementById( "txtNomeCidade" );
-            selEstado = document.getElementById( "selEstadoCidade" );
+            txtDescricao = document.getElementById( "txtDescricaoUnidadeMedida" );
+            txtSigla = document.getElementById( "txtSiglaUnidadeMedida" );
 
-            divValNome = document.getElementById( "divValNomeCidade" );
-            divValEstado = document.getElementById( "divValEstadoCidade" );
+            divValDescricao = document.getElementById( "divValDescricaoUnidadeMedida" );
+            divValSigla = document.getElementById( "divValSiglaUnidadeMedida" );
             camposValidacao = [
-                { campo: txtNome, div: divValNome },
-                { campo: selEstado, div: divValEstado }
+                { campo: txtDescricao, div: divValDescricao },
+                { campo: txtSigla, div: divValSigla }
             ];
 
-            btnNovo = document.getElementById( "btnNovoCidade" );
-            btnSalvar = document.getElementById( "btnSalvarCidade" );
-            btnExcluir = document.getElementById( "btnExcluirCidade" );
-
-            Estados.adicionarSelectExterno( selEstado );
+            btnNovo = document.getElementById( "btnNovoUnidadeMedida" );
+            btnSalvar = document.getElementById( "btnSalvarUnidadeMedida" );
+            btnExcluir = document.getElementById( "btnExcluirUnidadeMedida" );
 
             btnSalvar.addEventListener( "click", salvar );
             btnExcluir.addEventListener( "click", excluir );
             btnNovo.addEventListener( "click", resetarFormulario );
 
             carregar();
-            Utils.carregarSelect( `${_urlBase}/estados`, selEstado, { id: "id", label: "nome" } );
             inicializado = true;
         
         }).catch( error => {
@@ -89,25 +85,27 @@ export function iniciar( urlBase ) {
 
 async function carregar() {
     
-    const response = await Utils.customFetch( `${_urlBase}/cidades`, "GET" );
+    const response = await Utils.customFetch( `${_urlBase}/unidadesMedida`, "GET" );
     dados = await response.json();
 
     if ( response.ok ) {
         
         tbody.innerHTML = "";
         resetarFormulario();
-        
+
         selects.forEach( select => {
             select.innerHTML = "";
         });
         
-        dados.forEach( ( cidade, index ) =>{
+        Modais.modalAguarde.abrir();
+        
+        dados.forEach( ( unidadeMedida, index ) =>{
             
             let linha = document.createElement( "tr" );
 
             linha.dataset.indice = index;
-            linha.append( Utils.criarTd( cidade.nome ) );
-            linha.append( Utils.criarTd( cidade.estado.sigla ) );
+            linha.append( Utils.criarTd( unidadeMedida.descricao ) );
+            linha.append( Utils.criarTd( unidadeMedida.sigla ) );
 
             linha.addEventListener( "click", ( event ) => {
                 objSelecionado = dados[event.target.parentElement.dataset.indice];
@@ -118,10 +116,12 @@ async function carregar() {
             tbody.append( linha );
             
             selects.forEach( select => {
-                select.append( Utils.criarOption( cidade.id, cidade.nome ) );
+                select.append( Utils.criarOption( unidadeMedida.id, unidadeMedida.sigla ) );
             });
 
         });
+        
+        Modais.modalAguarde.fechar();
 
     } else {
         Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
@@ -133,27 +133,29 @@ async function salvar() {
 
     let metodo;
     let obj = objSelecionado;
-    let url = `${_urlBase}/cidades`;
+    let url = `${_urlBase}/unidadesMedida`;
 
     if ( Utils.validarFormulario( form, camposValidacao ) ) {
 
         if ( obj === null ) {
             metodo = "POST";
             obj = {
-                nome: txtNome.value,
-                estado: {
-                    id: selEstado.value
-                }
+                descricao: txtDescricao.value,
+                sigla: txtSigla.value
             };
         } else {
             metodo = "PUT";
-            obj.nome = txtNome.value;
-            obj.estado.id = selEstado.value;
+            obj.descricao = txtDescricao.value;
+            obj.sigla = txtSigla.value;
             url += `/${obj.id}`;
         }
         
+        Modais.modalAguarde.abrir();
+        
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
+
+        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();
@@ -172,13 +174,13 @@ async function excluir() {
 
         Modais.modalConfirmacao.abrir( 
             "Confirmação",
-            "Deseja mesmo excluir a Cidade selecionada?",
+            "Deseja mesmo excluir a Unidade de Medida selecionada?",
             async () => {
                 
                 Modais.modalAguarde.abrir();
             
                 const response = await Utils.customFetch( 
-                    `${_urlBase}/cidades/${objSelecionado.id}`, 
+                    `${_urlBase}/unidadesMedida/${objSelecionado.id}`, 
                     "DELETE"
                 );
 
@@ -197,15 +199,15 @@ async function excluir() {
         );
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", "Selecione uma Cidade!" );
+        Modais.modalMensagem.abrir( "ERRO", "Selecione uma Unidade de Medida!" );
     }
 
 }
 
 function preencherFormulario() {
     Utils.limparFormulario( form, camposValidacao );
-    txtNome.value = objSelecionado.nome;
-    selEstado.value = objSelecionado.estado.id;
+    txtDescricao.value = objSelecionado.descricao;
+    txtSigla.value = objSelecionado.sigla;
 }
 
 function resetarFormulario() {

@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "vite": "^7.1.5",
+    "vite-plugin-static-copy": "^3.1.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rimraf dist",
+    "rebuild": "npm run clean && npm run build"
+  }
+}

@@ -120,4 +120,4 @@ function prepararAnimacao() {
     
 }
 
-iniciar( "/VendaProdutosSPA/api" );
+iniciar( "http://localhost:8080/backend/api" );

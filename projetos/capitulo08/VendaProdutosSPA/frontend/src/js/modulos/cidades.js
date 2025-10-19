@@ -1,9 +1,10 @@
 /**
- * Módulo de estados.
+ * Módulo de cidades.
  * 
  * @author Prof. Dr. David Buzatto
  */
 import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
+import * as Estados from "./estados.js";
 import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
 
@@ -21,11 +22,11 @@ let tbody;
 // formulário
 let form;
 let txtNome;
-let txtSigla;
+let selEstado;
 
 // validação
 let divValNome;
-let divValSigla;
+let divValEstado;
 let camposValidacao;
 
 // botões
@@ -42,33 +43,36 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divEstados", "fragmentos/cruds/estados.html" ).then( () => {
+        Utils.carregarFragmento( "divCidades", "/public/fragmentos/cruds/cidades.html" ).then( () => {
             
             objSelecionado = null;
             dados = null;
 
-            tbody = document.getElementById( "bodyTblEstado" );
-            form = document.getElementById( "formEstado" );
+            tbody = document.getElementById( "bodyTblCidade" );
+            form = document.getElementById( "formCidade" );
 
-            txtNome = document.getElementById( "txtNomeEstado" );
-            txtSigla = document.getElementById( "txtSiglaEstado" );
+            txtNome = document.getElementById( "txtNomeCidade" );
+            selEstado = document.getElementById( "selEstadoCidade" );
 
-            divValNome = document.getElementById( "divValNomeEstado" );
-            divValSigla = document.getElementById( "divValSiglaEstado" );
+            divValNome = document.getElementById( "divValNomeCidade" );
+            divValEstado = document.getElementById( "divValEstadoCidade" );
             camposValidacao = [
                 { campo: txtNome, div: divValNome },
-                { campo: txtSigla, div: divValSigla }
+                { campo: selEstado, div: divValEstado }
             ];
 
-            btnNovo = document.getElementById( "btnNovoEstado" );
-            btnSalvar = document.getElementById( "btnSalvarEstado" );
-            btnExcluir = document.getElementById( "btnExcluirEstado" );
+            btnNovo = document.getElementById( "btnNovoCidade" );
+            btnSalvar = document.getElementById( "btnSalvarCidade" );
+            btnExcluir = document.getElementById( "btnExcluirCidade" );
+
+            Estados.adicionarSelectExterno( selEstado );
 
             btnSalvar.addEventListener( "click", salvar );
             btnExcluir.addEventListener( "click", excluir );
             btnNovo.addEventListener( "click", resetarFormulario );
 
             carregar();
+            Utils.carregarSelect( `${_urlBase}/estados`, selEstado, { id: "id", label: "nome" } );
             inicializado = true;
         
         }).catch( error => {
@@ -85,27 +89,25 @@ export function iniciar( urlBase ) {
 
 async function carregar() {
     
-    const response = await Utils.customFetch( `${_urlBase}/estados`, "GET" );
+    const response = await Utils.customFetch( `${_urlBase}/cidades`, "GET" );
     dados = await response.json();
 
     if ( response.ok ) {
         
         tbody.innerHTML = "";
         resetarFormulario();
-
+        
         selects.forEach( select => {
             select.innerHTML = "";
         });
         
-        Modais.modalAguarde.abrir();
-        
-        dados.forEach( ( estado, index ) =>{
+        dados.forEach( ( cidade, index ) =>{
             
             let linha = document.createElement( "tr" );
 
             linha.dataset.indice = index;
-            linha.append( Utils.criarTd( estado.nome ) );
-            linha.append( Utils.criarTd( estado.sigla ) );
+            linha.append( Utils.criarTd( cidade.nome ) );
+            linha.append( Utils.criarTd( cidade.estado.sigla ) );
 
             linha.addEventListener( "click", ( event ) => {
                 objSelecionado = dados[event.target.parentElement.dataset.indice];
@@ -116,12 +118,10 @@ async function carregar() {
             tbody.append( linha );
             
             selects.forEach( select => {
-                select.append( Utils.criarOption( estado.id, estado.nome ) );
+                select.append( Utils.criarOption( cidade.id, cidade.nome ) );
             });
 
         });
-        
-        Modais.modalAguarde.fechar();
 
     } else {
         Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
@@ -133,7 +133,7 @@ async function salvar() {
 
     let metodo;
     let obj = objSelecionado;
-    let url = `${_urlBase}/estados`;
+    let url = `${_urlBase}/cidades`;
 
     if ( Utils.validarFormulario( form, camposValidacao ) ) {
 
@@ -141,21 +141,19 @@ async function salvar() {
             metodo = "POST";
             obj = {
                 nome: txtNome.value,
-                sigla: txtSigla.value
+                estado: {
+                    id: selEstado.value
+                }
             };
         } else {
             metodo = "PUT";
             obj.nome = txtNome.value;
-            obj.sigla = txtSigla.value;
+            obj.estado.id = selEstado.value;
             url += `/${obj.id}`;
         }
         
-        Modais.modalAguarde.abrir();
-        
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
-
-        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();
@@ -174,13 +172,13 @@ async function excluir() {
 
         Modais.modalConfirmacao.abrir( 
             "Confirmação",
-            "Deseja mesmo excluir o Estado selecionado?",
+            "Deseja mesmo excluir a Cidade selecionada?",
             async () => {
                 
                 Modais.modalAguarde.abrir();
             
                 const response = await Utils.customFetch( 
-                    `${_urlBase}/estados/${objSelecionado.id}`, 
+                    `${_urlBase}/cidades/${objSelecionado.id}`, 
                     "DELETE"
                 );
 
@@ -199,7 +197,7 @@ async function excluir() {
         );
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", "Selecione um Estado!" );
+        Modais.modalMensagem.abrir( "ERRO", "Selecione uma Cidade!" );
     }
 
 }
@@ -207,7 +205,7 @@ async function excluir() {
 function preencherFormulario() {
     Utils.limparFormulario( form, camposValidacao );
     txtNome.value = objSelecionado.nome;
-    txtSigla.value = objSelecionado.sigla;
+    selEstado.value = objSelecionado.estado.id;
 }
 
 function resetarFormulario() {

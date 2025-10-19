@@ -52,7 +52,7 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divProdutos", "fragmentos/cruds/produtos.html" ).then( () => {
+        Utils.carregarFragmento( "divProdutos", "/public/fragmentos/cruds/produtos.html" ).then( () => {
             
             objSelecionado = null;
             dados = null;
