@@ -82,27 +82,39 @@ export async function customFetch( url, metodo, dados = null, propToken = "token
 
 export function criarTd( dados ) {
     let td = document.createElement( "td" );
-    td.innerHTML = dados;
+    td.classList.add( "align-middle", "ps-3" );
+    td.textContent = dados;
     return td;
 }
 
 export function criarTdBoolean( objeto, propriedade, funcaoClicar, textoTrue = "sim", textoFalse = "não", corTrue = "#198754", corFalse = "#dc3545" ) {
+    
     let td = criarTd( "" );
     td.style.textAlign = "center";
     td.style.cursor = "pointer";
+    
+    let span = document.createElement( "span" );
+    span.classList.add( "badge" );
+    
     if ( objeto[propriedade] ) {
-        td.innerHTML = `<span class="badge" style="background-color:${corTrue}">${textoTrue}</span>`;
+        span.style.backgroundColor = corTrue;
+        span.textContent = textoTrue;
     } else {
-        td.innerHTML = `<span class="badge" style="background-color:${corFalse}">${textoFalse}</span>`;
+        span.style.backgroundColor = corFalse;
+        span.textContent = textoFalse;
     }
+    
+    td.append( span );
     td.addEventListener( "click", funcaoClicar );
+    
     return td;
+    
 }
 
 export function criarOption( valor, label, objeto = null, propriedadesDataset = null ) {
     let opt = document.createElement( "option" );
     opt.value = valor;
-    opt.innerHTML = label;
+    opt.textContent = label;
     if ( objeto && propriedadesDataset ) {
         propriedadesDataset.forEach( propriedade => {
             opt.dataset[propriedade] = objeto[propriedade] ? objeto[propriedade] : null;
@@ -342,21 +354,6 @@ export function limparFormulario( form, camposValidacao = null ) {
 }
 
 /**
- * Configura as mensagens de validação de campos de formulário.
- * É a versão antiga, não deve ser usada.
- * 
- * @param {*} camposValidacao Os campos que serão configurados.
- */
-export function configurarMensagensValidacaoAntigo( camposValidacao ) {
-    camposValidacao.forEach( item => {
-        if ( !item.campo.valid ) {
-            item.div.innerHTML = item.campo.dataset.mensagemAdicional ? item.campo.dataset.mensagemAdicional : item.campo.validationMessage;
-        }
-        item.campo.dataset.mensagemAdicional = "";
-    });
-}
-
-/**
  * Configura as mensagens de validação de um conjunto de campos de formulário
  * em suas respectivas divs.
  * 
@@ -424,7 +421,7 @@ export function limparMensagensValidacao( form, camposValidacao ) {
             }
             item.campo.setCustomValidity( "" );
             item.campo.removeAttribute( "aria-invalid" );
-            item.div.innerHTML = "";
+            item.div.textContent = "";
         });
     } catch ( error ) {
         console.error( "Erro ao limpar mensagens de validação:", error );
@@ -478,20 +475,20 @@ function configurarMensagemValidacao( item ) {
                 if ( campo.validity[k] ) {
                     const mensagem = item[k];
                     if ( mensagem ) {
-                        div.innerHTML = mensagem;
+                        div.textContent = mensagem;
                         return;
                     }
                 }
             }
 
-            div.innerHTML = campo.validationMessage;
+            div.textContent = campo.validationMessage;
 
             campo.setAttribute( "aria-invalid", "true" );
             campo.setAttribute( "aria-describedby", div.id );
 
         } else {
             campo.removeAttribute( "aria-invalid" );
-            div.innerHTML = item.valid || "";
+            div.textContent = item.valid || "";
         }
 
     } catch ( error ) {
@@ -554,12 +551,12 @@ function configurarMensagemValidacaoCustomizada( item ) {
         campo.setAttribute( "aria-invalid", "true" );
         campo.setAttribute( "aria-describedby", div.id );
 
-        div.innerHTML = mensagem;
+        div.textContent = mensagem;
 
     } else {
         campo.setCustomValidity( "" );
         campo.removeAttribute( "aria-invalid" );
-        div.innerHTML = item.valid || "";
+        div.textContent = item.valid || "";
     }
 
 }
@@ -641,7 +638,7 @@ export function resetarSelect( select, textoPadrao, value = "" ) {
     if ( textoPadrao ) {
         const option = document.createElement( "option" );
         option.value = value;
-        option.innerHTML = textoPadrao;
+        option.textContent = textoPadrao;
         select.append( option );
     }
     
