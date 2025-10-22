@@ -67,10 +67,10 @@ function executarExemplo04( event ) {
     
     // métodos de iteração every e some.
     
-    // o método forEach não foi projetada parar
+    // o método forEach não foi projetado para
     // parar no meio da execução. para isso, existem
-    // outras duas funções análogas que podem ser
-    // usadas para esse propósito.
+    // outros dois métodos análogos que podem ser
+    // usados para esse propósito.
     
     // some => algum/alguns. a ideia é processar
     // alguns elementos do array até que uma condição seja
