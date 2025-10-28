@@ -9,7 +9,7 @@ function executarExemplo06( event ) {
     let p = document.createElement( "p" );
     
     // configura os atributos
-    p.innerHTML = `JS Puro - Contador: ${contadorExemplo06++}`;
+    p.textContent = `JS Puro - Contador: ${contadorExemplo06++}`;
     p.className = "pDOM";
     
     // adiciona na div

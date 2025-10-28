@@ -19,7 +19,7 @@
     <script src="${cp}/js/exemplo09.js"></script>
     <script src="${cp}/js/exemplo10.js"></script>
     <script src="${cp}/js/exemplo11.js"></script>
-    <script src="${cp}/js/exemplo12.js"></script>
+    <script src="${cp}/js/exemplo12.js" type="module"></script>
     <link rel="stylesheet" href="${cp}/css/estilos.css"/>
   </head>
   <body>
@@ -171,19 +171,6 @@
         <script>registrarEventosExemplo09();</script>
       </div>
       
-      <div>
-        <p>
-          <h2>Exemplo 10 - Simulação Usando a Canvas API</h2>
-        </p>
-        <div id="divExemplo10" class="divExemplo">
-          <canvas id="canvasExemplo10"
-                  height="260"
-                  width="550"
-                  class="canvasExemplo10"/>
-        </div>
-        <script>prepararCanvasExemplo10();</script>
-      </div>
-      
     </div>
     
     <hr>
@@ -194,28 +181,42 @@
       
       <div>
         <p>
+          <button onclick="executarExemplo10jQuery(event)">
+            Exemplo 10 - AJAX com jQuery
+          </button>
+          <button onclick="executarExemplo10Fetch(event)">
+            Exemplo 10 - AJAX com Fetch API
+          </button>
+        </p>
+        <div id="divExemplo10" class="divExemplo"></div>
+      </div>
+      
+      <div>
+        <p>
           <button onclick="executarExemplo11jQuery(event)">
-            Exemplo 11 - AJAX com jQuery
+            Exemplo 11 - AJAX com jQuery e JSON
           </button>
           <button onclick="executarExemplo11Fetch(event)">
-            Exemplo 11 - AJAX com Fetch API
+            Exemplo 11 - AJAX com Fetch API e JSON
           </button>
         </p>
         <div id="divExemplo11" class="divExemplo"></div>
       </div>
       
-      <div>
-        <p>
-          <button onclick="executarExemplo12jQuery(event)">
-            Exemplo 12 - AJAX com jQuery e JSON
-          </button>
-          <button onclick="executarExemplo12Fetch(event)">
-            Exemplo 12 - AJAX com Fetch API e JSON
-          </button>
-        </p>
-        <div id="divExemplo12" class="divExemplo"></div>
+    </div>
+    
+    <hr>
+    
+    <div>
+      <p>
+        <h2>Exemplo 12 - Simulação Usando a Canvas API</h2>
+      </p>
+      <div id="divExemplo12" class="divExemploCanvas">
+        <canvas id="canvasExemplo12"
+                width="800"
+                height="600"
+                class="canvasExemplo10"/>
       </div>
-      
     </div>
     
   </body>

@@ -19,6 +19,16 @@ body {
     overflow-style: scrollbar;    /* mostrar barra de rolagem */
 }
 
+/* class para a div do canvas */
+.divExemploCanvas {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    height: 620px;
+    width: 820px;
+}
+
 /* estilo para o seletor de classe .pDOM usando
  * a pseudo-classe nth-child, indicando a seleção
  * de todos os filhos pares

@@ -1,32 +1,27 @@
 function executarExemplo11jQuery( event ) {
     
-    let n = prompt( "Calcular a tabuada de:" );
+    let q = prompt( "Quantidade de pessoas:" );
     
-    // prepara uma requisição assíncrona usando jQuery
-    // para a URL "calcularTabuada", enviando o parâmetro
-    // numero na requisição como atributo do objeto data
-    // configurado no objeto de opções da função
-    $.ajax( "calcularTabuada", {
-        
-        // objeto data
+    $.ajax( "listarPessoas", {
         data: {
-            numero: n
+            quantidade: q
         },
-        
-        // atributo dataType do objeto de opções que 
-        // indica qual o tipo de dado que é esperado
-        // quando a requisição for bem suncedida.
-        // nesse caso, um retorno de texto puro
-        dataType: "text"
-        
-        // done associa uma função de callback para
-        // tratar os dados da requisição caso seja
-        // bem sucedida
+        // esperando JSON no retorno
+        dataType: "json"
     }).done( ( data, textStatus ) =>{
-        $( "#divExemplo11" ).html( data );
         
-        // fail é análoga a done, com a diferença
-        // que lida com problemas na requisição
+        // data já contém o objeto resultado do parse
+        // do json retornado. isso é automático.
+        let $div = $( "#divExemplo11" );
+        $div.html( "" );
+        
+        data.forEach( pessoa => {
+            $div.append( 
+                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
+                `<p>Salário: R$ ${pessoa.salario}</p></div>` );
+        });
+        
     }).fail( ( jqXHR, textStatus, errorThrown ) => {
         alert( "Erro: " + errorThrown + "\n" +
                "Status: " + textStatus );
@@ -38,29 +33,27 @@ function executarExemplo11Fetch( event ) {
     
     let n = prompt( "Calcular a tabuada de:" );
     
-    // cria um objeto do tipo URLSearchParams
-    // que encapsula os parâmetros enviados
-    // pela requisição assíncrona da função
-    // fetch
     let parametros = new URLSearchParams();
-    parametros.append( "numero", n );
+    parametros.append( "quantidade", n );
     
-    // envia uma requisição à URL "calcularTabuada" e passa
-    // um init object com os atributos method e body
-    fetch( "calcularTabuada", {
+    fetch( "listarPessoas", {
         method: "POST",
         body: parametros
-        
-        // se bem sucedido, retorna o texto da resposta
     }).then( response => {
-        return response.text();
+        // faz o parse do json em objeto e retorna
+        return response.json();
+    }).then( data => {
         
-        // encadeia com o then anterior, tratando o texto
-        // retornado
-    }).then( text => {
-        $( "#divExemplo11" ).html( text );
+        let $div = $( "#divExemplo11" );
+        $div.html( "" );
         
-        // se algum problema ocorrer...
+        data.forEach( pessoa => {
+            $div.append( 
+                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
+                `<p>Salário: R$ ${pessoa.salario}</p></div>` );
+        });
+        
     }).catch( error => {
         alert( "Erro: " + error );
     });

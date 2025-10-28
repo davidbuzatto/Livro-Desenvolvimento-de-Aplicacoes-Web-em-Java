@@ -80,7 +80,7 @@ function inserirNovaOpcao( event ) {
     let op = document.createElement( "option" );
     
     // configura
-    op.innerHTML = `Opção ${contadorOpSelect03}j`;
+    op.textContent = `Opção ${contadorOpSelect03}j`;
     op.value = `o${contadorOpSelect03}j`;
     
     // obtém o select e adiciona o op
