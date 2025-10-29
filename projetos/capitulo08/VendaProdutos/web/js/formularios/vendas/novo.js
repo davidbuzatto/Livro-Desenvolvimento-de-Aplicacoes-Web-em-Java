@@ -1,50 +1,58 @@
 /**
- * Implementação das funções do formulário de venda.
+ * Módulo para as funções do formulário de venda.
  */
 
-// Document ready (quando o documento estiver pronto)
-$( () => {
+// array para armazenar os itens da venda
+let itensVenda = [];
+
+// formatadores
+let fmtMoeda = new Intl.NumberFormat( 
+    "pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    }
+);
+
+let fmtNumero = new Intl.NumberFormat( 
+    "pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }
+);
+
+// componentes do formulário.
+let formNovaVenda;
+let hiddenItensVenda;
+let txtQuantidade;
+let selectProduto;
+let btnInserir;
+let btnRemover;
+let btnLimpar;
+let selectItensVenda;
+let divTotal;
     
-    // array para armazenar os itens da venda
-    let itensVenda = [];
+function iniciar() {
     
-    // formatadores
-    let fmtMoeda = new Intl.NumberFormat( 
-        "pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        }
-    );
-    
-    let fmtNumero = new Intl.NumberFormat( 
-        "pt-BR", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }
-    );
+    formNovaVenda = document.getElementById( "formNovaVenda" );
+    hiddenItensVenda = document.getElementById( "hiddenItensVenda" );
+    selectProduto = document.getElementById( "selectProduto" );
+    txtQuantidade = document.getElementById( "txtQuantidade" );
+    btnInserir = document.getElementById( "btnInserir" );
+    btnRemover = document.getElementById( "btnRemover" );
+    btnLimpar = document.getElementById( "btnLimpar" );
+    selectItensVenda = document.getElementById( "selectItensVenda" );
+    divTotal = document.getElementById( "divTotal" );
     
     // ao clicar no botão inserir
-    $( "#btnInserir" ).on( "click", event => {
+    btnInserir.addEventListener( "click", event => {
         
-        let $selectProduto = $( "#selectProduto" );
-        let $txtQuantidade = $( "#txtQuantidade" );
+        let idProduto = selectProduto.value;
+        let option = selectProduto.selectedOptions[0];
+        let valorVenda = +option.dataset.valor;
+        let descricao = option.dataset.descricao;
+        let quantidade = +txtQuantidade.value;
         
-        let idProduto = $selectProduto.val();
-        let valorVenda = $selectProduto.find( ":selected" ).data( "valor" ).toString();
-        let descricao = $selectProduto.find( ":selected" ).data("descricao");
-        let quantidade = null;
-        
-        // se o valor da venda tem vírgula, troca por ponto
-        if ( valorVenda.includes( "," ) ) {
-            valorVenda = valorVenda.replace( ",", "." );
-        }
-        
-        try {
-            quantidade = new Decimal( $txtQuantidade.val() );
-        } catch ( e ) {
-        }
-        
-        if ( quantidade !== null && quantidade.greaterThan( 0 ) ) {
+        if ( quantidade > 0 ) {
             
             // há um item da venda igual?
             let itemIgual = null;
@@ -59,9 +67,7 @@ $( () => {
             if ( itemIgual !== null ) {
                 
                 // soma a quantidade
-                itemIgual.quantidade = itemIgual
-                        .quantidade
-                        .plus( quantidade );
+                itemIgual.quantidade += quantidade;
                 
                 // caso contrário, cria um novo item
             } else {
@@ -73,8 +79,8 @@ $( () => {
                 });
             }
             
-            atualizarGUI();
-            $txtQuantidade.val( "" );
+            txtQuantidade.value = "";
+            atualizar();
             
         } else {
             alert( "Forneça uma quantidade maior que zero!" );
@@ -83,21 +89,21 @@ $( () => {
     });
     
     // ao clicar no botão remover
-    $( "#btnRemover" ).on( "click", event => {
+    btnRemover.addEventListener( "click", event => {
         
         // retorna um array com os values de todos os itens
         // (option) selecionados
-        let selecao = $( "#selectItensVenda" ).val();
+        let options = selectItensVenda.selectedOptions;
         
         // se não selecionou nenhum
-        if ( selecao.length === 0 ) {
+        if ( options.length === 0 ) {
             alert( "Selecione um item da venda para remover!" );
             
             //se há seleção
         } else if ( confirm( "Deseja remover o(s) item(ns) da venda selecionado(s)?" ) ) {
             
             // itera pela seleção
-            for ( let i = 0; i < selecao.length; i++ ) {
+            for ( let i = 0; i < options.length; i++ ) {
                 
                 // busca sequencial nos itens de venda
                 for ( let j = 0; j < itensVenda.length; j++ ) {
@@ -105,7 +111,7 @@ $( () => {
                     let item = itensVenda[j];
                     
                     // encontrou?
-                    if ( selecao[i] === item.idProduto ) {
+                    if ( options[i].value === item.idProduto ) {
                         
                         // remove da posição j
                         itensVenda.splice( j, 1 );
@@ -118,70 +124,74 @@ $( () => {
             }
             
             // remonta a lista
-            atualizarGUI();
+            atualizar();
             
         }
         
     });
     
     // ao clicar no botão limpar
-    $( "#btnLimpar" ).on( "click", event => {
+    btnLimpar.addEventListener( "click", event => {
         if ( confirm( "Deseja remover todos os itens da venda?" ) ) {
             itensVenda = [];
-            atualizarGUI();
+            atualizar();
         }
     });
     
     // submissão da venda
-    $( "#formNovaVenda" ).on( "submit", event => {
-        
-        if ( $( "#selectItensVenda > option" ).length === 0 ) {
+    formNovaVenda.addEventListener( "submit", event => {
+        if ( selectItensVenda.options.length === 0 ) {
             alert( "Uma venda precisa conter pelo menos um item!" );
-            return false;
-        }
-        
-        return true;
-        
-    });
-    
-    // evita que ao teclar enter dentro do campo
-    // de texto o formulário seja submetido
-    $( "#txtQuantidade" ).on( "keydown", event => {
-        if ( event.keyCode === 13 ) {
             event.preventDefault();
         }
     });
     
-    // constrói as opções do <select> (lista) de itens de venda;
-    // atualiza o valor total da venda;
-    // e prepara os dados para envio
-    let atualizarGUI = () => {
-        
-        let $select = $( "#selectItensVenda" );
-        let total = new Decimal( 0 );
-        
-        $select.html( "" );
-        
-        itensVenda.forEach( item => {
-            
-            let valorItem = new Decimal( item.valorVenda )
-                                .times( item.quantidade );
-            
-            $opt = $( "<option></option>" ).
-                    html( `${item.descricao} - ` + 
-                    `${fmtMoeda.format( item.valorVenda )} x ` + 
-                    `${fmtNumero.format( item.quantidade )} = ` + 
-                    `${fmtMoeda.format( valorItem )}` ).
-                    val( `${item.idProduto}` );
-            
-            $select.append( $opt );
-            total = total.plus( valorItem );
-            
-        });
-        
-        $( "#divTotal" ).html( "Total: " + fmtMoeda.format( total ) );
-        $( "#hiddenItensVenda" ).val( JSON.stringify( itensVenda ) );
-        
-    };
+    // evita que ao teclar enter dentro do campo
+    // de texto o formulário seja submetido
+    txtQuantidade.addEventListener( "keydown", event => {
+        if ( event.key === "Enter" ) {
+            event.preventDefault();
+        }
+    });
     
-});
+};
+
+// constrói as opções do <select> (lista) de itens de venda;
+// atualiza o valor total da venda;
+// e prepara os dados para envio
+function atualizar() {
+
+    selectItensVenda.innerHTML = "";
+    let total = 0;
+
+    itensVenda.forEach( item => {
+
+        let valorItem = +item.valorVenda * +item.quantidade;
+        let opt = document.createElement( "option" );
+        
+        opt.textContent = `${item.descricao} - ` + 
+                `${fmtMoeda.format( item.valorVenda )} x ` + 
+                `${fmtNumero.format( item.quantidade )} = ` + 
+                `${fmtMoeda.format( valorItem )}`;
+                
+        opt.value = item.idProduto;
+
+        selectItensVenda.append( opt );
+        total += valorItem;
+
+    });
+    
+    divTotal.textContent = "Total: " + fmtMoeda.format( total );
+    hiddenItensVenda.value = 
+            // cria um novo array com os dados necessários
+            // e converte para json
+            JSON.stringify( itensVenda.map( item => {
+                return { 
+                    idProduto: item.idProduto, 
+                    quantidade: item.quantidade
+                };
+            }));
+
+};
+
+iniciar();

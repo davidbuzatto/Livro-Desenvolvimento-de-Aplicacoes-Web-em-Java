@@ -81,8 +81,8 @@ public class VendasServlet extends HttpServlet {
                     // extraímos os atributos 
                     Long idProduto = Utils.getLong( 
                             jso.getString( "idProduto" ) );
-                    BigDecimal quantidade = Utils.getBigDecimal(
-                            jso.getString( "quantidade" ) );
+                    BigDecimal quantidade = new BigDecimal(
+                            jso.getInt( "quantidade" ) );
                     
                     // obtém o produto e atualiza o estoque
                     Produto p = daoProduto.obterPorId( idProduto );

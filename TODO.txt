@@ -1,8 +1,8 @@
-atualizar parte escrita para refletir as mudanças no capítulo sobre javascript
+Propagar mudanças no livro para a próxima edição?
     - mudança de innerHTML para textContent nos exemplos 6 e 8
     - exemplo 10 virou exemplo 12, como módulo e reescrito
     - exemplo 11 virou exemplo 10
     - exemplo 12 virou exemplo 11
-    
-atualizar css dos exemplos para nomes com traços ao invés de camel case
+    - atualizar css dos exemplos para nomes com traços ao invés de camel case
+    - remoção da jquery do projeto do cap8 (VendaProdutos)
     
