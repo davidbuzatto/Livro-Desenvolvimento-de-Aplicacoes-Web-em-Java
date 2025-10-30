@@ -6,19 +6,11 @@
 
 <html>
   <head>
-    
     <title>Vendas Cadastradas</title>
-    
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet"
-          href="${cp}/css/estilos.css"/>
-    
-    <script src="${cp}/js/libs/jquery/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${cp}/css/estilos.css"/>
     <script src="${cp}/js/formularios/vendas/listagem.js"></script>
-    
   </head>
 
   <body>

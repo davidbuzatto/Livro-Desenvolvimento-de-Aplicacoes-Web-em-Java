@@ -6,20 +6,11 @@
 
 <html>
   <head>
-    
     <title>Nova Venda</title>
-    
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet"
-          href="${cp}/css/estilos.css"/>
-    
-    <script src="${cp}/js/libs/jquery/jquery.min.js"></script>
-    <script src="${cp}/js/libs/decimal.js/decimal.min.js"></script>
-    <script src="${cp}/js/formularios/vendas/novo.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${cp}/css/estilos.css"/>
+    <script src="${cp}/js/formularios/vendas/novo.js" type="module"></script>
   </head>
 
   <body>
@@ -74,7 +65,7 @@
                         value="${produto.valorVenda}"/>
                     
                     <option value="${produto.id}"
-                            data-valor="${valorVenda}"
+                            data-valor="${produto.valorVenda}"
                             data-descricao="${produto.descricao}">
                       ${produto.descricao}
                       (R$ ${valorVenda}
