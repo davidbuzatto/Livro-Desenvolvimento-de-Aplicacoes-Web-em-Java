@@ -5,4 +5,6 @@ Propagar mudanças no livro para a próxima edição?
     - exemplo 12 virou exemplo 11
     - atualizar css dos exemplos para nomes com traços ao invés de camel case
     - remoção da jquery do projeto do cap8 (VendaProdutos)
-    
+
+Atualizar versão GlassFish
+Atualizar versão Driver MariaDB 3.5.0 para 3.5.6

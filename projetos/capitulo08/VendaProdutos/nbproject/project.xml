@@ -7,7 +7,7 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${libs.MariaDB-ConnectorJ-3.5.0.classpath}</file>
+                    <file>${libs.MariaDB-ConnectorJ-3.5.6.classpath}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
