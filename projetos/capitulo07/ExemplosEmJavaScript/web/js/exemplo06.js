@@ -10,7 +10,7 @@ function executarExemplo06( event ) {
     
     // configura os atributos
     p.textContent = `JS Puro - Contador: ${contadorExemplo06++}`;
-    p.className = "pDOM";
+    p.className = "p-dom";
     
     // adiciona na div
     div.append( p );

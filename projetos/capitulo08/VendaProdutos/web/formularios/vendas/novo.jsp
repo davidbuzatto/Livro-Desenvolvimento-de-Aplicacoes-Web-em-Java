@@ -88,7 +88,7 @@
               </p>
 
             </td>
-            <td class="btnsItensVenda">
+            <td class="btns-itens-venda">
               <p><input id="btnInserir" type="button" value="&#x2795;"/></p>
               <p><input id="btnRemover" type="button" value="&#x2796;"/></p>
               <p><input id="btnLimpar" type="button" value="&#x274C;"/></p>
@@ -108,7 +108,7 @@
             <td>
             </td>
             <td></td>
-            <td class="alinharDireita">
+            <td class="alinhar-direita">
               <input id="btnSalvar" type="submit" value="Salvar"/>
             </td>
           </tr>

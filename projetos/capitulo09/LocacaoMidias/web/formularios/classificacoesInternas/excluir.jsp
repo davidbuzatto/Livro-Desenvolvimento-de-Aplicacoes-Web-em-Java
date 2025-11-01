@@ -25,11 +25,11 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>${requestScope.classificacaoInterna.descricao}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Valor de Venda:</td>
+          <td class="alinhar-direita">Valor de Venda:</td>
           <td>
             R$
             <fmt:formatNumber
@@ -47,7 +47,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

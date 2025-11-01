@@ -24,18 +24,18 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Nome:</td>
+          <td class="alinhar-direita">Nome:</td>
           <td>${requestScope.cidade.nome}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Estado:</td>
+          <td class="alinhar-direita">Estado:</td>
           <td>${requestScope.cidade.estado.nome} - ${requestScope.cidade.estado.sigla}</td>
         </tr>
         <tr>
           <td>
             <a href="${cp}/formularios/cidades/listagem.jsp">Voltar</a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

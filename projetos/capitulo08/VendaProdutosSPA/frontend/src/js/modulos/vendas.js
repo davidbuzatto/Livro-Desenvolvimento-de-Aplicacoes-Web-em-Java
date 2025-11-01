@@ -130,7 +130,7 @@ async function carregar() {
                 let span = document.createElement( "span" );
                 span.classList.add( "badge" );
                 span.style.backgroundColor = "#aaaaaa";
-                span.innerHTML = "cancelada";
+                span.textContent = "cancelada";
                 td.append( span );
                 linha.append( td );
             } else {
@@ -361,7 +361,7 @@ function atualizarListaItens() {
         
         total += valor * quant;
         
-        option.innerHTML = 
+        option.textContent = 
             `${desc} - ${Utils.formatarDinheiro(valor)} x ` +
             `${Utils.formatarNumeroBrasil(quant)} = ` + 
             `${Utils.formatarDinheiro(valor * quant)}`;
@@ -370,6 +370,6 @@ function atualizarListaItens() {
         
     });
     
-    spanTotal.innerHTML = `Total: ${Utils.formatarDinheiro( total )}`;
+    spanTotal.textContent = `Total: ${Utils.formatarDinheiro( total )}`;
     
 }

@@ -17,7 +17,7 @@ function executarExemplo11jQuery( event ) {
         
         data.forEach( pessoa => {
             $div.append( 
-                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<div class="dados-pessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
                 `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
                 `<p>Salário: R$ ${pessoa.salario}</p></div>` );
         });
@@ -49,7 +49,7 @@ function executarExemplo11Fetch( event ) {
         
         data.forEach( pessoa => {
             $div.append( 
-                `<div class="dadosPessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
+                `<div class="dados-pessoa">Pessoa:<p>Nome: ${pessoa.nome}</p>`+
                 `<p>Data de Nascimento: ${pessoa.dataNasc}</p>` +
                 `<p>Salário: R$ ${pessoa.salario}</p></div>` );
         });

@@ -17,7 +17,7 @@ export class Modal {
     
     iniciar() {
         
-        const btnFechar = this.divContainer.querySelector( ".btnFechar" );
+        const btnFechar = this.divContainer.querySelector( ".btn-fechar" );
         const btnOk = this.divContainer.querySelector( ".btnOk" );
         const btnCancelar = this.divContainer.querySelector( ".btnCancelar" );
         
@@ -63,17 +63,17 @@ export class Modal {
         
         if ( !this.aberto ) {
             
-            const tituloModal = this.divContainer.querySelector( ".tituloModal" );
-            const corpoModal = this.divContainer.querySelector( ".corpoModal" );
+            const tituloModal = this.divContainer.querySelector( ".titulo-modal" );
+            const corpoModal = this.divContainer.querySelector( ".corpo-modal" );
             this.funcaoOk = funcaoOk;
             this.funcaoCancelar = funcaoCancelar;
             
             if ( tituloModal && titulo ) {
-                tituloModal.innerHTML = titulo;
+                tituloModal.textContent = titulo;
             }
             
             if ( corpoModal && mensagem ) {
-                corpoModal.innerHTML = mensagem;
+                corpoModal.textContent = mensagem;
             }
             
             this.divContainer.classList.remove( "escondido" );

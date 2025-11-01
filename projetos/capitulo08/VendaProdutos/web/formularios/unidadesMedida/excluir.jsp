@@ -24,11 +24,11 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>${requestScope.un.descricao}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Sigla:</td>
+          <td class="alinhar-direita">Sigla:</td>
           <td>${requestScope.un.sigla}</td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

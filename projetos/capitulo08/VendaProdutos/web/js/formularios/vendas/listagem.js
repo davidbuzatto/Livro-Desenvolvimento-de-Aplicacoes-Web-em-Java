@@ -16,7 +16,7 @@ function cancelarVenda( event, cp ) {
         }).then( data => {
 
             if ( data.status === "ok" ) {
-                event.target.parentElement.innerHTML = "Cancelada";
+                event.target.parentElement.textContent = "Cancelada";
             } else {
                 alert( "Ocorreu um erro na sua requisição!" );
             }

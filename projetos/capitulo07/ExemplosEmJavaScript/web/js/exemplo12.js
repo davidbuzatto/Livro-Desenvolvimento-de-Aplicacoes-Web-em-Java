@@ -173,7 +173,7 @@ function iniciar() {
     // quando o mouse foi solto no canvas
     canvas.addEventListener( "mouseup", event => {
         if ( event.button === 0 ) {
-            if ( bolinhaSelecionada !== null ) {
+            if ( bolinhaSelecionada ) {
                 bolinhaSelecionada.emArraste = false;
             }
         } else if ( event.button === 2 ) {
@@ -192,7 +192,7 @@ function iniciar() {
 
     // quando o mouse saiu do canvas
     canvas.addEventListener( "mouseout", event => {
-        if ( bolinhaSelecionada !== null ) {
+        if ( bolinhaSelecionada ) {
             bolinhaSelecionada.emArraste = false;
             bolinhaSelecionada = null;
         }

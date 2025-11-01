@@ -25,7 +25,7 @@
       </a>
     </p>
 
-    <table class="tabelaListagem">
+    <table class="tabela-listagem">
       <thead>
         <tr>
           <th>Id</th>

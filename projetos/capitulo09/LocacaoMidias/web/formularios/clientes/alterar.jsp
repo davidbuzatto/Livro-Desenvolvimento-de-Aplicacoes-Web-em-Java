@@ -25,7 +25,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Nome:</td>
+          <td class="alinhar-direita">Nome:</td>
           <td>
             <input name="nome"
                    type="text"
@@ -36,7 +36,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Sobrenome:</td>
+          <td class="alinhar-direita">Sobrenome:</td>
           <td>
             <input name="sobrenome"
                    type="text"
@@ -47,7 +47,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Data de Nascimento:</td>
+          <td class="alinhar-direita">Data de Nascimento:</td>
           <td>
             <fmt:formatDate 
                 pattern="yyyy-MM-dd"
@@ -62,7 +62,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">CPF:</td>
+          <td class="alinhar-direita">CPF:</td>
           <td>
             <input name="cpf"
                    type="text"
@@ -74,7 +74,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">E-mail:</td>
+          <td class="alinhar-direita">E-mail:</td>
           <td>
             <input name="email"
                    type="email"
@@ -85,7 +85,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Logradouro:</td>
+          <td class="alinhar-direita">Logradouro:</td>
           <td>
             <input name="logradouro"
                    type="text"
@@ -96,7 +96,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Número:</td>
+          <td class="alinhar-direita">Número:</td>
           <td>
             <input name="numero"
                    type="text"
@@ -107,7 +107,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Bairro:</td>
+          <td class="alinhar-direita">Bairro:</td>
           <td>
             <input name="bairro"
                    type="text"
@@ -117,7 +117,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">CEP:</td>
+          <td class="alinhar-direita">CEP:</td>
           <td>
             <input name="cep"
                    type="text"
@@ -129,7 +129,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Cidade:</td>
+          <td class="alinhar-direita">Cidade:</td>
           <td>
 
             <jsp:useBean
@@ -160,7 +160,7 @@
           <td>
             <a href="${cp}/formularios/clientes/listagem.jsp">Voltar</a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Alterar"/>
           </td>
         </tr>

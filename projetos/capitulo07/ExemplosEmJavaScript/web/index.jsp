@@ -70,7 +70,7 @@
             Exemplo 06 - JavaScript Puro
           </button>
         </p>
-        <div id="divExemplo06" class="divExemplo"></div>
+        <div id="divExemplo06" class="div-exemplo"></div>
       </div>
       
       <div>
@@ -79,12 +79,12 @@
             Exemplo 07 - Usando jQuery
           </button>
         </p>
-        <div id="divExemplo07" class="divExemplo"></div>
+        <div id="divExemplo07" class="div-exemplo"></div>
       </div>
       
       <div>
         <h2>Exemplo 08 - Manipulação de Formulários</h2>
-        <div id="divExemplo08" class="divExemplo">
+        <div class="div-exemplo">
           
           <form id="form08">
             
@@ -153,7 +153,7 @@
         <p>
           <h2>Exemplo 09 - Eventos</h2>
         </p>
-        <div id="divExemplo09" class="divExemplo">
+        <div class="div-exemplo">
             
           Campo (digite algo e veja o console):
           <input id="campoExemplo09"/>
@@ -188,7 +188,7 @@
             Exemplo 10 - AJAX com Fetch API
           </button>
         </p>
-        <div id="divExemplo10" class="divExemplo"></div>
+        <div id="divExemplo10" class="div-exemplo"></div>
       </div>
       
       <div>
@@ -200,7 +200,7 @@
             Exemplo 11 - AJAX com Fetch API e JSON
           </button>
         </p>
-        <div id="divExemplo11" class="divExemplo"></div>
+        <div id="divExemplo11" class="div-exemplo"></div>
       </div>
       
     </div>
@@ -211,11 +211,11 @@
       <p>
         <h2>Exemplo 12 - Simulação Usando a Canvas API</h2>
       </p>
-      <div id="divExemplo12" class="divExemploCanvas">
+      <div class="div-exemplo-canvas">
         <canvas id="canvasExemplo12"
                 width="800"
                 height="600"
-                class="canvasExemplo10"/>
+                class="canvas-exemplo-12"/>
       </div>
     </div>
     

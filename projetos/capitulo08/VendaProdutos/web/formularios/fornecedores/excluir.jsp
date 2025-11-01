@@ -24,35 +24,35 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Razão Social:</td>
+          <td class="alinhar-direita">Razão Social:</td>
           <td>${requestScope.fornecedor.razaoSocial}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">CNPJ:</td>
+          <td class="alinhar-direita">CNPJ:</td>
           <td>${requestScope.fornecedor.cnpj}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">E-mail:</td>
+          <td class="alinhar-direita">E-mail:</td>
           <td>${requestScope.fornecedor.email}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Logradouro:</td>
+          <td class="alinhar-direita">Logradouro:</td>
           <td>${requestScope.fornecedor.logradouro}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Número:</td>
+          <td class="alinhar-direita">Número:</td>
           <td>${requestScope.fornecedor.numero}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Bairro:</td>
+          <td class="alinhar-direita">Bairro:</td>
           <td>${requestScope.fornecedor.bairro}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">CEP:</td>
+          <td class="alinhar-direita">CEP:</td>
           <td>${requestScope.fornecedor.cep}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Cidade:</td>
+          <td class="alinhar-direita">Cidade:</td>
           <td>${requestScope.fornecedor.cidade.nome}</td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

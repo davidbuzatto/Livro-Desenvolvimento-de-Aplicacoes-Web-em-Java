@@ -26,15 +26,15 @@
       
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>${requestScope.produto.descricao}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Código de Barras:</td>
+          <td class="alinhar-direita">Código de Barras:</td>
           <td>${requestScope.produto.codigoBarras}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Valor de Venda:</td>
+          <td class="alinhar-direita">Valor de Venda:</td>
           <td>
             R$
             <fmt:formatNumber
@@ -47,7 +47,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Estoque:</td>
+          <td class="alinhar-direita">Estoque:</td>
           <td>
             <fmt:formatNumber
                 pattern="#.##"
@@ -59,11 +59,11 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Fornecedor:</td>
+          <td class="alinhar-direita">Fornecedor:</td>
           <td>${requestScope.produto.fornecedor.razaoSocial}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Unidade de Medida:</td>
+          <td class="alinhar-direita">Unidade de Medida:</td>
           <td>${requestScope.produto.unidadeMedida.sigla}</td>
         </tr>
         <tr>
@@ -72,7 +72,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

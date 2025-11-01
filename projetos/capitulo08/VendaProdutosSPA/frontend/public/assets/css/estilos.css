@@ -60,37 +60,37 @@ a:hover {
     display: none;
 }
 
-.tabelaListagem {
+.tabela-listagem {
     background: #000000;
     border-spacing: 1px;
 }
 
-.tabelaListagem th {
+.tabela-listagem th {
     background: #f5f5f5;
     padding: 2px;
 }
 
-.tabelaListagem tr:nth-child(even) {
+.tabela-listagem tr:nth-child(even) {
     background: #F8FBFF;
 }
 
-.tabelaListagem tr:nth-child(odd) {
+.tabela-listagem tr:nth-child(odd) {
     background: #EDF6FF;
 }
 
-.tabelaListagem td {
+.tabela-listagem td {
     padding: 2px;
 }
 
-.tabelaListagem tr.linhaSelecionada td {
+.tabela-listagem tr.linhaSelecionada td {
     background: #99ccff;
 }
 
-.alinharDireita {
+.alinhar-direita {
     text-align: right;
 }
 
-.divValidacao {
+.div-validacao {
     color: #dc3545;
     font-size: 0.875em;
 }
@@ -115,7 +115,7 @@ form {
     margin: 10px;
 }
 
-.divTabela {
+.div-tabela {
     background: #ffffff;
     border-radius: 5px;
     padding: 5px;
@@ -123,14 +123,14 @@ form {
     box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
-.divFormulario {
+.div-formulario {
     background: #ffffff;
     border-radius: 5px;
     padding: 5px;
     box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
-.containerCadastro {
+.container-cadastro {
     padding: 0px;
     margin: 5px;
 }
@@ -180,7 +180,7 @@ form {
     background-color: var(--cor-botao-terciario-hover);
 }
 
-.divPrincipal {
+.div-principal {
     background-color: #ffffff;
     position: fixed;
     left: 160px;
@@ -206,7 +206,7 @@ form {
     width: 30vw;
 }
 
-.divAnimada {
+.div-animada {
     position: fixed;
     top: 50px;
     left: 50px;
@@ -233,7 +233,7 @@ form {
     align-items: center;
 }
 
-.conteudoModal {
+.conteudo-modal {
     position: absolute;
     background: #ffffff;
     padding: 10px;
@@ -243,17 +243,17 @@ form {
     box-shadow: 0 4px 20px rgba( 0, 0, 0, 0.5 );
 }
 
-.corpoModal {
+.corpo-modal {
     padding: 5px;
 }
 
-.rodapeModal {
+.rodape-modal {
     display: flex;
     justify-content: flex-end;
     gap: 5px;
 }
 
-.btnFechar {
+.btn-fechar {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -264,13 +264,13 @@ form {
     color: #666;
 }
 
-.btnFechar:hover {
+.btn-fechar:hover {
     color: #000000;
 }
 
 /* menu */
 
-.divMenuLateral {
+.div-menu-lateral {
     background-color: #ffffff;
     position: fixed;
     left: 0;
@@ -282,34 +282,34 @@ form {
     box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
-.ulMenu {
+.ul-menu {
     padding: 0px;
     list-style: none;
 }
 
-.ulMenu a {
+.ul-menu a {
     padding-left: 5px;
 }
 
-.ulMenu li {
+.ul-menu li {
     border-bottom: 1px solid #cccccc;
     padding: 10px 0;
 }
 
-.ulMenu li:hover {
+.ul-menu li:hover {
     background-color: #f5f5f5;
 }
 
 
 /* venda */
 
-.divFormularioVenda {
+.div-formulario-venda {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.divContainerCimaVenda {
+.div-container-cima-venda {
     display: flex;
     background-color: #ffffff;
     flex-direction: column;
@@ -319,13 +319,13 @@ form {
     box-shadow: 0 2px 5px rgba( 0, 0, 0, 0.5 );
 }
 
-.divContainerBaixoVenda {
+.div-container-baixo-venda {
     background-color: #ffffff;
     display: flex;
     gap: 5px;
 }
 
-.divComponenteVenda {
+.div-componente-venda {
     display: flex;
     flex-direction: column;
     justify-content: center;

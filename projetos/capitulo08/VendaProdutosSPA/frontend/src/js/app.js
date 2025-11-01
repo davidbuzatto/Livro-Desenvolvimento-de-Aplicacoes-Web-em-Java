@@ -70,7 +70,7 @@ function prepararMenu() {
 }
 
 function esconderTodosContaineres( idMostrar ) {
-    document.querySelectorAll( ".containerCadastro" ).forEach( container => {
+    document.querySelectorAll( ".container-cadastro" ).forEach( container => {
         container.classList.add( "escondido" );
     });
     document.getElementById( idMostrar ).classList.remove( "escondido" );
@@ -78,7 +78,7 @@ function esconderTodosContaineres( idMostrar ) {
 
 function prepararAnimacao() {
     
-    const div = document.getElementById( "divAnimada" );
+    const div = document.getElementById( "div-animada" );
     const logoRect = document.getElementById( "logoHome" ).getBoundingClientRect();
     
     let xCentro = logoRect.x + logoRect.width / 2 + 20 + window.pageXOffset;

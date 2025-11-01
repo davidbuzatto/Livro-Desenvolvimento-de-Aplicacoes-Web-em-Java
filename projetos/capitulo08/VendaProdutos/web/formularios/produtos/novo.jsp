@@ -23,7 +23,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>
             <input name="descricao"
                    type="text"
@@ -33,7 +33,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Código de Barras:</td>
+          <td class="alinhar-direita">Código de Barras:</td>
           <td>
             <input name="codigoBarras"
                    type="text"
@@ -44,7 +44,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Valor de Venda:</td>
+          <td class="alinhar-direita">Valor de Venda:</td>
           <td>
             <input name="valorVenda"
                    type="number"
@@ -56,7 +56,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Estoque:</td>
+          <td class="alinhar-direita">Estoque:</td>
           <td>
             <input name="estoque"
                    type="number"
@@ -67,7 +67,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Fornecedor:</td>
+          <td class="alinhar-direita">Fornecedor:</td>
           <td>
 
             <jsp:useBean 
@@ -86,7 +86,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Unidade de Medida:</td>
+          <td class="alinhar-direita">Unidade de Medida:</td>
           <td>
 
             <jsp:useBean 
@@ -110,7 +110,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Salvar"/>
           </td>
         </tr>

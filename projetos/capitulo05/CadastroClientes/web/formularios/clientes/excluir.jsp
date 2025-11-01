@@ -25,15 +25,15 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Nome:</td>
+          <td class="alinhar-direita">Nome:</td>
           <td>${requestScope.cliente.nome}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Sobrenome:</td>
+          <td class="alinhar-direita">Sobrenome:</td>
           <td>${requestScope.cliente.sobrenome}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Data de Nascimento:</td>
+          <td class="alinhar-direita">Data de Nascimento:</td>
           <td>
             <fmt:formatDate 
                 pattern="dd/MM/yyyy"
@@ -41,31 +41,31 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">CPF:</td>
+          <td class="alinhar-direita">CPF:</td>
           <td>${requestScope.cliente.cpf}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">E-mail:</td>
+          <td class="alinhar-direita">E-mail:</td>
           <td>${requestScope.cliente.email}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Logradouro:</td>
+          <td class="alinhar-direita">Logradouro:</td>
           <td>${requestScope.cliente.logradouro}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Número:</td>
+          <td class="alinhar-direita">Número:</td>
           <td>${requestScope.cliente.numero}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Bairro:</td>
+          <td class="alinhar-direita">Bairro:</td>
           <td>${requestScope.cliente.bairro}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">CEP:</td>
+          <td class="alinhar-direita">CEP:</td>
           <td>${requestScope.cliente.cep}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Cidade:</td>
+          <td class="alinhar-direita">Cidade:</td>
           <td>${requestScope.cliente.cidade.nome}</td>
         </tr>
         <tr>
@@ -74,7 +74,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

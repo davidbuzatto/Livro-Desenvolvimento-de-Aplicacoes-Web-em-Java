@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <style>
-            .alinharDireita {
+            .alinhar-direita {
                 text-align: right;
             }
         </style>
@@ -21,19 +21,19 @@
 
             <table>
                 <tr>
-                    <td class="alinharDireita">Código:</td>
+                    <td class="alinhar-direita">Código:</td>
                     <td>${requestScope.produtoObtido.codigo}</td>
                 </tr>
                 <tr>
-                    <td class="alinharDireita">Descrição:</td>
+                    <td class="alinhar-direita">Descrição:</td>
                     <td>${requestScope.produtoObtido.descricao}</td>
                 </tr>
                 <tr>
-                    <td class="alinharDireita">Unidade de Medida:</td>
+                    <td class="alinhar-direita">Unidade de Medida:</td>
                     <td>${requestScope.produtoObtido.unidadeMedida}</td>
                 </tr>
                 <tr>
-                    <td class="alinharDireita">Quant. em Estoque:</td>
+                    <td class="alinhar-direita">Quant. em Estoque:</td>
                     <td>${requestScope.produtoObtido.quantidade}</td>
                 </tr>
                 <tr>

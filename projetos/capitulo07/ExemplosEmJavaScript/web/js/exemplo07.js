@@ -10,7 +10,7 @@ function executarExemplo07( event ) {
     // e configura os atributos encadeando a chamada de métodos
     let p = $( "<p></p>" )
             .html( `jQuery - Contador: ${contadorExemplo07++}` )
-            .addClass( "pDOM" );
+            .addClass( "p-dom" );
     
     // adiciona na div
     div.append( p );

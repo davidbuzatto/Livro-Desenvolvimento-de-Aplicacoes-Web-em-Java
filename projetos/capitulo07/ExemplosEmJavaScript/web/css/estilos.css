@@ -4,11 +4,11 @@ body {
     font-size: 12px;
 }
 
-/* estilos para o seletor de classe .divExemplo
+/* estilos para o seletor de classe .div-exemplo
  * seletores de classe iniciam com ponto (.) e são
  * aplicados usando o atributo class das tags.
  */
-.divExemplo {
+.div-exemplo {
     border-color: #000000;
     border-width: 2px;
     border-style: solid;
@@ -20,7 +20,7 @@ body {
 }
 
 /* class para a div do canvas */
-.divExemploCanvas {
+.div-exemplo-canvas {
     border-color: #000000;
     border-width: 2px;
     border-style: solid;
@@ -29,44 +29,44 @@ body {
     width: 820px;
 }
 
-/* estilo para o seletor de classe .pDOM usando
+/* estilo para o seletor de classe .p-dom usando
  * a pseudo-classe nth-child, indicando a seleção
  * de todos os filhos pares
  */
-.pDOM:nth-child(even) {
+.p-dom:nth-child(even) {
     background-color: #006699;
 }
 
-.canvasExemplo10 {
+.canvas-exemplo-12 {
     border: solid thin #000000;
     margin: 10px;   /* margin (margem) é o espaçamento externo da tag */
 }
 
-.dadosPessoa {
+.dados-pessoa {
     border: solid thin #006699;
     background-color: #ffa800;
     margin-bottom: 5px;
 }
 
-.dadosPessoa p {
+.dados-pessoa p {
     margin: 0px;
 }
 
 /* seleção da primeira tag <p> filha do elemento
- * que usar a classe .dadosPessoa
+ * que usar a classe .dados-pessoa
  */
-.dadosPessoa p:nth-child(1) {
+.dados-pessoa p:nth-child(1) {
     background-color: #489eff;
 }
 
 /* seleção da segunda tag <p> filha do elemento
- * que usar a classe .dadosPessoa
+ * que usar a classe .dados-pessoa
  */
-.dadosPessoa p:nth-child(2) {
+.dados-pessoa p:nth-child(2) {
     background-color: #248bff;
 }
 
 /* já deu para entender, não é? */
-.dadosPessoa p:nth-child(3) {
+.dados-pessoa p:nth-child(3) {
     background-color: #0068dd;
 }

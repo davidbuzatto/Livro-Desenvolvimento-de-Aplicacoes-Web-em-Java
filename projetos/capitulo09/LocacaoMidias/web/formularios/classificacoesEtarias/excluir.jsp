@@ -24,7 +24,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>${requestScope.classificacaoEtaria.descricao}</td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

@@ -24,7 +24,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Razão Social:</td>
+          <td class="alinhar-direita">Razão Social:</td>
           <td>
             <input name="razaoSocial"
                    type="text"
@@ -35,7 +35,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">CNPJ:</td>
+          <td class="alinhar-direita">CNPJ:</td>
           <td>
             <input name="cnpj"
                    type="text"
@@ -47,7 +47,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">E-mail:</td>
+          <td class="alinhar-direita">E-mail:</td>
           <td>
             <input name="email"
                    type="email"
@@ -58,7 +58,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Logradouro:</td>
+          <td class="alinhar-direita">Logradouro:</td>
           <td>
             <input name="logradouro"
                    type="text"
@@ -69,7 +69,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Número:</td>
+          <td class="alinhar-direita">Número:</td>
           <td>
             <input name="numero"
                    type="text"
@@ -80,7 +80,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Bairro:</td>
+          <td class="alinhar-direita">Bairro:</td>
           <td>
             <input name="bairro"
                    type="text"
@@ -90,7 +90,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">CEP:</td>
+          <td class="alinhar-direita">CEP:</td>
           <td>
             <input name="cep"
                    type="text"
@@ -102,7 +102,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Cidade:</td>
+          <td class="alinhar-direita">Cidade:</td>
           <td>
 
             <jsp:useBean
@@ -133,7 +133,7 @@
           <td>
             <a href="${cp}/formularios/fornecedores/listagem.jsp">Voltar</a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Alterar"/>
           </td>
         </tr>

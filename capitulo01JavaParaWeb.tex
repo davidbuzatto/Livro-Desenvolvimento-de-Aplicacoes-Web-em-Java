@@ -95,14 +95,14 @@ Para que possamos utilizar código Java em nossas aplicações Web, recorremos a
 
 Muito bem. Sabemos então que se usarmos Java para desenvolver nossas aplicações Web, os componentes que são capazes de processar dados nas nossas aplicações e retornar resultados são os Servlets. Os Servlets são executados e gerenciados pelos Contêineres de Servlets, que funcionam como um Servidor Web simples, mas com alguns ``poderes'' a mais. Esses Contêineres também podem ser componentes de infraestruturas ainda mais robustas, que no caso são os Servidores de Aplicações. Um Servidor de Aplicações é como se fosse um Contêiner de Servlets com anabolizantes, pois além de implementar toda a especificação dos Servlets e as especificações ligadas a eles, esse tipo de servidor também implementa uma série de outras especificações da plataforma Jakarta EE (\textit{Enterprise Edition})\footnote{\url{https://jakarta.ee/}}, antigamente denominada Java EE, que fogem do propósito deste livro.
 
-Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar a implementação de referência das especificações do Jakarta EE 10, que é feita pelo Servidor de Aplicações Eclipse GlassFish 7.x.x. Trabalharemos especificamente com a versão 7.0.15, pois será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
+Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar a implementação de referência das especificações do Jakarta EE 10, que é feita pelo Servidor de Aplicações Eclipse GlassFish 7.x.x. Trabalharemos especificamente com a versão 7.0.24, pois será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
 
 
 \section{Servlets e JSPs}
 
 Um carro serve para dirigir. Uma televisão para assistir. Uma sandália para andar. Cada um tem suas características e vão evoluindo com o tempo. Há muito tempo, quando foi inventada a televisão, a imagem que era gerada não era muito boa e era em preto e branco. Foram passando os anos e a indústria foi evoluindo o equipamento. Primeiro a imagem melhorou, depois colocaram cores, depois foram criando telas cada vez maiores, mais finas, com maior resolução, inventaram outras formas de emitir imagens, gastar menos energia elétrica e assim por diante. E daí?
 
-Tudo evolui. O que não evolui é descartado e/ou substituído. A primeira especificação dos Servlets foi lançada em 1997 e de lá para cá, a especificação foi evoluindo, permitindo que os Servlets se tornassem componentes mais versáteis e mais fáceis de utilizar. Na versão 7.0.15 do Eclipse GlassFish (perfil \textit{Web}) que implementa as especificações do Jakarta EE 10 (perfil \textit{Web}), é implementada a especificação 6.0 dos Servlets, a especificação 3.1 das JSPs (JavaServer Pages), entre outras.
+Tudo evolui. O que não evolui é descartado e/ou substituído. A primeira especificação dos Servlets foi lançada em 1997 e de lá para cá, a especificação foi evoluindo, permitindo que os Servlets se tornassem componentes mais versáteis e mais fáceis de utilizar. Na versão 7.0.24 do Eclipse GlassFish (perfil \textit{Web}) que implementa as especificações do Jakarta EE 10 (perfil \textit{Web}), é implementada a especificação 6.0 dos Servlets, a especificação 3.1 das JSPs (JavaServer Pages), entre outras.
 
 Já aprendemos que os Servlets são componentes de uma aplicação Web feita em Java e que têm a capacidade de processar dados enviados a eles e gerar respostas. Um Servlet pode gerar como resposta o código HTML de uma página, entretanto essa abordagem era utilizada nas versões mais antigas dos Servlets e é totalmente desencorajada hoje em dia. Como eu disse agora há pouco, tudo evolui. Para que os desenvolvedores não precisassem mais gerar código HTML dentro do código Java de um Servlet, foram inventadas as páginas JSP. Uma página JSP é um arquivo que pode conter –e geralmente contém– código HTML e que pode interagir diretamente com algumas funcionalidades de uma aplicação Web.
 
@@ -113,20 +113,20 @@ Por causa desse comportamento de tradução das JSPs para Servlets, nós podemos
 
 \section{Preparação do Ambiente de Desenvolvimento}
 
-Nesta seção você aprenderá a instalar e configurar a IDE Apache NetBeans e o Servidor de Aplicações Eclipse GlassFish 7.0.15 (perfil \textit{Web}).
+Nesta seção você aprenderá a instalar e configurar a IDE Apache NetBeans e o Servidor de Aplicações Eclipse GlassFish 7.0.24 (perfil \textit{Web}).
 
 
 \subsection{Apache NetBeans}
 
-Você conhece a linguagem Java, aprendeu a teoria e a prática da programação orientada a objetos e provavelmente usou a IDE Apache NetBeans para escrever seus códigos. Neste livro trabalharemos com a versão 24 desta IDE e nos passos abaixo é explicado como deve ser feito o \textit{download} e a instalação da mesma. Esses passos podem ser pulados caso você já tenha essa versão da ferramenta instalada em seu computador. Além disso, na playlist disponível no \textit{link} \url{https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U} você encontrará tutoriais de preparação de ambientes de desenvolvimento para trabalhar com Java para Web, que serão mantidos atualizados.
+Você conhece a linguagem Java, aprendeu a teoria e a prática da programação orientada a objetos e provavelmente usou a IDE Apache NetBeans para escrever seus códigos. Neste livro trabalharemos com a versão 27 desta IDE e nos passos abaixo é explicado como deve ser feito o \textit{download} e a instalação da mesma. Esses passos podem ser pulados caso você já tenha essa versão da ferramenta instalada em seu computador. Além disso, na playlist disponível no \textit{link} \url{https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U} você encontrará tutoriais de preparação de ambientes de desenvolvimento para trabalhar com Java para Web, que serão mantidos atualizados.
 
 \begin{enumerate}
 
-    \item Acesse o endereço: \url{https://dlcdn.apache.org/netbeans/netbeans-installers/24/Apache-NetBeans-24-bin-windows-x64.exe};
+    \item Acesse o endereço: \url{https://github.com/Friends-of-Apache-NetBeans/netbeans-installers/releases/download/v27-build1/Apache-NetBeans-27.exe};
     
-    \item Ao acessar esse \textit{link}, a versão 24 do Apache NetBeans será baixada;
+    \item Ao acessar esse \textit{link}, a versão 27 do Apache NetBeans será baixada;
     
-    \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE. Basta seguir o assistente, escolher o JDK instalado (recomendo o 17 ou o 21) e aguardar o fim da instalação.
+    \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE. Basta seguir o assistente, escolher o JDK instalado (recomendo o 17, 21 ou 25) e aguardar o fim da instalação.
     
 \end{enumerate}
 
@@ -135,7 +135,7 @@ Com o NetBeans instalado, abra-o. Caso o esteja executando pela primeira vez, um
 
 \subsection{Eclipse GlassFish}
 
-Como já dito, iremos instalar a versão 7.0.15 do Eclipse GlassFish. Iremos realizar o download e a instalação dentro do NetBeans 24. Com o NetBeans aberto, do lado esquerdo, clique na aba \textit{Services}. Nessa aba, há um nó chamado \destaque{\textit{Servers}}. Clique com o botão direito do mouse nele e escolha \destaque{\textit{Add Server...}}. Veja a Figura~\ref{fig:cap01Servers}.
+Como já dito, iremos instalar a versão 7.0.24 do Eclipse GlassFish. Iremos realizar o download e a instalação dentro do NetBeans 27. Com o NetBeans aberto, do lado esquerdo, clique na aba \textit{Services}. Nessa aba, há um nó chamado \destaque{\textit{Servers}}. Clique com o botão direito do mouse nele e escolha \destaque{\textit{Add Server...}}. Veja a Figura~\ref{fig:cap01Servers}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -147,7 +147,7 @@ Como já dito, iremos instalar a versão 7.0.15 do Eclipse GlassFish. Iremos rea
 \end{figure}
 \FloatBarrier
 
-Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o servidor no NetBeans aparecerá. No primeiro passo, mostrado na Figura~\ref{fig:cap01AddServerP01}, na lista de servidores suportados, escolha \destaque{\textit{GlassFish Server}}. Na caixa de texto \destaque{\textit{Name:}} edite o nome da instância do servidor. No meu caso, adicionei a versão do mesmo, ficando ``GlassFish Server 7.0.15''. Ao fazer isso, clique em \destaque{\textit{Next >}}.
+Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o servidor no NetBeans aparecerá. No primeiro passo, mostrado na Figura~\ref{fig:cap01AddServerP01}, na lista de servidores suportados, escolha \destaque{\textit{GlassFish Server}}. Na caixa de texto \destaque{\textit{Name:}} edite o nome da instância do servidor. No meu caso, adicionei a versão do mesmo, ficando ``GlassFish Server 7.0.24''. Ao fazer isso, clique em \destaque{\textit{Next >}}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -159,7 +159,7 @@ Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o ser
 \end{figure}
 \FloatBarrier
 
-O segundo passo do assistente precisamos definir onde os arquivos do servidor ficarão, como apresentado na Figura~\ref{fig:cap01AddServerP02}. Nesse passo, clique no botão \destaque{\textit{Browse...}} e defina onde a instalação ficará. No meu caso, escolhi a pasta \texttt{glassfish7015} dentro da pasta do meu usuário. Recomendo que você faça o mesmo. Deixa a opção \destaque{\textit{Local Domain}} selecionada, escolha a versão do servidor para download (GlassFish Server 7.0.15), marque a opção ``\textit{I have read...}'' e clique em \destaque{\textit{Download Now}}. Ao finalizar o download, uma mensagem logo abaixo do assistente indicará que foi encontrada uma instalação do servidor no local escolhido, então basta clicar em \destaque{\textit{Next >}} para realizarmos o terceiro e último passo do assistente.
+O segundo passo do assistente precisamos definir onde os arquivos do servidor ficarão, como apresentado na Figura~\ref{fig:cap01AddServerP02}. Nesse passo, clique no botão \destaque{\textit{Browse...}} e defina onde a instalação ficará. No meu caso, escolhi a pasta \texttt{glassfish7024} dentro da pasta do meu usuário. Recomendo que você faça o mesmo. Deixa a opção \destaque{\textit{Local Domain}} selecionada, escolha a versão do servidor para download (GlassFish Server 7.0.24), marque a opção ``\textit{I have read...}'' e clique em \destaque{\textit{Download Now}}. Ao finalizar o download, uma mensagem logo abaixo do assistente indicará que foi encontrada uma instalação do servidor no local escolhido, então basta clicar em \destaque{\textit{Next >}} para realizarmos o terceiro e último passo do assistente.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -185,7 +185,7 @@ Nesse passo, faremos a última configuração necessária, que consiste apenas e
 
 Ao fazer isso, o GlassFish estará quase pronto para ser utilizado. A última coisa que precisaremos fazer é copiar o \textit{Driver Java Database Conectivity} (JDBC) do Sistema Gerenciador de Banco de Dados (SGBD) MariaDB/MySQL que usaremos nos próximos Capítulos deste livro.
 
-Para isso, baixe o arquivo acessível através do \textit{link} \url{https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/3.5.0/mariadb-java-client-3.5.0.jar} e, ao terminar de baixar, copie-o para o diretório \texttt{C:\textbackslash Users\textbackslash SeuUsuario\textbackslash glassfish7015\\\textbackslash glassfish\textbackslash domains\textbackslash domain1\textbackslash lib\textbackslash}. Agora sim, tudo pronto!
+Para isso, baixe o arquivo acessível através do \textit{link} \url{https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/3.5.6/mariadb-java-client-3.5.6.jar} e, ao terminar de baixar, copie-o para o diretório \texttt{C:\textbackslash Users\textbackslash SeuUsuario\textbackslash glassfish7024\\\textbackslash glassfish\textbackslash domains\textbackslash domain1\textbackslash lib\textbackslash}. Agora sim, tudo pronto!
 
 Caso haja alguma dúvida, visite o \textit{link} mencionado que contém uma playlist de tutoriais para a configuração de ambientes de desenvolvimento.
 
@@ -200,7 +200,7 @@ Agora que temos tudo configurado, iremos criar nosso primeiro projeto Java para 
     
     \item \textbf{Passo 2:} Preencha o campo \destaque{\textit{Project Name:}} com ``OlaMundoWeb'' (sem acentos, sem as aspas e tudo junto). Em \destaque{\textit{Project Location:}}, defina o diretório onde o projeto será salvo. Deixe a opção \destaque{\textit{Use Dedicated Folder for Storing Libraries}} marcada e clique no botão \destaque{\textit{Next >}};
     
-    \item \textbf{Passo 3:} Na opção \destaque{\textit{Server:}} escolha o ``GlassFish Server 7.0.15'', ou a opção com o nome que você definiu ao registrar o GlassFish. Em \destaque{\textit{Java EE Version:}} escolha ``Jakarta EE 10 Web''. Em \destaque{\textit{Context Path:}} deixe o valor padrão (/OlaMundoWeb), que é o mesmo nome que demos ao nosso projeto. Clique em \destaque{\textit{Next >}};
+    \item \textbf{Passo 3:} Na opção \destaque{\textit{Server:}} escolha o ``GlassFish Server 7.0.24'', ou a opção com o nome que você definiu ao registrar o GlassFish. Em \destaque{\textit{Java EE Version:}} escolha ``Jakarta EE 10 Web''. Em \destaque{\textit{Context Path:}} deixe o valor padrão (/OlaMundoWeb), que é o mesmo nome que demos ao nosso projeto. Clique em \destaque{\textit{Next >}};
     
     \item \textbf{Passo 4:} No último passo, o assistente perguntará quais \textit{frameworks} nós queremos inserir no nosso projeto. Nós não vamos usar nenhum, então basta clicar em \destaque{\textit{Finish}}. Fazendo isso, o novo projeto será criado e será aberto no NetBeans, sendo que por padrão será criado um arquivo HTML (\texttt{index.html}) que será a página inicial da nossa aplicação.
     
@@ -264,12 +264,12 @@ Até agora criamos uma classe chamada \texttt{OlaServlet}, que estende a classe 
 
 Muito bem, você tem um Servlet totalmente funcional, mas ai você se pergunta: ``Como vou chamar esse Servlet através do navegador?''. Então eu respondo: no código completo, você percebeu que há uma anotação chamada \inlineJavaCode{@WebServlet}? É essa anotação que vai fornecer essa informação\footnote{Antigamente precisávamos fazer o mapemanto em um arquivo \textit{Extensible Markup Language} (XML) (\url{http://pt.wikipedia.org/wiki/XML}) chamado de Descritor de Implantação (DI, em inglês \textit{Deployment Descriptor}), representado pelo arquivo \texttt{web.xml}, o que atualmente, com as versõs mais novas do Jakarta/Java EE, não é mais necessário para algumas situações.}, expecificamente no parâmetro \texttt{urlPatterns}. Perceba que configuramos esse parâmetro com um array de Strings com um elemento: ``/ola''. Com isso, podemos agora acessar o \texttt{OlaServlet} a partir de uma URL, que no nosso caso é ``\url{http://localhost:8080/OlaMundoWeb/ola}'', ou seja, usamos o protocolo HTTP, para a máquina \texttt{localhost} (que é o endereço da nossa máquina), na porta 8080 (que é a porta que o GlassFish ouve por padrão), para acessar a aplicação chamada \texttt{OlaMundoWeb} (isso vem do contexto que criamos no Passo 3 da Subseção~\ref{subsec:primeiroProjeto}, volte lá para dar uma olhadinha), para por fim acessar o recurso mapeado sob o nome de ``ola'' que no caso é o nosso Servlet. 
 
-Sei que pode parecer um pouco confuso no começo, mas logo você vai pegar o jeito da coisa. Dê um ``play'' no projeto de novo. O navegador vai abrir no endereço da aplicação novamente. Insira o ``ola'' (sem as aspas) no final da URL e tecle \texttt{<ENTER>}. O que aconteceu? Apareceu uma página em branco não foi? É claro, afinal, nosso Servlet não gera HTML, mas apenas imprime duas mensagens na saída padrão não é mesmo? Mas como podemos ver essas mensagens? Volte no NetBeans e procure, logo abaixo, uma aba chamada \destaque{\textit{Output}}. Ela provavelmente vai estar selecionada. Dentro dela devem haver outras três abas: \destaque{\textit{OlaMundoWeb (run)}} que deve estar selecionada e que é usada para mostrar o processo de construção do projeto da nossa aplicação, \destaque{\textit{Java DB Database Process}}, que exibe o \textit{status} do Java DB e, por fim, \destaque{\textit{GlassFish Server 7.0.15}}, que exibe a saída padrão do GlassFish. Clique nessa última aba e veja o que está escrito lá embaixo: as duas mensagens que enviamos para a saída padrão através do método \inlineJavaCode{System.out.println(...)} dentro do Servlet, sendo que o fim de cada linha conterá os caracteres \texttt{|\#]}\footnote{Esse sufixo é inserido automaticamente pelo servidor.}! Veja o resultado na Figura~\ref{fig:cap01SaidaGlassFish}. Volte ao navegador e tecle \texttt{<ENTER>} novamente no endereço do Servlet. Volte no NetBeans. Mais duas mensagens! Fácil não é mesmo?
+Sei que pode parecer um pouco confuso no começo, mas logo você vai pegar o jeito da coisa. Dê um ``play'' no projeto de novo. O navegador vai abrir no endereço da aplicação novamente. Insira o ``ola'' (sem as aspas) no final da URL e tecle \texttt{<ENTER>}. O que aconteceu? Apareceu uma página em branco não foi? É claro, afinal, nosso Servlet não gera HTML, mas apenas imprime duas mensagens na saída padrão não é mesmo? Mas como podemos ver essas mensagens? Volte no NetBeans e procure, logo abaixo, uma aba chamada \destaque{\textit{Output}}. Ela provavelmente vai estar selecionada. Dentro dela devem haver outras três abas: \destaque{\textit{OlaMundoWeb (run)}} que deve estar selecionada e que é usada para mostrar o processo de construção do projeto da nossa aplicação, \destaque{\textit{Java DB Database Process}}, que exibe o \textit{status} do Java DB e, por fim, \destaque{\textit{GlassFish Server 7.0.24}}, que exibe a saída padrão do GlassFish. Clique nessa última aba e veja o que está escrito lá embaixo: as duas mensagens que enviamos para a saída padrão através do método \inlineJavaCode{System.out.println(...)} dentro do Servlet, sendo que o fim de cada linha conterá os caracteres \texttt{|\#]}\footnote{Esse sufixo é inserido automaticamente pelo servidor.}! Veja o resultado na Figura~\ref{fig:cap01SaidaGlassFish}. Volte ao navegador e tecle \texttt{<ENTER>} novamente no endereço do Servlet. Volte no NetBeans. Mais duas mensagens! Fácil não é mesmo?
 
 \FloatBarrier
 \begin{figure}[!htbp]
     \centering
-    \caption{Saída do GlassFish 7.0.15}
+    \caption{Saída do GlassFish 7.0.24}
     \includegraphics[scale=0.9]{imagens/cap01SaidaGlassFish}
     \\\textbf{Fonte:} Elaborada pelo autor
     \label{fig:cap01SaidaGlassFish}

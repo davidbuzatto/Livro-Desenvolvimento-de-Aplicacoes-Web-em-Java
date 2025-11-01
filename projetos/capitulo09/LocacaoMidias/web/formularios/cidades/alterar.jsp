@@ -24,7 +24,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Nome:</td>
+          <td class="alinhar-direita">Nome:</td>
           <td>
             <input name="nome"
                    type="text"
@@ -35,7 +35,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Estado:</td>
+          <td class="alinhar-direita">Estado:</td>
           <td>
 
             <jsp:useBean 
@@ -66,7 +66,7 @@
           <td>
             <a href="${cp}/formularios/cidades/listagem.jsp">Voltar</a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Alterar"/>
           </td>
         </tr>

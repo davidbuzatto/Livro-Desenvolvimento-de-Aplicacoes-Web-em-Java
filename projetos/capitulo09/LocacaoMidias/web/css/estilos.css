@@ -24,21 +24,21 @@ a:hover {
     background-color: #EEEEEE
 }
 
-.tabelaListagem {
+.tabela-listagem {
     background: #000000;
 }
 
-.tabelaListagem th {
+.tabela-listagem th {
     background: #EEEEEE;
     padding: 5px;
 }
 
-.tabelaListagem td {
+.tabela-listagem td {
     background: #FFFFFF;
     padding: 5px;
 }
 
-.alinharDireita {
+.alinhar-direita {
     text-align: right;
 }
 
@@ -94,6 +94,6 @@ a:hover {
     text-align: right;
 }
 
-.btnsItensVenda {
+.btns-itens-venda {
     text-align: center; padding: 20px;
 }

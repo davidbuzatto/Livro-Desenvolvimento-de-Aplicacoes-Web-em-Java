@@ -24,11 +24,11 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Nome:</td>
+          <td class="alinhar-direita">Nome:</td>
           <td>${requestScope.estado.nome}</td>
         </tr>
         <tr>
-          <td class="alinharDireita">Sigla:</td>
+          <td class="alinhar-direita">Sigla:</td>
           <td>${requestScope.estado.sigla}</td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Excluir"/>
           </td>
         </tr>

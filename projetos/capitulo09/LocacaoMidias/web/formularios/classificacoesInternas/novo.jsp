@@ -23,7 +23,7 @@
 
       <table>
         <tr>
-          <td class="alinharDireita">Descrição:</td>
+          <td class="alinhar-direita">Descrição:</td>
           <td>
             <input name="descricao"
                    type="text"
@@ -33,7 +33,7 @@
           </td>
         </tr>
         <tr>
-          <td class="alinharDireita">Valor do Aluguel:</td>
+          <td class="alinhar-direita">Valor do Aluguel:</td>
           <td>
             <input name="valorAluguel"
                    type="number"
@@ -50,7 +50,7 @@
               Voltar
             </a>
           </td>
-          <td class="alinharDireita">
+          <td class="alinhar-direita">
             <input type="submit" value="Salvar"/>
           </td>
         </tr>
