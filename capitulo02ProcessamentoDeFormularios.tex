@@ -131,23 +131,23 @@ Veja o caminho do recurso!
 
 Isso quer dizer que, no nosso caso, o Servlet mapeado no endereço ``processaDadosCliente'' receberá os parâmetros \texttt{nome}, \texttt{sobrenome}, \texttt{cpf}, \texttt{dataNasc}, \texttt{sexo} e \texttt{observacoes}, receberá os valores associados a ele para serem usados e deverá, de alguma forma, retornar o recurso associado a eles. O ponto de interrogação após o mapeamento do Servlet (\texttt{/processaDadosCliente}) indica que o que vem depois dele (do ponto de interrogação) são parâmetros HTTP. Cada parâmetro, como já vimos, está na forma \texttt{x=y}, onde ``\texttt{x}'' é o parâmetro e ``\texttt{y}'' é o valor, sendo que eles são separados por ``\&''. Então temos: \texttt{nome} igual a ``Juca'', \texttt{sobrenome} igual a vazio, \texttt{cpf} igual a vazio, \texttt{dataNasc} igual a vazio, \texttt{sexo} igual a ``M'' e \texttt{observacoes} igual a vazio. A saída no NetBeans deve ter ficado assim:
 
-\texttt{Dados do Cliente:|\#]}\\
-\texttt{Nome: Juca|\#]}\\
-\texttt{Sobrenome: |\#]}\\
-\texttt{CPF: |\#]}\\
-\texttt{Data de Nascimento: |\#]}\\
-\texttt{Sexo: Masculino|\#]}\\
-\texttt{Observações: |\#]}
+\texttt{Dados do Cliente:}\\
+\texttt{Nome: Juca}\\
+\texttt{Sobrenome: }\\
+\texttt{CPF: }\\
+\texttt{Data de Nascimento: }\\
+\texttt{Sexo: Masculino}\\
+\texttt{Observações: }
 
 Vamos mandar a requisição novamente para o NetBeans, só que agora modificando a URL ao invés de usar o formulário. Dê o sobrenome de ``Santos'' ao Juca e defina o CPF como 123456789. Preencheu a URL na barra de endereços? Tecle \texttt{<ENTER>} e veja o que aconteceu no NetBeans. A saída deve ter sido essa aqui:
 
-\texttt{Dados do Cliente:|\#]}\\
-\texttt{Nome: Juca|\#]}\\
-\texttt{Sobrenome: Santos|\#]}\\
-\texttt{CPF: 123456789|\#]}\\
-\texttt{Data de Nascimento: |\#]}\\
-\texttt{Sexo: Masculino|\#]}\\
-\texttt{Observações: |\#]}
+\texttt{Dados do Cliente:}\\
+\texttt{Nome: Juca}\\
+\texttt{Sobrenome: Santos}\\
+\texttt{CPF: 123456789}\\
+\texttt{Data de Nascimento: }\\
+\texttt{Sexo: Masculino}\\
+\texttt{Observações: }
 
 Então, basicamente, ao usarmos o método \texttt{GET}, indicamos que queremos algum recurso do servidor. Quando enviamos dados através do método GET, esses dados, na forma de parâmetros, são codificados na própria URL. O nosso formulário do \texttt{index.html} utiliza por padrão o método \texttt{GET}. Qualquer formulário usa por padrão o método GET, mas se quisermos mudar o método de envio do formulário, precisamos usar a propriedade \texttt{method} da \textit{tag} \inlineHTMLCode{<form>}. Aí você me pergunta: Por que usaríamos outro método? O \texttt{GET} já não funciona? E eu respondo: Sim, o \texttt{GET} funciona, mas imagine a seguinte situação: você vai armazenar os dados de um usuário de um sistema. Você vai mandar vários dados para o servidor, inclusive uma senha. O que acontece? A senha enviada vai aparecer na URL! Afinal, a senha é um campo do formulário! O ideal seria ninguém a ver correto? Outro problema. O tamanho de uma URL é fixo! Então não podemos mandar conteúdos de tamanho arbitrário, visto que iremos perder dados caso usemos o método \texttt{GET}! Imagine mandar um vídeo para publicação no YouTube! Então como fazemos? Método \texttt{POST}, ao resgate!
 
