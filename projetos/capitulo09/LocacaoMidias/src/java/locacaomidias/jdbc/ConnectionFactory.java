@@ -20,6 +20,14 @@ public class ConnectionFactory {
      */
     public static Connection getConnection() throws SQLException {
 
+        try {
+            // força o registro do driver MariaDB no classloader da aplicação,
+            // necessário para que o Tomcat encontre o driver em WEB-INF/lib
+            Class.forName( "org.mariadb.jdbc.Driver" );
+        } catch ( ClassNotFoundException exc ) {
+            throw new SQLException( "Driver MariaDB não encontrado.", exc );
+        }
+        
         return DriverManager.getConnection(
                 "jdbc:mariadb://localhost/locacao_midias",
                 "root",

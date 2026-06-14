@@ -20,6 +20,14 @@ public class ConnectionFactory {
      */
     public static Connection getConnection() throws SQLException {
 
+        try {
+            // força o registro do driver MariaDB no classloader da aplicação,
+            // necessário para que o Tomcat encontre o driver em WEB-INF/lib
+            Class.forName( "org.mariadb.jdbc.Driver" );
+        } catch ( ClassNotFoundException exc ) {
+            throw new SQLException( "Driver MariaDB não encontrado.", exc );
+        }
+        
         /* O método getConnection de DriverManagaer recebe como parâmetro
          * a URL da base de dados, o usuário usado para conectar na base
          * e a senha deste usuário. O Driver JDBC apropriado será
