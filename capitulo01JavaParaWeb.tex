@@ -95,14 +95,14 @@ Para que possamos utilizar código Java em nossas aplicações Web, recorremos a
 
 Muito bem. Sabemos então que se usarmos Java para desenvolver nossas aplicações Web, os componentes que são capazes de processar dados nas nossas aplicações e retornar resultados são os Servlets. Os Servlets são executados e gerenciados pelos Contêineres de Servlets, que funcionam como um Servidor Web simples, mas com alguns ``poderes'' a mais. Esses Contêineres também podem ser componentes de infraestruturas ainda mais robustas, que no caso são os Servidores de Aplicações. Um Servidor de Aplicações é como se fosse um Contêiner de Servlets com anabolizantes, pois além de implementar toda a especificação dos Servlets e as especificações ligadas a eles, esse tipo de servidor também implementa uma série de outras especificações da plataforma Jakarta EE (\textit{Enterprise Edition})\footnote{\url{https://jakarta.ee/}}, antigamente denominada Java EE, que fogem do propósito deste livro.
 
-Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar a implementação de referência das especificações do Jakarta EE 10, que é feita pelo Servidor de Aplicações Eclipse GlassFish 7.0.24. Trabalharemos especificamente com essa versão, pois será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
+Da mesma forma que existem navegadores e Servidores Web diferentes, adivinhe só, existem também Servidores de Aplicações e Contêineres de Servlets diferentes! Iremos utilizar a implementação de referência das especificações do Jakarta EE 11, que é feita pelo Contêiner de Servetls Apache Tomcat 11. Nesta edição do livro utilizaremos a versão 11.0.22, mas pode ser que na época que você estiver seguindo este material, novas versões menores da 11 possam estar disponíveis, como por exemplo 11.0.23, sendo assim, desde que você se mantenha na versão 11, não haverá nenhum problema. Trabalharemos especificamente com essa versão, pois será a ideal para o que precisaremos fazer e que tem um melhor suporte no NetBeans. Quando estamos no mundo ``Java para Web'', várias dúvidas surgem o tempo todo, visto que existe uma infinidade de termos diferentes e que normalmente causam confusão, além de existir um ecossistema absurdamente vasto. Na próxima seção vamos aprender mais alguns detalhes teóricos e na última seção vamos realizar algumas atividades!
 
 
 \section{Servlets e JSPs}
 
 Um carro serve para dirigir. Uma televisão para assistir. Uma sandália para andar. Cada um tem suas características e vão evoluindo com o tempo. Há muito tempo, quando foi inventada a televisão, a imagem que era gerada não era muito boa e era em preto e branco. Foram passando os anos e a indústria foi evoluindo o equipamento. Primeiro a imagem melhorou, depois colocaram cores, depois foram criando telas cada vez maiores, mais finas, com maior resolução, inventaram outras formas de emitir imagens, gastar menos energia elétrica e assim por diante. E daí?
 
-Tudo evolui. O que não evolui é descartado e/ou substituído. A primeira especificação dos Servlets foi lançada em 1997 e de lá para cá, a especificação foi evoluindo, permitindo que os Servlets se tornassem componentes mais versáteis e mais fáceis de utilizar. Na versão 7.0.24 do Eclipse GlassFish (perfil \textit{Web}) que implementa as especificações do Jakarta EE 10 (perfil \textit{Web}), é implementada a especificação 6.0 dos Servlets, a especificação 3.1 das JSPs (JavaServer Pages), entre outras.
+Tudo evolui. O que não evolui é descartado e/ou substituído. A primeira especificação dos Servlets foi lançada em 1997 e de lá para cá, a especificação foi evoluindo, permitindo que os Servlets se tornassem componentes mais versáteis e mais fáceis de utilizar. Na versão 11.0.22 do Apache Tomcat, que implementa as especificações do Jakarta EE 11, é implementada a especificação 6.1 dos Servlets, a especificação 6.1 das JSPs (JavaServer Pages), entre outras.
 
 Já aprendemos que os Servlets são componentes de uma aplicação Web feita em Java e que têm a capacidade de processar dados enviados a eles e gerar respostas. Um Servlet pode gerar como resposta o código HTML de uma página, entretanto essa abordagem era utilizada nas versões mais antigas dos Servlets e é totalmente desencorajada hoje em dia. Como eu disse agora há pouco, tudo evolui. Para que os desenvolvedores não precisassem mais gerar código HTML dentro do código Java de um Servlet, foram inventadas as páginas JSP. Uma página JSP é um arquivo que pode conter –e geralmente contém– código HTML e que pode interagir diretamente com algumas funcionalidades de uma aplicação Web.
 
@@ -113,7 +113,7 @@ Por causa desse comportamento de tradução das JSPs para Servlets, nós podemos
 
 \section{Preparação do Ambiente de Desenvolvimento}
 
-Nesta seção você aprenderá a instalar e configurar a IDE Apache NetBeans e o Servidor de Aplicações Eclipse GlassFish 7.0.24 (perfil \textit{Web}).
+Nesta seção você aprenderá a instalar e configurar a IDE Apache NetBeans e o Contêiner de Servlets Apache Tomcat 11.0.22.
 
 
 \subsection{Apache NetBeans}
@@ -122,20 +122,44 @@ Você conhece a linguagem Java, aprendeu a teoria e a prática da programação 
 
 \begin{enumerate}
 
-    \item Acesse o endereço: \url{https://github.com/Friends-of-Apache-NetBeans/netbeans-installers/releases/download/v30-build1/Apache-NetBeans-30.exe};
-
+    \item Acesse o endereço: \url{https://github.com/codelerity/netbeans-packages/releases/download/v30-build1/Apache-NetBeans-30.exe};
+    
     \item Ao acessar esse \textit{link}, a versão 30 do Apache NetBeans será baixada;
     
-    \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE. Basta seguir o assistente, escolher o JDK instalado (recomendo o 17, 21 ou 25) e aguardar o fim da instalação.
+    \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE, bastando seguir o assistente. Essa versão em questão trará uma versão do JDK consigo, no caso, a versão 26. Aguarde o fim da instalação e vamos continuar.
     
 \end{enumerate}
 
-Com o NetBeans instalado, abra-o. Caso o esteja executando pela primeira vez, uma página de boas-vindas será exibida. Você pode fechá-la se quiser, além de marcar para que não seja exibida novamente. Antes de criarmos o nosso primeiro projeto Java Web, precisamos baixar, instalar e configurar o Servidor de Aplicações Eclipse GlassFish.
+Com o NetBeans instalado, abra-o. Caso o esteja executando pela primeira vez, uma página de boas-vindas será exibida. Você pode fechá-la se quiser, além de marcar para que não seja exibida novamente. Antes de criarmos o nosso primeiro projeto Java Web, precisamos baixar, instalar e configurar Contêiner de Servlets Apache Tomcat.
 
 
-\subsection{Eclipse GlassFish}
+\subsection{Apache Tomcat}
 
-Como já dito, iremos instalar a versão 7.0.24 do Eclipse GlassFish. Iremos realizar o download e a instalação dentro do NetBeans 30. Com o NetBeans aberto, do lado esquerdo, clique na aba \textit{Services}. Nessa aba, há um nó chamado \destaque{\textit{Servers}}. Clique com o botão direito do mouse nele e escolha \destaque{\textit{Add Server...}}. Veja a Figura~\ref{fig:cap01Servers}.
+Como já dito, iremos instalar a versão 11.0.22 do Apache Tomcat. Para isso, primeiramente precisamos baixá-lo. Comece acessando o endereço \url{https://tomcat.apache.org/}. Do lado esquerdo, no menu, na seção \textit{Download}, escolha a versão 11 (Tomcat 11 - \url{https://tomcat.apache.org/download-11.cgi}). Logo abaixo, em \textit{Binary Distributions}, baixe a versão \textbf{Windows zip} se estiver usando Windows (seta vermelha na Figura~\ref{fig:cap01DownloadTomcat}) ou somente \textbf{zip} se estiver usando Linux ou outro sistema operacional baseado em UNIX (seta verde na Figura~\ref{fig:cap01DownloadTomcat}).
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Opções de download do Apache Tomcat}
+    \includegraphics[scale=0.7]{imagens/cap01DownloadTomcat}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap01DownloadTomcat}
+\end{figure}
+\FloatBarrier
+
+Escolha onde quer salvar o arquivo e descompacte-o. No meu caso, como estou usando Windows, baixei o arquivo, salvei na minha pasta de usuário e o descompactei, ficando com o caminho \texttt{C:\textbackslash Users\textbackslash David\textbackslash apache-tomcat-11.0.22}. Veja na Figura~\ref{fig:cap01TomcatDescompactado}.
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Apache Tomcat descompactado}
+    \includegraphics[scale=0.7]{imagens/cap01TomcatDescompactado}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap01TomcatDescompactado}
+\end{figure}
+\FloatBarrier
+
+Agora que estamos com o Tomcat baixado e descompactado, vamos registrá-lo no NetBeans. Com o NetBeans aberto, do lado esquerdo, clique na aba \textit{Services}. Nessa aba, há um nó chamado \destaque{\textit{Servers}}. Clique com o botão direito do mouse nele e escolha \destaque{\textit{Add Server...}}. Veja a Figura~\ref{fig:cap01Servers}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -147,7 +171,7 @@ Como já dito, iremos instalar a versão 7.0.24 do Eclipse GlassFish. Iremos rea
 \end{figure}
 \FloatBarrier
 
-Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o servidor no NetBeans aparecerá. No primeiro passo, mostrado na Figura~\ref{fig:cap01AddServerP01}, na lista de servidores suportados, escolha \destaque{\textit{GlassFish Server}}. Na caixa de texto \destaque{\textit{Name:}} edite o nome da instância do servidor. No meu caso, adicionei a versão do mesmo, ficando ``GlassFish Server 7.0.24''. Ao fazer isso, clique em \destaque{\textit{Next >}}.
+Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o servidor no NetBeans aparecerá. No primeiro passo, mostrado na Figura~\ref{fig:cap01AddServerP01}, na lista de servidores suportados, escolha \destaque{\textit{Apache Tomcat or TomEE}}. Na caixa de texto \destaque{\textit{Name:}} edite o nome da instância do servidor. No meu caso, adicionei a versão do mesmo, ficando ``Apache Tomcat 11.0.22''. Ao fazer isso, clique em \destaque{\textit{Next >}}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -159,7 +183,7 @@ Ao clicar em \destaque{\textit{Add Server...}} o assistente para registrar o ser
 \end{figure}
 \FloatBarrier
 
-O segundo passo do assistente precisamos definir onde os arquivos do servidor ficarão, como apresentado na Figura~\ref{fig:cap01AddServerP02}. Nesse passo, clique no botão \destaque{\textit{Browse...}} e defina onde a instalação ficará. No meu caso, escolhi a pasta \texttt{glassfish7024} dentro da pasta do meu usuário. Recomendo que você faça o mesmo. Deixa a opção \destaque{\textit{Local Domain}} selecionada, escolha a versão do servidor para download (GlassFish Server 7.0.24), marque a opção ``\textit{I have read...}'' e clique em \destaque{\textit{Download Now}}. Ao finalizar o download, uma mensagem logo abaixo do assistente indicará que foi encontrada uma instalação do servidor no local escolhido, então basta clicar em \destaque{\textit{Next >}} para realizarmos o terceiro e último passo do assistente.
+No segundo passo do assistente precisamos definir onde os arquivos do Tomcat estão, como apresentado na Figura~\ref{fig:cap01AddServerP02}. Nesse passo, clique no botão \destaque{\textit{Browse...}} e defina onde a instalação está. No meu caso, escolhi a pasta \texttt{apache-tomcat-11.0.22} dentro da pasta do meu usuário, como já expliquei anteriormente. Recomendo que você faça o mesmo. Preencha o campo \destaque{\textit{Username}} com \texttt{admin} e o campo \destaque{\textit{Password}} com \texttt{admin} também, além de marcar a opção \destaque{\textit{Create user if it does not exist}}. Isso fará com que o NetBeans configure o usuário administrador do Tomcat. Nós não precisaremos disso durante o livro, mas é bom deixar resolvido. Você pode também definir o usuário e senha que quiser, mas recomendo seguir o que eu fiz para não ter problemas depois de esquecer esses dados, caso seja necessário. Clique em \destaque{\textit{Finish}}.
 
 \FloatBarrier
 \begin{figure}[!htbp]
@@ -171,23 +195,7 @@ O segundo passo do assistente precisamos definir onde os arquivos do servidor fi
 \end{figure}
 \FloatBarrier
 
-Nesse passo, faremos a última configuração necessária, que consiste apenas em definir o nome do usuário administrador do servidor. Na Figura~\ref{fig:cap01AddServerP03} isso pode ser visto na caixa de texto \destaque{\textit{User Name:}} que está preenchida com ``admin''. Ao preencher o nome de usuário, clique em \destaque{\textit{Finish}}.
-
-\FloatBarrier
-\begin{figure}[!htbp]
-    \centering
-    \caption{Registrando um servidor no NetBeans - Passo 3}
-    \includegraphics[scale=0.7]{imagens/cap01AddServerInstanceP03}
-    \\\textbf{Fonte:} Elaborada pelo autor
-    \label{fig:cap01AddServerP03}
-\end{figure}
-\FloatBarrier
-
-Ao fazer isso, o GlassFish estará quase pronto para ser utilizado. A última coisa que precisaremos fazer é copiar o \textit{Driver Java Database Conectivity} (JDBC) do Sistema Gerenciador de Banco de Dados (SGBD) MariaDB/MySQL que usaremos nos próximos capítulos deste livro.
-
-Para isso, baixe o arquivo acessível através do \textit{link} \url{https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/3.5.6/mariadb-java-client-3.5.6.jar} e, ao terminar de baixar, copie-o para o diretório \texttt{C:\textbackslash Users\textbackslash SeuUsuario\textbackslash glassfish7024\\\textbackslash glassfish\textbackslash domains\textbackslash domain1\textbackslash lib\textbackslash}. Agora sim, tudo pronto!
-
-Caso haja alguma dúvida, visite o \textit{link} mencionado que contém uma playlist de tutoriais para a configuração de ambientes de desenvolvimento.
+Ao fazer isso, o Tomcat estará pronto para ser utilizado. Caso haja alguma dúvida, visite o \textit{link} mencionado que contém uma playlist de tutoriais para a configuração de ambientes de desenvolvimento.
 
 
 \subsection{Primeiro Projeto Java para Web}\label{subsec:primeiroProjeto}
@@ -200,7 +208,7 @@ Agora que temos tudo configurado, iremos criar nosso primeiro projeto Java para 
     
     \item \textbf{Passo 2:} Preencha o campo \destaque{\textit{Project Name:}} com ``OlaMundoWeb'' (sem acentos, sem as aspas e tudo junto). Em \destaque{\textit{Project Location:}}, defina o diretório onde o projeto será salvo. Deixe a opção \destaque{\textit{Use Dedicated Folder for Storing Libraries}} marcada e clique no botão \destaque{\textit{Next >}};
     
-    \item \textbf{Passo 3:} Na opção \destaque{\textit{Server:}} escolha o ``GlassFish Server 7.0.24'', ou a opção com o nome que você definiu ao registrar o GlassFish. Em \destaque{\textit{Java EE Version:}} escolha ``Jakarta EE 10 Web''. Em \destaque{\textit{Context Path:}} deixe o valor padrão (/OlaMundoWeb), que é o mesmo nome que demos ao nosso projeto. Clique em \destaque{\textit{Next >}};
+    \item \textbf{Passo 3:} Na opção \destaque{\textit{Server:}} escolha o ``Apache Tomcat 11.0.22'', ou a opção com o nome que você definiu ao registrar o Tomcat. Em \destaque{\textit{Java EE Version:}} escolha ``Jakarta EE 11 Web''. Em \destaque{\textit{Context Path:}} deixe o valor padrão (/OlaMundoWeb), que é o mesmo nome que demos ao nosso projeto. Clique em \destaque{\textit{Next >}};
     
     \item \textbf{Passo 4:} No último passo, o assistente perguntará quais \textit{frameworks} nós queremos inserir no nosso projeto. Nós não vamos usar nenhum, então basta clicar em \destaque{\textit{Finish}}. Fazendo isso, o novo projeto será criado e será aberto no NetBeans, sendo que por padrão será criado um arquivo HTML (\texttt{index.html}) que será a página inicial da nossa aplicação.
     
@@ -210,7 +218,7 @@ Agora que temos tudo configurado, iremos criar nosso primeiro projeto Java para 
     Existem diversas definições para \textit{framework}, sendo que, informalmente, podemos defini-los como um conjunto de classes que incorporam uma abstração que tem como objetivo de solucionar problemas de um tipo ou domínio específico.
 \end{saibaMais}
 
-Muito bem, criamos nosso primeiro projeto. Vamos executá-lo para ver o que acontece? Na barra de ferramentas do NetBeans tem um botão com uma seta verde, igual a um botão de ``\textit{play}'' de um reprodutor de mídias. Quando você clicar nesse botão, você vai ver que várias mensagens começarão a aparecer na janela de saída do NetBeans. Essas mensagens irão mostrar para nós o que está acontecendo no momento, como a inicialização do GlassFish (caso não esteja iniciado) etc. O que está esperando? Clique lá no ``\textit{play}''. Assim que tudo estiver pronto, será aberta uma janela do seu navegador, onde será mostrado o conteúdo do \texttt{index.html}, que no nosso caso será uma página com ``TODO write content'' escrito.
+Muito bem, criamos nosso primeiro projeto. Vamos executá-lo para ver o que acontece? Na barra de ferramentas do NetBeans tem um botão com uma seta verde, igual a um botão de ``\textit{play}'' de um reprodutor de mídias. Quando você clicar nesse botão, você vai ver que várias mensagens começarão a aparecer na janela de saída do NetBeans. Essas mensagens irão mostrar para nós o que está acontecendo no momento, como a inicialização do Tomcat (caso não esteja iniciado) etc. O que está esperando? Clique lá no ``\textit{play}''. Assim que tudo estiver pronto, será aberta uma janela do seu navegador, onde será mostrado o conteúdo do \texttt{index.html}, que no nosso caso será uma página com ``TODO write content'' escrito.
 
 Muito bem! Temos nossa primeira aplicação rodando no GlassFish! Fácil não é mesmo? Por enquanto não vamos nos preocupar com a estrutura do projeto, iremos aprender os detalhes aos poucos. Vamos colocar um pouco de código HTML no nosso \texttt{index.html}? Ele deve estar aberto no NetBeans. Se não estiver, procure o arquivo \texttt{index.html} na pasta \destaque{\textit{Web Pages}} do seu projeto e clique duas vezes no arquivo para abri-lo no editor. Vamos mudar o título, escrevendo ``Meu Primeiro Projeto Java para Web'' no lugar de ``TODO supply a title'' e dentro da \textit{tag} \inlineHTMLCode{<body>} do arquivo, inserir um \textit{heading} \inlineHTMLCode{<h1>} e um parágrafo com um \textit{link} para o site do IFSP. Veja na Listagem~\thechapter.\ref{listagem:projetos/capitulo01/OlaMundoWeb/web/index.html} como deve ficar seu código.
 
@@ -252,7 +260,7 @@ Aprenderemos como criar manualmente um Servlet, para que possamos aprender algun
     
     \javaCode{olamundoweb/servlets/OlaServlet.java}{projetos/capitulo01/parciais/OlaServlet.java}
     
-    \item \textbf{Passo 4:} Para que uma classe seja um Servlet, precisamos estender a classe \texttt{HttpServlet}, que está contida no pacote \texttt{jakarta.servlet.http}\footnote{O Jakarta EE 10 usa o novo \textit{namespace} do Java EE, onde o pacote base é o \texttt{jakarta}. Antes da versão 9 o namespace base era \texttt{javax}.} e então implementar os métodos HTTP que queremos que nosso Servlet trate. Não se preocupe, ainda vamos aprender sobre os métodos HTTP, então o mais importante a saber, por enquanto, é que os métodos HTTP mais usados são o \texttt{GET} (\inlineJavaCode{doGet(...)} de \texttt{HttpServlet}) e o  \texttt{POST} (\inlineJavaCode{doPost(...)} de  \texttt{HttpServlet}). Então teremos que sobrescrever cada um desses métodos e ainda criaremos um terceiro que será invocado a partir dos outros dois. Confuso? Vamos ver como o código ficaria. Leia os comentários e copie o código da Listagem~\thechapter.\ref{listagem:projetos/capitulo01/OlaMundoWeb/src/java/olamundoweb/servlets/OlaServlet.java} para o seu editor.
+    \item \textbf{Passo 4:} Para que uma classe seja um Servlet, precisamos estender a classe \texttt{HttpServlet}, que está contida no pacote \texttt{jakarta.servlet.http}\footnote{O Jakarta EE 11 usa o novo \textit{namespace} do Java EE, onde o pacote base é o \texttt{jakarta}. Antes da versão 9 o namespace base era \texttt{javax}.} e então implementar os métodos HTTP que queremos que nosso Servlet trate. Não se preocupe, ainda vamos aprender sobre os métodos HTTP, então o mais importante a saber, por enquanto, é que os métodos HTTP mais usados são o \texttt{GET} (\inlineJavaCode{doGet(...)} de \texttt{HttpServlet}) e o  \texttt{POST} (\inlineJavaCode{doPost(...)} de  \texttt{HttpServlet}). Então teremos que sobrescrever cada um desses métodos e ainda criaremos um terceiro que será invocado a partir dos outros dois. Confuso? Vamos ver como o código ficaria. Leia os comentários e copie o código da Listagem~\thechapter.\ref{listagem:projetos/capitulo01/OlaMundoWeb/src/java/olamundoweb/servlets/OlaServlet.java} para o seu editor.
     
 \end{itemize}
 
@@ -262,17 +270,17 @@ Aprenderemos como criar manualmente um Servlet, para que possamos aprender algun
     
 Até agora criamos uma classe chamada \texttt{OlaServlet}, que estende a classe \texttt{HttpServlet}. Sobrescrevemos os métodos \inlineJavaCode{doGet(...)} e \inlineJavaCode{doPost(...)} herdados de \texttt{HttpServlet} que tratam respectivamente os métodos \texttt{GET} e \texttt{POST} do protocolo HTTP e criamos um terceiro método, chamado \inlineJavaCode{processRequest(...)}, que tem a mesma assinatura dos métodos \inlineJavaCode{doGet(...)} e \inlineJavaCode{doPost(...)} e que é invocado dentro deles. É no \texttt{processRequest} que iremos colocar o código que queremos executar, sendo que no nosso exemplo, estamos mandando imprimir na saída duas Strings: ``Olá Mundo!'' e ``Meu Primeiro Servlet!''. Ou seja, se chamarmos o Servlet usando o método \texttt{GET}, o método \inlineJavaCode{doGet(...)} será invocado e passará o controle para o método \inlineJavaCode{processRequest(...)} que irá imprimir as mensagens na saída. O mesmo acontece para o método \texttt{POST}.
 
-Muito bem, você tem um Servlet totalmente funcional, mas ai você se pergunta: ``Como vou chamar esse Servlet através do navegador?''. Então eu respondo: no código completo, você percebeu que há uma anotação chamada \inlineJavaCode{@WebServlet}? É essa anotação que vai fornecer essa informação\footnote{Antigamente precisávamos fazer o mapeamento em um arquivo \textit{Extensible Markup Language} (XML) (\url{http://pt.wikipedia.org/wiki/XML}) chamado de Descritor de Implantação (DI, em inglês \textit{Deployment Descriptor}), representado pelo arquivo \texttt{web.xml}, o que atualmente, com as versões mais novas do Jakarta/Java EE, não é mais necessário para algumas situações.}, especificamente no parâmetro \texttt{urlPatterns}. Perceba que configuramos esse parâmetro com um array de Strings com um elemento: ``/ola''. Com isso, podemos agora acessar o \texttt{OlaServlet} a partir de uma URL, que no nosso caso é ``\url{http://localhost:8080/OlaMundoWeb/ola}'', ou seja, usamos o protocolo HTTP, para a máquina \texttt{localhost} (que é o endereço da nossa máquina), na porta 8080 (que é a porta que o GlassFish ouve por padrão), para acessar a aplicação chamada \texttt{OlaMundoWeb} (isso vem do contexto que criamos no Passo 3 da Subseção~\ref{subsec:primeiroProjeto}, volte lá para dar uma olhadinha), para por fim acessar o recurso mapeado sob o nome de ``ola'' que no caso é o nosso Servlet. 
+Muito bem, você tem um Servlet totalmente funcional, mas ai você se pergunta: ``Como vou chamar esse Servlet através do navegador?''. Então eu respondo: no código completo, você percebeu que há uma anotação chamada \inlineJavaCode{@WebServlet}? É essa anotação que vai fornecer essa informação\footnote{Antigamente precisávamos fazer o mapeamento em um arquivo \textit{Extensible Markup Language} (XML) (\url{http://pt.wikipedia.org/wiki/XML}) chamado de Descritor de Implantação (DI, em inglês \textit{Deployment Descriptor}), representado pelo arquivo \texttt{web.xml}, o que atualmente, com as versões mais novas do Jakarta/Java EE, não é mais necessário para algumas situações.}, especificamente no parâmetro \texttt{urlPatterns}. Perceba que configuramos esse parâmetro com um array de Strings com um elemento: ``/ola''. Com isso, podemos agora acessar o \texttt{OlaServlet} a partir de uma URL, que no nosso caso é ``\url{http://localhost:8080/OlaMundoWeb/ola}'', ou seja, usamos o protocolo HTTP, para a máquina \texttt{localhost} (que é o endereço da nossa máquina), na porta 8080 (que é a porta que o Tomcat ouve por padrão), para acessar a aplicação chamada \texttt{OlaMundoWeb} (isso vem do contexto que criamos no Passo 2 da subseção~\ref{subsec:primeiroProjeto}, volte lá para dar uma olhadinha), para por fim acessar o recurso mapeado sob o nome de ``ola'' que no caso é o nosso Servlet. 
 
-Sei que pode parecer um pouco confuso no começo, mas logo você vai pegar o jeito da coisa. Dê um ``play'' no projeto de novo. O navegador vai abrir no endereço da aplicação novamente. Insira o ``ola'' (sem as aspas) no final da URL e tecle \texttt{<ENTER>}. O que aconteceu? Apareceu uma página em branco não foi? É claro, afinal, nosso Servlet não gera HTML, mas apenas imprime duas mensagens na saída padrão não é mesmo? Mas como podemos ver essas mensagens? Volte no NetBeans e procure, logo abaixo, uma aba chamada \destaque{\textit{Output}}. Ela provavelmente vai estar selecionada. Dentro dela devem haver outras três abas: \destaque{\textit{OlaMundoWeb (run)}} que deve estar selecionada e que é usada para mostrar o processo de construção do projeto da nossa aplicação, \destaque{\textit{Java DB Database Process}}, que exibe o \textit{status} do Java DB e, por fim, \destaque{\textit{GlassFish Server 7.0.24}}, que exibe a saída padrão do GlassFish. Clique nessa última aba e veja o que está escrito lá embaixo: as duas mensagens que enviamos para a saída padrão através do método \inlineJavaCode{System.out.println(...)} dentro do Servlet, sendo que o fim de cada linha conterá os caracteres \texttt{|\#]}\footnote{Esse sufixo é inserido automaticamente pelo servidor.}! Veja o resultado na Figura~\ref{fig:cap01SaidaGlassFish}. Volte ao navegador e tecle \texttt{<ENTER>} novamente no endereço do Servlet. Volte no NetBeans. Mais duas mensagens! Fácil não é mesmo?
+Sei que pode parecer um pouco confuso no começo, mas logo você vai pegar o jeito da coisa. Dê um ``play'' no projeto de novo. O navegador vai abrir no endereço da aplicação novamente. Insira o ``ola'' (sem as aspas) no final da URL e tecle \texttt{<ENTER>}. O que aconteceu? Apareceu uma página em branco não foi? É claro, afinal, nosso Servlet não gera HTML, mas apenas imprime duas mensagens na saída padrão não é mesmo? Mas como podemos ver essas mensagens? Volte no NetBeans e procure, logo abaixo, uma aba chamada \destaque{\textit{Output}} que exibe a saída padrão do Tomcat. Ela provavelmente vai estar selecionada, mas se não estiver clique nela e veja o que está escrito lá embaixo: as duas mensagens que enviamos para a saída padrão através do método \inlineJavaCode{System.out.println(...)} dentro do Servlet. Veja o resultado na Figura~\ref{fig:cap01SaidaTomcat}. Volte ao navegador e tecle \texttt{<ENTER>} novamente no endereço do Servlet. Volte no NetBeans. Mais duas mensagens! Fácil não é mesmo?
 
 \FloatBarrier
 \begin{figure}[!htbp]
     \centering
-    \caption{Saída do GlassFish 7.0.24}
-    \includegraphics[scale=0.9]{imagens/cap01SaidaGlassFish}
+    \caption{Saída do Tomcat 11.0.22}
+    \includegraphics[scale=0.7]{imagens/cap01SaidaTomcat}
     \\\textbf{Fonte:} Elaborada pelo autor
-    \label{fig:cap01SaidaGlassFish}
+    \label{fig:cap01SaidaTomcat}
 \end{figure}
 \FloatBarrier
     
