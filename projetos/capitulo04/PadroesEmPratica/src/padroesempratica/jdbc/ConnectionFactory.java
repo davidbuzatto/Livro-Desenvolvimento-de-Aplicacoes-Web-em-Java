@@ -11,6 +11,17 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
     
+    // força o registro do driver MariaDB no classloader da aplicação,
+    // necessário para que o Tomcat encontre o driver em WEB-INF/lib.
+    // executado uma única vez quando a classe é carregada.
+    static {
+        try {
+            Class.forName( "org.mariadb.jdbc.Driver" );
+        } catch ( ClassNotFoundException exc ) {
+            throw new RuntimeException("Driver MariaDB não encontrado.", exc);
+        }
+    }
+    
     /**
      * O método getConnection retorna uma conexão com a base de dados
      * testes_padroes.
@@ -20,19 +31,9 @@ public class ConnectionFactory {
      */
     public static Connection getConnection() throws SQLException {
 
-        try {
-            // força o registro do driver MariaDB no classloader da aplicação,
-            // necessário para que o Tomcat encontre o driver em WEB-INF/lib
-            Class.forName( "org.mariadb.jdbc.Driver" );
-        } catch ( ClassNotFoundException exc ) {
-            throw new SQLException( "Driver MariaDB não encontrado.", exc );
-        }
-        
-        /* O método getConnection de DriverManagaer recebe como parâmetro
-         * a URL da base de dados, o usuário usado para conectar na base
-         * e a senha deste usuário. O Driver JDBC apropriado será
-         * carregado com base na biblioteca configurada.
-         */
+        // o método getConnection de DriverManager recebe como parâmetro
+        // a URL da base de dados, o usuário usado para conectar na base
+        // e a senha deste usuário.
         return DriverManager.getConnection(
                 "jdbc:mariadb://localhost/testes_padroes",
                 "root",
