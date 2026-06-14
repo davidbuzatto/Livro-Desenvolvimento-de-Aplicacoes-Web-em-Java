@@ -8,3 +8,5 @@ Propagar mudanças no livro para a próxima edição?
 
 Atualizar a versão do NetBeans (provavelmente haverá atualização do GlasshFish).
 Verificar recomendação do JDK.
+Mudar Glassfish para Tomcat
+Em todos os arquivos HTML, CSS e JSP, mudar a indentação de 4 para 2 espaços.
