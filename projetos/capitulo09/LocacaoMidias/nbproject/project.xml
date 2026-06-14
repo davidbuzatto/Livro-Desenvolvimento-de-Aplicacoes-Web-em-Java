@@ -10,6 +10,14 @@
                     <file>${libs.MariaDB-ConnectorJ-3.5.6.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${libs.Validator.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.jstl-jakarta.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -21,14 +29,6 @@
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
             <definitions>.\lib\nblibraries.properties</definitions>
-        </libraries>
-        <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1">
-            <library name="decimal.js" version="10.3.1">
-                <file localPath="web/js/libs/decimal.js/decimal.min.js" path="decimal.min.js"/>
-            </library>
-            <library name="jquery" version="3.6.0">
-                <file localPath="web/js/libs/jquery/jquery.min.js" path="jquery.min.js"/>
-            </library>
         </libraries>
     </configuration>
 </project>
