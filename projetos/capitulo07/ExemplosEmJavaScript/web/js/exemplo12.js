@@ -1,6 +1,6 @@
 // variáveis globais do módulo
 
-const GRAVIDADE = 20;     // gravidade da simulação
+const GRAVIDADE = 1200;   // gravidade da simulação (pixels/s²)
 
 let ctx;                  // contexto gráfico
 let ultimoTempo = 0;      // tempo antes do próximo frame
@@ -75,7 +75,7 @@ class Bolinha {
 
             // recalcula a velocidade
             this.vx = this.vx * this.atrito;
-            this.vy = this.vy * this.atrito + GRAVIDADE;
+            this.vy = this.vy * this.atrito + GRAVIDADE * delta;
 
         } else {
             
