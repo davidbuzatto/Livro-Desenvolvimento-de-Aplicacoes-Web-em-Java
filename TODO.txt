@@ -1,3 +1,4 @@
+Em todos os arquivos HTML, CSS e JSP, mudar a indentação de 4 para 2 espaços.
 Revisar todo o capítulo 7 para refletir as mudanças nos exemplos.
 Propagar mudanças no livro para a próxima edição?
     - mudança de innerHTML para textContent nos exemplos 6 e 8
@@ -6,7 +7,5 @@ Propagar mudanças no livro para a próxima edição?
     - exemplo 12 virou exemplo 11
     - remoção da jquery do projeto do cap8 (VendaProdutos)
 
-Atualizar a versão do NetBeans (provavelmente haverá atualização do GlasshFish).
+Atualizar a versão do NetBeans e trocar Glassfish para Tomcat 11
 Verificar recomendação do JDK.
-Mudar Glassfish para Tomcat
-Em todos os arquivos HTML, CSS e JSP, mudar a indentação de 4 para 2 espaços.
