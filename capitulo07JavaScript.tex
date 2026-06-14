@@ -58,6 +58,15 @@ Vamos lá. Crie um projeto Java Web com o nome de ``ExemplosEmJavaScript'' da fo
         \FloatBarrier
         \item Clique em \destaque{OK}. A biblioteca jQuery será baixada e inserida no projeto dentro da pasta \texttt{js/libs/jquery}.
     \end{itemize}
+    \item Adicione a JSTL ao projeto da mesma forma que fizemos no capítulo~\ref{cap:elTagLibs}: clique com o botão direito em \destaque{\textit{Libraries}}, escolha \destaque{\textit{Add Library...}}, importe a JSTL e adicione-a ao projeto;
+    \item Este projeto utiliza a API JSON-B para serializar objetos Java em JSON. Diferentemente de servidores de aplicações completos como o GlassFish, o Apache Tomcat não inclui essa API, então precisamos adicioná-la manualmente ao projeto. Para isso, baixe os quatro arquivos abaixo e guarde-os em uma pasta de fácil acesso:
+    \begin{itemize}
+        \item \url{https://repo1.maven.org/maven2/jakarta/json/bind/jakarta.json.bind-api/3.0.2/jakarta.json.bind-api-3.0.2.jar}
+        \item \url{https://repo1.maven.org/maven2/jakarta/json/jakarta.json-api/2.1.3/jakarta.json-api-2.1.3.jar}
+        \item \url{https://repo1.maven.org/maven2/org/eclipse/yasson/3.0.4/yasson-3.0.4.jar}
+        \item \url{https://repo1.maven.org/maven2/org/eclipse/parsson/parsson/1.1.9/parsson-1.1.9.jar}
+    \end{itemize}
+    Com os arquivos baixados, vamos criar uma biblioteca no projeto, da forma que fizemos para o driver do MariaDB. Clique com o botão direito em \destaque{\textit{Libraries}}, escolha \destaque{\textit{Add Library...}}, clique em \destaque{\textit{Create...}}, dê o nome de ``JSON'' (sem as aspas) e clique em \destaque{\textit{OK}}. No próximo diálogo, clique em \destaque{\textit{Add JAR/Folder...}}, navegue até a pasta onde você salvou os quatro arquivos, selecione-os todos e clique em \destaque{\textit{Add JAR/Folder}}. Por fim, clique em \destaque{\textit{OK}}, selecione a biblioteca ``JSON'' e clique em \destaque{\textit{Add Library}}.
 \end{itemize}
 
 Realizando todos os passos descritos anteriormente, você terá um projeto com a estrutura apresentada na Figura~\ref{fig:cap07EstruturaDoProjeto}. Agora vamos começar a preencher cada um dos arquivos e aprender o que está acontecendo em cada um deles.
@@ -66,7 +75,7 @@ Realizando todos os passos descritos anteriormente, você terá um projeto com a
 \begin{figure}[!htbp]
     \centering
     \caption{Estrutura do projeto}
-    \includegraphics[scale=0.7]{imagens/cap07EstruturaDoProjeto}
+    \includegraphics[scale=0.65]{imagens/cap07EstruturaDoProjeto}
     \\\textbf{Fonte:} Elaborada pelo autor
     \label{fig:cap07EstruturaDoProjeto}
 \end{figure}

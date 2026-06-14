@@ -5,8 +5,16 @@
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>ExemplosEmJavaScript</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <explicit-platform explicit-source-supported="true"/>
-            <web-module-libraries/>
+            <web-module-libraries>
+                <library dirs="200">
+                    <file>${libs.JSON.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.jstl-jakarta.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+            </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.dir"/>
@@ -19,7 +27,7 @@
             <definitions>.\lib\nblibraries.properties</definitions>
         </libraries>
         <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1">
-            <library name="jquery" version="3.6.0">
+            <library name="jquery" version="3.7.1">
                 <file localPath="web/js/libs/jquery/jquery.min.js" path="jquery.min.js"/>
             </library>
         </libraries>
