@@ -1,58 +1,58 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Usando EL e TagLibs</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" 
-              content="width=device-width, initial-scale=1.0">
+  <head>
+    <title>Usando EL e TagLibs</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    
+    <style>
+      .alinhar-direita {
+        text-align: right;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <div>
+      
+      <h1>Dados do Produto</h1>
+    
+      <form method="post" action="processaDadosProduto">
         
-        <style>
-            .alinhar-direita {
-                text-align: right;
-            }
-        </style>
-        
-    </head>
-    <body>
-        <div>
-            
-            <h1>Dados do Produto</h1>
-        
-            <form method="post" action="processaDadosProduto">
-                
-                <table>
-                    <tr>
-                        <td class="alinhar-direita">Código:</td>
-                        <td><input type="text" name="codigo"/></td>
-                    </tr>
-                    <tr>
-                        <td class="alinhar-direita">Descrição:</td>
-                        <td><input type="text" name="descricao"/></td>
-                    </tr>
-                    <tr>
-                        <td class="alinhar-direita">Unidade de Medida:</td>
-                        <td>
-                            <select name="unidade">
-                                <option value="kg">Quilograma</option>
-                                <option value="l">Litro</option>
-                                <option value="un">Unidade</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="alinhar-direita">Quant. em Estoque:</td>
-                        <td><input type="text" name="quantidade"/></td>
-                    </tr>
-                    <tr>
-                        <td class="alinhar-direita" colspan="2">
-                            <input type="submit" value="Enviar Dados"/>
-                        </td>
-                    </tr>
-                </table>
+        <table>
+          <tr>
+            <td class="alinhar-direita">Código:</td>
+            <td><input type="text" name="codigo"/></td>
+          </tr>
+          <tr>
+            <td class="alinhar-direita">Descrição:</td>
+            <td><input type="text" name="descricao"/></td>
+          </tr>
+          <tr>
+            <td class="alinhar-direita">Unidade de Medida:</td>
+            <td>
+              <select name="unidade">
+                <option value="kg">Quilograma</option>
+                <option value="l">Litro</option>
+                <option value="un">Unidade</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="alinhar-direita">Quant. em Estoque:</td>
+            <td><input type="text" name="quantidade"/></td>
+          </tr>
+          <tr>
+            <td class="alinhar-direita" colspan="2">
+              <input type="submit" value="Enviar Dados"/>
+            </td>
+          </tr>
+        </table>
 
-            </form>
-            
-        </div>
-    </body>
+      </form>
+      
+    </div>
+  </body>
 </html>
