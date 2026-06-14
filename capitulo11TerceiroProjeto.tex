@@ -1,14 +1,96 @@
-\chapter{Terceiro Projeto: }\label{cap:terceiroProjeto}
-\epigraph{``\textit{O futuro não é um lugar onde estamos indo, mas um lugar que estamos criando. O caminho para ele não é encontrado, mas construído e o ato de fazê-lo muda tanto o realizador quando o destino}''.}{Antoine de Saint-Exupéry}
+\chapter{Terceiro Projeto: Explore Além do Java}\label{cap:terceiroProjeto}
+\epigraph{``\textit{O futuro não é um lugar onde estamos indo, mas um lugar que estamos criando. O caminho para ele não é encontrado, mas construído e o ato de fazê-lo muda tanto o realizador quanto o destino}''.}{Antoine de Saint-Exupéry}
 
-\lettrine[lines=4, lhang=0.1, lraise=0, loversize=0.2, findent=0.1em]{\textcolor{corTema}{N}}{ESTE} capítulo aaa.
+\lettrine[lines=4, lhang=0.1, lraise=0, loversize=0.2, findent=0.1em]{\textcolor{corTema}{N}}{ESTE} capítulo a proposta é diferente de tudo que foi feito até aqui. Em vez de continuar aprofundando o Java para Web, vamos dar um passo atrás e olhar para o horizonte mais amplo do desenvolvimento Web. Você vai implementar um sistema completo usando uma tecnologia que, muito provavelmente, nunca usou antes.
 
-\vfill
 
 \section{Introdução}
 
-Aqui vamos propor projetos usando diversas tecnologias. Pode ser a replicação do projeto de venda de produtos ou de locação de mídias, ou mesmo um projeto novo.
+Durante todo o livro você aprendeu a construir aplicações Web usando Java com Servlets, JSPs, JSTL e, mais recentemente, Web Services RESTful. Esse conhecimento é sólido e relevante no mercado de trabalho. Mas o mundo do desenvolvimento Web é muito maior do que uma única linguagem ou \textit{framework}. PHP, Python, Ruby, JavaScript no servidor, C\#, Go, Elixir --- cada uma dessas tecnologias tem sua comunidade, seus pontos fortes e seus casos de uso. Um bom desenvolvedor não precisa dominar todas elas, mas precisa ser capaz de aprender uma nova quando necessário. E a melhor forma de aprender é colocando a mão na massa.
+
+A ideia deste capítulo é exatamente essa: você vai reimplementar um sistema Web completo usando uma tecnologia diferente do Java, que será sorteada ou definida pelo seu professor. O sistema a ser implementado é o mesmo que você já conhece, então o esforço estará concentrado em aprender a nova tecnologia, não em entender o problema. Você vai perceber que, apesar das diferenças de sintaxe e de \textit{framework}, os conceitos fundamentais que aprendeu durante o livro --- o padrão MVC, a camada de persistência, a comunicação com o banco de dados, a validação de dados, o tratamento de requisições HTTP --- aparecem em todas essas tecnologias, só que com nomes e formas um pouco diferentes. Isso é o que chamamos de transferência de conhecimento.
+
+Se este material estiver sendo utilizado em uma disciplina, o professor orientará sobre qual sistema deve ser implementado e como será feita a distribuição das tecnologias entre os alunos ou grupos. Caso esteja estudando de forma independente, fique à vontade para escolher a tecnologia que mais lhe despertar curiosidade e o sistema que quiser reimplementar --- os projetos dos capítulos~\ref{cap:sistemaVendaProdutos} e~\ref{cap:segundoProjeto} são boas opções de partida.
+
+
+\section{As Tecnologias}
+
+A Tabela~\ref{tab:tecnologias} apresenta as tecnologias que podem ser sorteadas ou atribuídas. Para cada uma delas são indicados o \textit{framework} principal, o paradigma de desenvolvimento (MVC clássico ou \textit{backend} REST), o ORM recomendado para a comunicação com o banco de dados e o motor de \textit{template} ou a abordagem de retorno de dados.
+
+\begin{sidewaystable}[!htbp]
+\centering
+\caption{Tecnologias disponíveis para o projeto}
+\label{tab:tecnologias}
+\resizebox{\textheight}{!}{%
+\begin{tabular}{p{6.0cm} p{3.5cm} p{5.0cm} p{8.0cm}}
+\hline
+\multicolumn{1}{c}{\textbf{Linguagem / Framework}} & \multicolumn{1}{c}{\textbf{Paradigma}} & \multicolumn{1}{c}{\textbf{ORM}} & \multicolumn{1}{c}{\textbf{Template / Observações}} \\
+\hline
+PHP com Laravel & MVC Clássico & Eloquent ORM & Blade \\
+PHP com Laravel & \textit{Backend} REST & Eloquent ORM & Retorna JSON. Auth: Sanctum/Passport. \\
+\hline
+Java/Kotlin com Spring Boot & MVC Clássico & Spring Data JPA (Hibernate) & Thymeleaf, JSP ou FreeMarker \\
+Java/Kotlin com Spring Boot & \textit{Backend} REST & Spring Data JPA (Hibernate) & Retorna JSON. Spring Data REST. \\
+\hline
+Ruby com Ruby on Rails & MVC Clássico & Active Record & ERB, Haml ou Slim \\
+Ruby com Ruby on Rails & \textit{Backend} REST & Active Record & Retorna JSON. Modo \texttt{--api}. \\
+\hline
+Python com Django & MVC Clássico & Django ORM & Django Template Language \\
+Python com Django & \textit{Backend} REST & Django ORM & Retorna JSON. Django REST Framework. \\
+\hline
+JavaScript (Node.js) com Express.js & MVC Clássico & Sequelize / TypeORM & EJS, Pug ou Handlebars \\
+JavaScript (Node.js) com Express.js & \textit{Backend} REST & Sequelize / TypeORM & Retorna JSON. \\
+\hline
+C\# com ASP.NET Core & MVC Clássico & Entity Framework Core & Razor View Engine \\
+C\# com ASP.NET Core & \textit{Backend} REST & Entity Framework Core & Retorna JSON. \texttt{[ApiController]}. \\
+\hline
+Elixir com Phoenix & MVC Clássico & Ecto & EEx (Embedded Elixir) \\
+Elixir com Phoenix & \textit{Backend} REST & Ecto & Retorna JSON. Phoenix API. \\
+\hline
+Go (Golang) & \textit{Backend} REST & GORM / SQLBoiler / sqlx & Retorna JSON. Frameworks: Gin, Echo, Fiber. \\
+\hline
+TypeScript com NestJS & \textit{Backend} REST & TypeORM / Sequelize & Retorna JSON. \\
+\hline
+\end{tabular}%
+}
+\\\textbf{Fonte:} Elaborada pelo autor
+\end{sidewaystable}
+
+Em todas as opções o banco de dados utilizado é o MariaDB/MySQL, que você já conhece bem. Isso significa que o modelo de dados, o DER e as \textit{queries} SQL que você já escreveu continuam válidos --- só muda a forma como a aplicação se conecta e conversa com o banco.
+
+Nas opções de paradigma \textit{Backend} REST, o \textit{frontend} fica a seu critério: pode ser JavaScript puro (Vanilla JS com Fetch API, que você já aprendeu), ou um \textit{framework} como React, Angular ou Vue.js, dependendo do que você tiver interesse em explorar ou do que o professor indicar.
+
+\begin{saibaMais}
+    Ficou curioso sobre alguma dessas tecnologias antes de mergulhar? Veja algumas referências de partida:
+    \begin{itemize}
+        \item Laravel: \url{https://laravel.com/docs}
+        \item Spring Boot: \url{https://spring.io/projects/spring-boot}
+        \item Ruby on Rails: \url{https://guides.rubyonrails.org}
+        \item Django: \url{https://docs.djangoproject.com}
+        \item Express.js: \url{https://expressjs.com}
+        \item ASP.NET Core: \url{https://learn.microsoft.com/aspnet/core}
+        \item Phoenix: \url{https://hexdocs.pm/phoenix}
+        \item Go (Gin): \url{https://gin-gonic.com}
+        \item NestJS: \url{https://docs.nestjs.com}
+    \end{itemize}
+\end{saibaMais}
+
+
+\section{O Projeto}
+
+O sistema a ser implementado deve conter, no mínimo, as seguintes características:
+
+\begin{itemize}
+    \item Ao menos três cadastros completos com as operações de criar, listar, alterar e excluir registros (CRUD);
+    \item Ao menos um relacionamento entre entidades, de preferência um relacionamento muitos-para-muitos, como o que foi implementado nos projetos dos capítulos~\ref{cap:sistemaVendaProdutos} e~\ref{cap:segundoProjeto};
+    \item Validação dos dados recebidos antes de persistir no banco de dados;
+    \item Interface com o usuário adequada ao paradigma sorteado: páginas HTML renderizadas pelo servidor no caso do MVC clássico, ou \textit{endpoints} REST bem definidos retornando JSON no caso do \textit{backend} REST;
+    \item Uso do banco de dados MariaDB/MySQL com o ORM indicado para a tecnologia sorteada.
+\end{itemize}
+
+Se este material estiver sendo utilizado em uma disciplina, o professor poderá especificar um sistema concreto a ser implementado, definir requisitos adicionais e estabelecer os critérios de avaliação. Caso contrário, use os projetos anteriores do livro como inspiração e implemente algo que faça sentido para você.
+
 
 \section{Resumo}
 
-Neste capítulo foi requisitado que você implementasse uma aplicação ...
+Neste capítulo a proposta foi diferente: em vez de continuar no Java, você foi convidado a explorar uma tecnologia Web diferente, implementando um sistema completo usando um \textit{framework} sorteado ou escolhido. O objetivo não é dominar a nova tecnologia em profundidade, mas sim perceber que os conceitos fundamentais do desenvolvimento Web --- MVC, persistência, validação, HTTP --- são universais e aparecem em qualquer \textit{stack}. Essa é uma das habilidades mais valiosas que um desenvolvedor pode ter: a capacidade de aprender uma nova tecnologia a partir de um conhecimento sólido já construído.
