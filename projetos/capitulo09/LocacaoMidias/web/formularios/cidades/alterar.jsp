@@ -17,7 +17,7 @@
 
   <h1>Alterar Cidade</h1>
 
-  <form method="post"  action="${cp}/processaCidades">
+  <form method="POST"  action="${cp}/processaCidades">
 
     <input name="acao" type="hidden" value="alterar"/>
     <input name="id" type="hidden" value="${requestScope.cidade.id}"/>

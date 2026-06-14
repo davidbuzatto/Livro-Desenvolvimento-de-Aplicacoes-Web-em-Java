@@ -17,7 +17,7 @@
 
   <h1>Novo Produto</h1>
 
-  <form method="post" action="${cp}/processaProdutos">
+  <form method="POST" action="${cp}/processaProdutos">
 
     <input name="acao" type="hidden" value="inserir"/>
 

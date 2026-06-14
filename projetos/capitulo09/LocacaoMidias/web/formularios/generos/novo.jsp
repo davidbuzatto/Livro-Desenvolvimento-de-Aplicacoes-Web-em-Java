@@ -17,7 +17,7 @@
 
   <h1>Novo Gênero</h1>
 
-  <form method="post" action="${cp}/processaGeneros">
+  <form method="POST" action="${cp}/processaGeneros">
 
     <input name="acao" type="hidden" value="inserir"/>
 

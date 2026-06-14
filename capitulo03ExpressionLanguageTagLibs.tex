@@ -72,7 +72,69 @@ Da mesma forma que existem as \textit{tags} JSP padrão, você pode criar suas p
 
 A JSTL é uma biblioteca formada por um conjunto de \textit{tags} (TagLib = \textit{tag} \textit{Library} = Biblioteca de \textit{tags}) que visam apoiar o desenvolvedor na tarefa de construir suas páginas JSP, permitindo que várias coisas possam ser feitas sem o uso direto de código Java, por exemplo, iterar por uma lista de objetos, executar testes lógicos, formatar dados, entre muitos outros. Quando formos implementar nosso primeiro projeto no capítulo~\ref{cap:primeiroProjeto}, iremos utilizar muitos recursos da JSTL, mas por agora vamos aprender apenas como inseri-la no nosso projeto e fazer um pequeno exemplo.
 
-Vamos implementar um exemplo bem simples. Iremos criar um \inlineJavaCode{for} usando \textit{tags} da JSTL. Crie mais uma página JSP, com o nome de ``testesJSTL''. O NetBeans vai abrir o arquivo quando este for criado. Vamos editá-lo? Copie então o código da Listagem~\thechapter.\ref{listagem:projetos/capitulo03/UsandoELeTagLibs/web/testesJSTL.jsp}.
+Vamos implementar um exemplo bem simples. Iremos criar um \inlineJavaCode{for} usando \textit{tags} da JSTL. Crie mais uma página JSP, com o nome de ``testesJSTL''. O NetBeans vai abrir o arquivo quando este for criado. 
+
+Para usar a JSTL, temos que adicionar a biblioteca no nosso projeto. Para isso, clique com o botão direito em \destaque{\textit{Libraries}} e escolha a opção \destaque{\textit{Add Library...}} (Figura~\ref{fig:cap03ConfigurarJSTLP01}).
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Adicionando a JSTL no projeto - Passo 1}
+    \includegraphics[scale=0.7]{imagens/cap03ConfigurarJSTLP01}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap03ConfigurarJSTLP01}
+\end{figure}
+\FloatBarrier
+
+Ao fazer isso, o diálogo de adição de bibliotecas será exibido (Figura~\ref{fig:cap03ConfigurarJSTLP02}). Nesse diálogo serão mostradas as bibliotecas do projeto. Como nossos projetos são configurados para conter uma cópia das bibliotecas que utilizaremos, aparecerá apenas um item, que é uma biblioteca que o NetBeans usa para copiar as bibliotecas. Vamos clicar no botão \destaque{\textit{Import...}} para importar a biblioteca da JSTL que o NetBenas oferece para nós.
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Adicionando a JSTL no projeto - Passo 2}
+    \includegraphics[scale=0.7]{imagens/cap03ConfigurarJSTLP02}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap03ConfigurarJSTLP02}
+\end{figure}
+\FloatBarrier
+
+Ao clicar no \destaque{\textit{Import...}} outro diálogo será exibido (Figura~\ref{fig:cap03ConfigurarJSTLP03}), sendo que nele estão contidas todas as bibliotecas que podemos importar diretamente do NetBeans para o nosso projeto.
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Adicionando a JSTL no projeto - Passo 3}
+    \includegraphics[scale=0.7]{imagens/cap03ConfigurarJSTLP03}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap03ConfigurarJSTLP03}
+\end{figure}
+\FloatBarrier
+
+Vamos selecionar a última versão da JSTL que estiver disponível. Na minha versão do NetBeans é a 3.0.2 (Figura~\ref{fig:cap03ConfigurarJSTLP0}). Depois de selecionar, clique em \destaque{\textit{Import Library}}.
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Adicionando a JSTL no projeto - Passo 4}
+    \includegraphics[scale=0.7]{imagens/cap03ConfigurarJSTLP04}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap03ConfigurarJSTLP04}
+\end{figure}
+\FloatBarrier
+
+Ao fazer isso, uma cópia da biblioteca será feita para dentro do nosso projeto, permitindo que tenhamos sempre uma cópia da mesma! Você notará que o diálogo \textit{Import Library} será exibido novamente, mas agora com a biblioteca que acabamos de importar (Figura~\ref{fig:cap03ConfigurarJSTLP05}). Agora que temos a biblioteca copiada, vamos de fato dizer ao NetBeans que queremos usá-la no projeto, clicando em \destaque{\textit{Add Library}}.
+
+\FloatBarrier
+\begin{figure}[!htbp]
+    \centering
+    \caption{Adicionando a JSTL no projeto - Passo 5}
+    \includegraphics[scale=0.7]{imagens/cap03ConfigurarJSTLP05}
+    \\\textbf{Fonte:} Elaborada pelo autor
+    \label{fig:cap03ConfigurarJSTLP05}
+\end{figure}
+\FloatBarrier
+
+Com isso, você notará que o nó \textit{Libraries} do projeto conterá mais dois itens que representam a JSTL. Agora voltamos voltar ao arquivo JSP que criamos anteriormente. Vamos editá-lo? Copie então o código da Listagem~\thechapter.\ref{listagem:projetos/capitulo03/UsandoELeTagLibs/web/testesJSTL.jsp}.
 
 \htmlCode{Exemplo de uso da JSTL  (\texttt{testesJSTL.jsp})}{projetos/capitulo03/UsandoELeTagLibs/web/testesJSTL.jsp}
 

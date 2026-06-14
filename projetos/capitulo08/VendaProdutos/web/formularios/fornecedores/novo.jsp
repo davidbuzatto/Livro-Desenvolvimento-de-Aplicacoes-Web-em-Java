@@ -17,7 +17,7 @@
 
   <h1>Novo Fornecedor</h1>
 
-  <form method="post" action="${cp}/processaFornecedores">
+  <form method="POST" action="${cp}/processaFornecedores">
 
     <input name="acao" type="hidden" value="inserir"/>
 

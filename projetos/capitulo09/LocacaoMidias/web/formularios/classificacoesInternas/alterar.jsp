@@ -17,7 +17,7 @@
 
   <h1>Alterar Classificação Interna</h1>
 
-  <form method="post" action="${cp}/processaClassificacoesInternas">
+  <form method="POST" action="${cp}/processaClassificacoesInternas">
 
     <input name="acao" type="hidden" value="alterar"/>
     <input name="id" type="hidden" value="${requestScope.classificacaoInterna.id}"/>

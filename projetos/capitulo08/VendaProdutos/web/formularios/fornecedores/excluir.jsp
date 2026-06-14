@@ -17,7 +17,7 @@
 
   <h1>Excluir Fornecedor</h1>
 
-  <form method="post" action="${cp}/processaFornecedores">
+  <form method="POST" action="${cp}/processaFornecedores">
 
     <input name="acao" type="hidden" value="excluir"/>
     <input name="id" type="hidden" value="${requestScope.fornecedor.id}"/>

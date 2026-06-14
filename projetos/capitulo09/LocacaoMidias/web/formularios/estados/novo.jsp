@@ -17,7 +17,7 @@
 
   <h1>Novo Estado</h1>
 
-  <form method="post" action="${cp}/processaEstados">
+  <form method="POST" action="${cp}/processaEstados">
 
     <input name="acao" type="hidden" value="inserir"/>
 

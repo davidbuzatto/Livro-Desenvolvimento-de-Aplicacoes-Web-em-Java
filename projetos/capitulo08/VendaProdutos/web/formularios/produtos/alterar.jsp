@@ -17,7 +17,7 @@
 
   <h1>Alterar Produto</h1>
 
-  <form method="post" action="${cp}/processaProdutos">
+  <form method="POST" action="${cp}/processaProdutos">
 
     <input name="acao" type="hidden" value="alterar"/>
     <input name="id" type="hidden" value="${requestScope.produto.id}"/>

@@ -17,7 +17,7 @@
 
   <h1>Novo Tipo</h1>
 
-  <form method="post" action="${cp}/processaTipos">
+  <form method="POST" action="${cp}/processaTipos">
 
     <input name="acao" type="hidden" value="inserir"/>
 

@@ -18,7 +18,7 @@
 
   <h1>Excluir Produto</h1>
 
-  <form method="post" action="${cp}/processaProdutos">
+  <form method="POST" action="${cp}/processaProdutos">
 
     <input name="acao" type="hidden" value="excluir"/>
     <input name="id" type="hidden" value="${requestScope.produto.id}"/>

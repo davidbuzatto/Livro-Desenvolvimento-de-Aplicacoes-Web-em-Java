@@ -17,7 +17,7 @@
 
   <h1>Excluir Classificação Etária</h1>
 
-  <form method="post" action="${cp}/processaClassificacoesEtarias">
+  <form method="POST" action="${cp}/processaClassificacoesEtarias">
 
     <input name="acao" type="hidden" value="excluir"/>
     <input name="id" type="hidden" value="${requestScope.classificacaoEtaria.id}"/>

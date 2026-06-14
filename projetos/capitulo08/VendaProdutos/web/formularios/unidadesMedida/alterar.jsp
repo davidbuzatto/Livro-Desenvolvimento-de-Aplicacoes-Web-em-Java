@@ -17,7 +17,7 @@
 
   <h1>Alterar Unidade de Medida</h1>
 
-  <form method="post" action="${cp}/processaUnidadesMedida">
+  <form method="POST" action="${cp}/processaUnidadesMedida">
 
     <input name="acao" type="hidden" value="alterar"/>
     <input name="id" type="hidden" value="${requestScope.un.id}"/>

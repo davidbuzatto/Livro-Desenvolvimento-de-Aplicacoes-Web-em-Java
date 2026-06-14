@@ -17,7 +17,7 @@
 
   <h1>Novo Cliente</h1>
 
-  <form method="post" action="${cp}/processaClientes">
+  <form method="POST" action="${cp}/processaClientes">
 
     <input name="acao" type="hidden" value="inserir"/>
 

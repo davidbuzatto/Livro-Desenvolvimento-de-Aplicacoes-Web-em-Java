@@ -17,7 +17,7 @@
 
   <h1>Nova Venda</h1>
 
-  <form id="formNovaVenda" method="post" action="${cp}/processaVendas">
+  <form id="formNovaVenda" method="POST" action="${cp}/processaVendas">
 
     <input name="acao" type="hidden" value="inserir"/>
     <input id="hiddenItensVenda" name="itensVenda" type="hidden"/>
