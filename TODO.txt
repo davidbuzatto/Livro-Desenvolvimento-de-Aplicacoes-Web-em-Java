@@ -1,4 +1,2 @@
 Atualizar tutorial da playlist:
 https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U
-
-Atualizar na capa o Jakarta EE para 11
