@@ -44,7 +44,7 @@ Na Figura~\ref{fig:cap01RequestResponse} é mostrado o processo de requisição 
     
     \begin{itemize}
     
-        \item \textbf{protocolo:} É a parte da URL que diz ao servidor qual o protocolo a ser utilizado. Quando acessamos páginas Web, por padrão, o protocolo utilizado é o \textit{Hypertext Transfer Protocol} (HTTP);
+        \item \textbf{protocolo:} É a parte da URL que diz ao servidor qual o protocolo a ser utilizado. Quando acessamos páginas Web, o protocolo utilizado é o \textit{Hypertext Transfer Protocol} (HTTP) ou a sua versão segura, o \textit{Hypertext Transfer Protocol Secure} (HTTPS). A diferença principal entre os dois é que o HTTPS criptografa os dados trafegados entre o cliente e o servidor, garantindo que ninguém consiga interceptá-los pelo caminho. Hoje em dia a grande maioria dos sites utiliza HTTPS, e os navegadores costumam exibir um aviso caso você acesse um site que ainda usa apenas HTTP;
         
         \item \textbf{máquina:} É o nome ou o endereço codificado pelo \textit{Internet Protocol} (IP) da máquina que está executando o Servidor Web;
         
@@ -108,7 +108,7 @@ Já aprendemos que os Servlets são componentes de uma aplicação Web feita em 
 
 A rigor, um JSP é processado pelo Servidor de Aplicações e todo o seu conteúdo é traduzido em um Servlet, que por sua vez é compilado e executado pelo Servidor. Todo esse processo é realizado nos bastidores, então não precisamos nos preocupar com esses detalhes, mas é sempre bom saber um pouquinho como as coisas funcionam não é mesmo?
 
-Por causa desse comportamento de tradução das JSPs para Servlets, nós podemos inserir código Java dentro das JSPs, mas novamente não iremos usar essa abordagem, muito menos irei ensinar como fazer, visto que da mesma forma que gerar HTML dentro de um Servlet manualmente é desencorajado, essa abordagem de inserir código Java dentro das JSPs também não deve ser utilizada. Uma JSP deve ser usada para exibir dados, não para processá-los diretamente usando código Java. Note que não estou dizendo que não iremos manipular dados dentro das JSPs, mas sim que existem formas seguras e corretas para fazer isso. Aprenderemos esses detalhes só no Capítulo~\ref{cap:elTagLibs}, pois até lá, já teremos aprendido outros detalhes que ainda não foram apresentados.
+Por causa desse comportamento de tradução das JSPs para Servlets, nós podemos inserir código Java dentro das JSPs, mas novamente não iremos usar essa abordagem, muito menos irei ensinar como fazer, visto que da mesma forma que gerar HTML dentro de um Servlet manualmente é desencorajado, essa abordagem de inserir código Java dentro das JSPs também não deve ser utilizada. Uma JSP deve ser usada para exibir dados, não para processá-los diretamente usando código Java. Note que não estou dizendo que não iremos manipular dados dentro das JSPs, mas sim que existem formas seguras e corretas para fazer isso. Aprenderemos esses detalhes só no capítulo~\ref{cap:elTagLibs}, pois até lá, já teremos aprendido outros detalhes que ainda não foram apresentados.
 
 
 \section{Preparação do Ambiente de Desenvolvimento}
@@ -228,7 +228,7 @@ Salve o arquivo depois de editá-lo. Se o navegador ainda estiver aberto no \tex
 \end{figure}
 \FloatBarrier
 
-Poderíamos ter usado um arquivo \textit{JavaServer Pages} (JSP) ao invés de usar um arquivo HTML, permitindo a existência de outros tipos de estruturas que vamos aprender no decorrer do livro, mas por enquanto vamos manter o HTML. Vamos testar os Servlets agora? Como primeiro exemplo, nós vamos criar um Servlet manualmente, enquanto os outros que vamos desenvolver durante o nosso curso serão feitos usando um assistente do NetBeans, mas essa forma fácil nós só vamos aprender a partir do Capítulo~\ref{cap:processamentoFormularios}.
+Poderíamos ter usado um arquivo \textit{JavaServer Pages} (JSP) ao invés de usar um arquivo HTML, permitindo a existência de outros tipos de estruturas que vamos aprender no decorrer do livro, mas por enquanto vamos manter o HTML. Vamos testar os Servlets agora? Como primeiro exemplo, nós vamos criar um Servlet manualmente, enquanto os outros que vamos desenvolver durante o nosso curso serão feitos usando um assistente do NetBeans, mas essa forma fácil nós só vamos aprender a partir do capítulo~\ref{cap:processamentoFormularios}.
 
 Aprenderemos como criar manualmente um Servlet, para que possamos aprender alguns detalhes importantes sobre o funcionamento de aplicações Web feitas em Java. Siga os passos abaixo:
 
