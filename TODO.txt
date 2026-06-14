@@ -1,1 +1,0 @@
-Atualizar a versão do NetBeans e trocar Glassfish para Tomcat 11
