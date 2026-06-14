@@ -1,4 +1,2 @@
 Em todos os arquivos HTML, CSS e JSP, mudar a indentação de 4 para 2 espaços.
-Remoção da jquery do projeto do cap8 (VendaProdutos)
 Atualizar a versão do NetBeans e trocar Glassfish para Tomcat 11
-Verificar recomendação do JDK.
