@@ -13,7 +13,9 @@ import java.sql.SQLException;
 import vendaprodutos.dao.CidadeDAO;
 import vendaprodutos.dao.FornecedorDAO;
 import vendaprodutos.entidades.Fornecedor;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Fornecedores.
@@ -94,8 +96,11 @@ public class FornecedorRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/fornecedores/" + fornecedor.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor inserido com successo!", fornecedor ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor inserido com sucesso!", fornecedor ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o fornecedor.", exc.getMessage() ) );
@@ -129,6 +134,11 @@ public class FornecedorRestfulServlet extends HttpServlet {
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             Fornecedor fornecedor = daoFornecedor.obterPorId( id );
+
+            if ( fornecedor == null ) {
+                throw new NaoEncontradoException( "Fornecedor não encontrado." );
+            }
+
             fornecedor.setRazaoSocial( fornecedorRecebido.getRazaoSocial() );
             fornecedor.setCnpj( fornecedorRecebido.getCnpj() );
             fornecedor.setEmail( fornecedorRecebido.getEmail() );
@@ -145,8 +155,14 @@ public class FornecedorRestfulServlet extends HttpServlet {
             daoFornecedor.atualizar( fornecedor );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor atualizado com successo!", fornecedor ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor atualizado com sucesso!", fornecedor ) );
 
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o fornecedor.", exc.getMessage() ) );
@@ -180,7 +196,7 @@ public class FornecedorRestfulServlet extends HttpServlet {
             dao.excluir( fornecedor );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor excluído com successo!", fornecedor ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Fornecedor excluído com sucesso!", fornecedor ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

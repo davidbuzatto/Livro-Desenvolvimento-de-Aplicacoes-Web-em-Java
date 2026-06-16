@@ -3,7 +3,8 @@
  * 
  * @author Prof. Dr. David Buzatto
  */
-import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
+import { ContainerUtilizadoError } from "../erros/ContainerUtilizadoError.js";
+import * as Modais from "./modais.js";
 
 // formatadores
 export const fmtNumeroBrasil = new Intl.NumberFormat( "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -242,7 +243,7 @@ export async function carregarSelect( url, select, propriedades, funcaoLabel = n
             }
         });
     } else {
-        Utils.abrirModalMensagem( "ERRO", Utils.montarMensagemErro( data ) );
+        Modais.modalMensagem.abrir( "ERRO", montarMensagemErro( data ) );
     }
 
 }

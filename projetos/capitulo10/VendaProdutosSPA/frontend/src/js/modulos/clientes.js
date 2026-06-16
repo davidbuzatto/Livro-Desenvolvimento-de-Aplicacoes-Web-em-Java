@@ -3,7 +3,7 @@
  * 
  * @author Prof. Dr. David Buzatto
  */
-import { ContainerUtizadoError } from "../erros/ContainerUtizadoError.js";
+import { ContainerUtilizadoError } from "../erros/ContainerUtilizadoError.js";
 import * as Cidades from "./cidades.js";
 import * as Modais from "./modais.js";
 import * as Utils from "./utils.js";
@@ -116,7 +116,7 @@ export function iniciar( urlBase ) {
             inicializado = true;
         
         }).catch( error => {
-            if ( !( error instanceof ContainerUtizadoError ) ) {
+            if ( !( error instanceof ContainerUtilizadoError ) ) {
                 console.log( error );
             }   
         });

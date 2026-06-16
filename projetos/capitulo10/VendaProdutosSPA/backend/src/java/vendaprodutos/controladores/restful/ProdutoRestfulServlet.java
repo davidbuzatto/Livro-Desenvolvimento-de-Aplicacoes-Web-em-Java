@@ -14,7 +14,9 @@ import vendaprodutos.dao.FornecedorDAO;
 import vendaprodutos.dao.ProdutoDAO;
 import vendaprodutos.dao.UnidadeMedidaDAO;
 import vendaprodutos.entidades.Produto;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Produtos.
@@ -95,8 +97,11 @@ public class ProdutoRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/produtos/" + produto.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Produto inserido com successo!", produto ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Produto inserido com sucesso!", produto ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o produto.", exc.getMessage() ) );
@@ -131,6 +136,11 @@ public class ProdutoRestfulServlet extends HttpServlet {
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             Produto produto = daoProduto.obterPorId( id );
+
+            if ( produto == null ) {
+                throw new NaoEncontradoException( "Produto não encontrado." );
+            }
+
             produto.setDescricao( produtoRecebido.getDescricao() );
             produto.setCodigoBarras( produtoRecebido.getCodigoBarras() );
             produto.setValorVenda( produtoRecebido.getValorVenda() );
@@ -148,8 +158,14 @@ public class ProdutoRestfulServlet extends HttpServlet {
             daoProduto.atualizar( produto );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Produto atualizado com successo!", produto ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Produto atualizado com sucesso!", produto ) );
 
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o produto.", exc.getMessage() ) );
@@ -183,7 +199,7 @@ public class ProdutoRestfulServlet extends HttpServlet {
             dao.excluir( produto );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Produto excluído com successo!", produto ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Produto excluído com sucesso!", produto ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

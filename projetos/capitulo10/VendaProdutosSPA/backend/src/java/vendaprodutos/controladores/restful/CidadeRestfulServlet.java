@@ -13,7 +13,9 @@ import java.sql.SQLException;
 import vendaprodutos.dao.CidadeDAO;
 import vendaprodutos.dao.EstadoDAO;
 import vendaprodutos.entidades.Cidade;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Cidades.
@@ -94,8 +96,11 @@ public class CidadeRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/cidades/" + cidade.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade inserida com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cidade inserida com sucesso!", cidade ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a cidade.", exc.getMessage() ) );
@@ -129,8 +134,13 @@ public class CidadeRestfulServlet extends HttpServlet {
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             Cidade cidade = daoCidade.obterPorId( id );
+
+            if ( cidade == null ) {
+                throw new NaoEncontradoException( "Cidade não encontrada." );
+            }
+
             cidade.setNome( cidadeRecebida.getNome() );
-            
+
             if ( !cidade.getEstado().equals( cidadeRecebida.getEstado() ) ) {
                 cidade.setEstado( daoEstado.obterPorId( cidadeRecebida.getEstado().getId() ) );
             }
@@ -139,8 +149,14 @@ public class CidadeRestfulServlet extends HttpServlet {
             daoCidade.atualizar( cidade );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade atualizada com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cidade atualizada com sucesso!", cidade ) );
 
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a cidade.", exc.getMessage() ) );
@@ -174,7 +190,7 @@ public class CidadeRestfulServlet extends HttpServlet {
             dao.excluir( cidade );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade excluída com successo!", cidade ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cidade excluída com sucesso!", cidade ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

@@ -1,5 +1,6 @@
 package vendaprodutos.utils;
 
+import vendaprodutos.excecoes.ValidacaoException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -183,35 +184,34 @@ public abstract class Utils {
     
     /*
      * Realiza a validação do objeto passado e lança
-     * uma SQLException com todos os erros obtidos caso o
+     * uma ValidacaoException com todos os erros obtidos caso o
      * objeto seja inválido.
      */
     public static void validar(
             Object obj,
-            String... ignorar )
-            throws SQLException {
-        
+            String... ignorar ) {
+
         StringBuilder sb = new StringBuilder();
-        Set<ConstraintViolation> cvs = 
+        Set<ConstraintViolation> cvs =
                 Utils.validarObj( obj, ignorar );
-        
+
         if ( !cvs.isEmpty() ) {
-            
+
             // cria uma mensagem com várias
             // tags <li> que conterão as inconsistências
             // encontradas no objeto validado
             for ( ConstraintViolation cv : cvs ) {
-                sb.append( String.format( 
-                        "<li>%s: %s</li>", 
-                        cv.getPropertyPath(), 
+                sb.append( String.format(
+                        "<li>%s: %s</li>",
+                        cv.getPropertyPath(),
                         cv.getMessage() ) );
             }
-            
-            // lança a exceção com todos os erros
-            throw new SQLException( sb.toString() );
-            
+
+            // lança a exceção com todos os erros de validação
+            throw new ValidacaoException( sb.toString() );
+
         }
-        
+
     }
     
     /*

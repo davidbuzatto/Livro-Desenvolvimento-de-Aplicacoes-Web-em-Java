@@ -13,7 +13,9 @@ import java.sql.SQLException;
 import vendaprodutos.dao.CidadeDAO;
 import vendaprodutos.dao.ClienteDAO;
 import vendaprodutos.entidades.Cliente;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Clientes.
@@ -94,8 +96,11 @@ public class ClienteRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/clientes/" + cliente.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Cliente inserido com successo!", cliente ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cliente inserido com sucesso!", cliente ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o cliente.", exc.getMessage() ) );
@@ -120,17 +125,20 @@ public class ClienteRestfulServlet extends HttpServlet {
         try ( ClienteDAO daoCliente = new ClienteDAO();
               CidadeDAO daoCidade = new CidadeDAO() ){
             
-            Cliente clienteRecebido = jsonb.fromJson( 
+            Cliente clienteRecebido = jsonb.fromJson(
                 Utils.obterDados( request ),
                 Cliente.class
             );
-            
-            System.out.println( clienteRecebido.getDataNascimento() );
 
             String pathInfo = request.getPathInfo();
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
-            
+
             Cliente cliente = daoCliente.obterPorId( id );
+
+            if ( cliente == null ) {
+                throw new NaoEncontradoException( "Cliente não encontrado." );
+            }
+
             cliente.setNome( clienteRecebido.getNome() );
             cliente.setSobrenome( clienteRecebido.getSobrenome() );
             cliente.setDataNascimento( clienteRecebido.getDataNascimento() );
@@ -149,8 +157,14 @@ public class ClienteRestfulServlet extends HttpServlet {
             daoCliente.atualizar( cliente );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cliente atualizado com successo!", cliente ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cliente atualizado com sucesso!", cliente ) );
 
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o cliente.", exc.getMessage() ) );
@@ -184,7 +198,7 @@ public class ClienteRestfulServlet extends HttpServlet {
             dao.excluir( cliente );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cliente excluído com successo!", cliente ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Cliente excluído com sucesso!", cliente ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

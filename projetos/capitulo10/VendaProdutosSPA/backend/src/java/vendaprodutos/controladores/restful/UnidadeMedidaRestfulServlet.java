@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import vendaprodutos.dao.UnidadeMedidaDAO;
 import vendaprodutos.entidades.UnidadeMedida;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Unidades de Medida.
@@ -93,8 +95,11 @@ public class UnidadeMedidaRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/unidadesMedida/" + unidadeMedida.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida inserida com successo!", unidadeMedida ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida inserida com sucesso!", unidadeMedida ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a unidade de medida.", exc.getMessage() ) );
@@ -127,6 +132,11 @@ public class UnidadeMedidaRestfulServlet extends HttpServlet {
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             UnidadeMedida unidadeMedida = dao.obterPorId( id );
+
+            if ( unidadeMedida == null ) {
+                throw new NaoEncontradoException( "Unidade de medida não encontrada." );
+            }
+
             unidadeMedida.setDescricao( unidadeMedidaRecebido.getDescricao() );
             unidadeMedida.setSigla( unidadeMedidaRecebido.getSigla() );
         
@@ -134,8 +144,14 @@ public class UnidadeMedidaRestfulServlet extends HttpServlet {
             dao.atualizar( unidadeMedida );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida atualizada com successo!", unidadeMedida ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida atualizada com sucesso!", unidadeMedida ) );
 
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a unidade de medida.", exc.getMessage() ) );
@@ -169,7 +185,7 @@ public class UnidadeMedidaRestfulServlet extends HttpServlet {
             dao.excluir( unidadeMedida );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "UnidadeMedida excluída com successo!", unidadeMedida ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Unidade de medida excluída com sucesso!", unidadeMedida ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

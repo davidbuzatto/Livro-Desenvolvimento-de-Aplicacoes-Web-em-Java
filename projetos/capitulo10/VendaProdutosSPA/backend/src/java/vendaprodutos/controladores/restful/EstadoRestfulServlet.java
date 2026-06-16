@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import vendaprodutos.dao.EstadoDAO;
 import vendaprodutos.entidades.Estado;
+import vendaprodutos.excecoes.NaoEncontradoException;
 import vendaprodutos.utils.Utils;
+import vendaprodutos.excecoes.ValidacaoException;
 
 /**
  * Servlet de serviços RESTful para Estados.
@@ -93,8 +95,11 @@ public class EstadoRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/estados/" + estado.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Estado inserido com successo!", estado ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Estado inserido com sucesso!", estado ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o estado.", exc.getMessage() ) );
@@ -127,15 +132,26 @@ public class EstadoRestfulServlet extends HttpServlet {
             Long id = Long.valueOf( pathInfo.substring( 1 ) );
             
             Estado estado = dao.obterPorId( id );
+
+            if ( estado == null ) {
+                throw new NaoEncontradoException( "Estado não encontrado." );
+            }
+
             estado.setNome( estadoRecebido.getNome() );
             estado.setSigla( estadoRecebido.getSigla() );
-        
+
             Utils.validar( estado, "id" );
             dao.atualizar( estado );
-            
-            status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Estado atualizado com successo!", estado ) );
 
+            status = HttpServletResponse.SC_OK;
+            jsonResposta = jsonb.toJson( new Resposta( "Estado atualizado com sucesso!", estado ) );
+
+        } catch ( NaoEncontradoException exc ) {
+            status = HttpServletResponse.SC_NOT_FOUND;
+            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o estado.", exc.getMessage() ) );
@@ -169,7 +185,7 @@ public class EstadoRestfulServlet extends HttpServlet {
             dao.excluir( estado );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Estado excluído com successo!", estado ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Estado excluído com sucesso!", estado ) );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

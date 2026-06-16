@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import vendaprodutos.dao.ClienteDAO;
+import vendaprodutos.excecoes.ValidacaoException;
 import vendaprodutos.dao.ItemVendaDAO;
 import vendaprodutos.dao.ProdutoDAO;
 import vendaprodutos.dao.VendaDAO;
@@ -130,8 +131,11 @@ public class VendaRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/vendas/" + venda.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Venda inserida com successo!", venda ) );
+            jsonResposta = jsonb.toJson( new Resposta( "Venda inserida com sucesso!", venda ) );
 
+        } catch ( ValidacaoException exc ) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
             jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a venda.", exc.getMessage() ) );
@@ -174,11 +178,11 @@ public class VendaRestfulServlet extends HttpServlet {
                 }
 
                 status = HttpServletResponse.SC_OK;
-                jsonResposta = jsonb.toJson( new Resposta( "Venda cancelada com successo!", venda ) );
-                
+                jsonResposta = jsonb.toJson( new Resposta( "Venda cancelada com sucesso!", venda ) );
+
             } else {
                 status = HttpServletResponse.SC_BAD_REQUEST;
-                jsonResposta = jsonb.toJson( new Resposta( "Método inesistente.", pathInfo ) );
+                jsonResposta = jsonb.toJson( new Resposta( "Método inexistente.", pathInfo ) );
             }
 
         } catch ( SQLException exc ) {
