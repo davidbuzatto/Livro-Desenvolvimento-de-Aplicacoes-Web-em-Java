@@ -38,7 +38,10 @@ public class CORSFilter implements Filter {
             if ( origin != null && 
                  ( origin.equals( "http://localhost:8080" ) || 
                    origin.equals( "http://www.outrodominio.com" ) ) ) {
-                httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+                httpResponse.setHeader( 
+                    "Access-Control-Allow-Origin",
+                    origin
+                );
             }
         }
         httpResponse.setHeader( 

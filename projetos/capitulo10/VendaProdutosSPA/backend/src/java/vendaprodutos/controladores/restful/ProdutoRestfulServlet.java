@@ -23,13 +23,18 @@ import vendaprodutos.excecoes.ValidacaoException;
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "ProdutoRestfulServlet", urlPatterns = { "/api/produtos/*" } )
+@WebServlet(
+    name = "ProdutoRestfulServlet",
+    urlPatterns = { "/api/produtos/*" }
+)
 public class ProdutoRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    protected void doGet( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -52,7 +57,9 @@ public class ProdutoRestfulServlet extends HttpServlet {
                     jsonResposta = jsonb.toJson( produto );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Produto não encontrado.", "" ) );
+                    jsonResposta = jsonb.toJson(
+                        new Resposta( "Produto não encontrado.", "" )
+                    );
                 }
                 
             } else {
@@ -63,10 +70,14 @@ public class ProdutoRestfulServlet extends HttpServlet {
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter produto(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao obter produto(s).", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -77,7 +88,9 @@ public class ProdutoRestfulServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    protected void doPost( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -96,15 +109,24 @@ public class ProdutoRestfulServlet extends HttpServlet {
             dao.salvar( produto );
             
             status = HttpServletResponse.SC_CREATED;
-            response.setHeader( "Location", "/api/produtos/" + produto.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Produto inserido com sucesso!", produto ) );
+            response.setHeader(
+                "Location",
+                "/api/produtos/" + produto.getId()
+            );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Produto inserido com sucesso!", produto )
+            );
 
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o produto.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao inserir o produto.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -115,7 +137,9 @@ public class ProdutoRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPut( HttpServletRequest request, HttpServletResponse response )
+    protected void doPut( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -147,31 +171,52 @@ public class ProdutoRestfulServlet extends HttpServlet {
             produto.setEstoque( produtoRecebido.getEstoque() );
             
             if ( !produto.getFornecedor().equals( produtoRecebido.getFornecedor() ) ) {
-                produto.setFornecedor( daoFornecedor.obterPorId( produtoRecebido.getFornecedor().getId() ) );
+                produto.setFornecedor( 
+                    daoFornecedor.obterPorId(
+                        produtoRecebido.getFornecedor().getId()
+                    )
+                );
             }
             
             if ( !produto.getUnidadeMedida().equals( produtoRecebido.getUnidadeMedida() ) ) {
-                produto.setUnidadeMedida( daoUnidadeMedida.obterPorId( produtoRecebido.getUnidadeMedida().getId() ) );
+                produto.setUnidadeMedida(
+                    daoUnidadeMedida.obterPorId(
+                        produtoRecebido.getUnidadeMedida().getId()
+                    )
+                );
             }
         
             Utils.validar( produto, "id" );
             daoProduto.atualizar( produto );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Produto atualizado com sucesso!", produto ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Produto atualizado com sucesso!", produto )
+            );
 
         } catch ( NaoEncontradoException exc ) {
             status = HttpServletResponse.SC_NOT_FOUND;
-            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( exc.getMessage(), "" )
+            );
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o produto.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta(
+                    "Erro ao atualizar o produto.",
+                    exc.getMessage()
+                )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -182,7 +227,9 @@ public class ProdutoRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doDelete( HttpServletRequest request, HttpServletResponse response )
+    protected void doDelete( 
+        HttpServletRequest request,
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -199,14 +246,23 @@ public class ProdutoRestfulServlet extends HttpServlet {
             dao.excluir( produto );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Produto excluído com sucesso!", produto ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Produto excluído com sucesso!", produto )
+            );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir o produto.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( 
+                    "Erro ao excluir o produto.",
+                    exc.getMessage()
+                )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {

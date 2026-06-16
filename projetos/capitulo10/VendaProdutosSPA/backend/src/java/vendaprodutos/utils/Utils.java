@@ -28,8 +28,7 @@ import java.io.IOException;
  */
 public abstract class Utils {
     
-    // tanto o validador quanto o formatador
-    // são thread safe
+    // tanto o validador quanto o formatador são thread safe
     // a implementação do validador normalmente tem cache
     private static Validator validador = Validation
             .buildDefaultValidatorFactory()
@@ -187,9 +186,7 @@ public abstract class Utils {
      * uma ValidacaoException com todos os erros obtidos caso o
      * objeto seja inválido.
      */
-    public static void validar(
-            Object obj,
-            String... ignorar ) {
+    public static void validar( Object obj, String... ignorar ) {
 
         StringBuilder sb = new StringBuilder();
         Set<ConstraintViolation> cvs =
@@ -233,7 +230,8 @@ public abstract class Utils {
      * Processa a requisição e extrai os dados da mesma. Usado quando
      * é enviado JSON no body.
      */
-    public static String obterDados( HttpServletRequest request ) throws IOException {
+    public static String obterDados( HttpServletRequest request )
+        throws IOException {
         
         StringBuilder sb = new StringBuilder();
         String line;

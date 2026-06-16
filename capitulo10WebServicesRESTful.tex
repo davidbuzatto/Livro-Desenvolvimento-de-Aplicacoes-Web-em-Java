@@ -142,14 +142,14 @@ Ambas estendem \inlineJavaCode{RuntimeException}, que é a superclasse de todas 
 Todos os nossos Servlets RESTful seguem a mesma estrutura básica: sobreescrevem os métodos \inlineJavaCode{doGet}, \inlineJavaCode{doPost}, \inlineJavaCode{doPut} e \inlineJavaCode{doDelete} do \texttt{HttpServlet}. Em cada método, a estrutura interna é:
 
 \begin{enumerate}
-    \item Configurar o tipo de conteúdo da resposta como \texttt{application/json}.
-    \item Dentro de um bloco \textit{try-with-resources} com o(s) DAO(s) necessário(s), executar a operação.
-    \item Em caso de sucesso, construir um \texttt{Resposta} com mensagem e dados, serializá-lo com o JSON-B e configurar o status HTTP apropriado.
-    \item Em blocos \inlineJavaCode{catch} específicos, capturar \inlineJavaCode{ValidacaoException} ($\rightarrow$ 400), \inlineJavaCode{NaoEncontradoException} ($\rightarrow$ 404), \texttt{SQLException} ($\rightarrow$ 500) e \texttt{NumberFormatException} ($\rightarrow$ 400 quando o ID da URL não é numérico).
+    \item Configurar o tipo de conteúdo da resposta como \texttt{application/json};
+    \item Dentro de um bloco \textit{try-with-resources} com o(s) DAO(s) necessário(s), executar a operação;
+    \item Em caso de sucesso, construir um \texttt{Resposta} com mensagem e dados, serializá-lo com o JSON-B e configurar o status HTTP apropriado;
+    \item Em blocos \inlineJavaCode{catch} específicos, capturar \inlineJavaCode{ValidacaoException} ($\rightarrow$ 400),\\\inlineJavaCode{NaoEncontradoException} ($\rightarrow$ 404), \texttt{SQLException} ($\rightarrow$ 500) e\\\texttt{NumberFormatException} ($\rightarrow$ 400 quando o ID da URL não é numérico);
     \item Escrever o JSON na resposta.
 \end{enumerate}
 
-O campo \inlineJavaCode{jsonb} declarado em cada Servlet (linha 27 do \texttt{EstadoRestfulServlet}) é uma instância de \inlineJavaCode{Jsonb}, a interface principal da API Jakarta JSON-B. Com ela, \inlineJavaCode{jsonb.toJson(objeto)} serializa qualquer objeto Java para JSON e \inlineJavaCode{jsonb.fromJson(string, Classe.class)} faz o caminho inverso.
+O campo \inlineJavaCode{jsonb} declarado em cada Servlet (linha 27 do \texttt{EstadoRestfulServlet}) é uma instância de \inlineJavaCode{Jsonb}, a interface principal da API Jakarta JSON-B. Com ela, \inlineJavaCode{jsonb.toJson(objeto)} serializa qualquer objeto Java para JSON e\\\inlineJavaCode{jsonb.fromJson(string, Classe.class)} faz o caminho inverso.
 
 \begin{saibaMais}
     A Jakarta JSON-B (\textit{JSON Binding}) é a especificação padrão do Jakarta EE para mapeamento entre objetos Java e JSON. Ela funciona de forma similar ao JAXB para XML: usa reflexão para inspecionar os campos e acessores do objeto e gera o JSON correspondente. A implementação de referência é o Yasson. Por padrão, ela usa os nomes dos campos Java como nomes das propriedades JSON, o que em nosso caso é exatamente o comportamento desejado.
@@ -273,10 +273,10 @@ Mas essa facilidade tem um custo. \textit{Frameworks} introduzem camadas de abst
 
 \section{A Arquitetura do \textit{Front-End}}
 
-O \textit{front-end} é organizado em módulos ES (\textit{ECMAScript Modules}), o sistema oficial de módulos do JavaScript moderno. Cada arquivo \texttt{.js} é um módulo que pode exportar funções, classes ou valores e importar os de outros módulos. As importações do \textit{front-end} seguem o padrão de importar o namespace inteiro: \inlineJavaScriptCode{import * as Utils from "./utils.js"} importa tudo que \texttt{utils.js} exporta e disponibiliza sob o objeto \texttt{Utils}, o que torna o código mais legível ao deixar claro de onde cada função vem.
+O \textit{front-end} é organizado em módulos ES (\textit{ECMAScript Modules}), o sistema oficial de módulos do JavaScript moderno. Cada arquivo \texttt{.js} é um módulo que pode exportar funções, classes ou valores e importar os de outros módulos. As importações do \textit{front-end} seguem o padrão de importar o namespace inteiro:\\\inlineJavaScriptCode{import * as Utils from "./utils.js"}\\importa tudo que \texttt{utils.js} exporta e disponibiliza sob o objeto \texttt{Utils}, o que torna o código mais legível ao deixar claro de onde cada função vem.
 
 \begin{saibaMais}
-    Antes dos módulos ES se tornarem padrão, o JavaScript não tinha um sistema de módulos nativo. Os desenvolvedores usavam \textit{workarounds} como o padrão IIFE (\textit{Immediately Invoked Function Expression}) ou sistemas como CommonJS (usado no Node.js) e AMD. Hoje, módulos ES são suportados nativamente por todos os navegadores modernos. A sintaxe é simples: \inlineJavaScriptCode{export function minhaFuncao() \{ ... \}} exporta uma função, e \inlineJavaScriptCode{import \{ minhaFuncao \} from "./meuModulo.js"} a importa. Também podemos usar \inlineJavaScriptCode{import * as Nome from "./modulo.js"} para importar tudo de um módulo como um objeto.
+    Antes dos módulos ES se tornarem padrão, o JavaScript não tinha um sistema de módulos nativo. Os desenvolvedores usavam \textit{workarounds} como o padrão IIFE (\textit{Immediately Invoked Function Expression}) ou sistemas como CommonJS (usado no Node.js) e AMD. Hoje, módulos ES são suportados nativamente por todos os navegadores modernos. A sintaxe é simples: \inlineJavaScriptCode{export function minhaFuncao() { ... }} exporta uma função, e \inlineJavaScriptCode{import { minhaFuncao } from "./meuModulo.js"} a importa. Também podemos usar \inlineJavaScriptCode{import * as Nome from "./modulo.js"} para importar tudo de um módulo como um objeto.
 \end{saibaMais}
 
 

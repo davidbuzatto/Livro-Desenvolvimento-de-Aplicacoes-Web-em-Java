@@ -21,13 +21,18 @@ import vendaprodutos.excecoes.ValidacaoException;
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "EstadoRestfulServlet", urlPatterns = { "/api/estados/*" } )
+@WebServlet( 
+    name = "EstadoRestfulServlet",
+    urlPatterns = { "/api/estados/*" }
+)
 public class EstadoRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    protected void doGet( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -50,7 +55,9 @@ public class EstadoRestfulServlet extends HttpServlet {
                     jsonResposta = jsonb.toJson( estado );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Estado não encontrado.", "" ) );
+                    jsonResposta = jsonb.toJson(
+                        new Resposta( "Estado não encontrado.", "" )
+                    );
                 }
                 
             } else {
@@ -61,10 +68,14 @@ public class EstadoRestfulServlet extends HttpServlet {
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter estado(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao obter estado(s).", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -75,7 +86,9 @@ public class EstadoRestfulServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    protected void doPost( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -94,15 +107,24 @@ public class EstadoRestfulServlet extends HttpServlet {
             dao.salvar( estado );
             
             status = HttpServletResponse.SC_CREATED;
-            response.setHeader( "Location", "/api/estados/" + estado.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Estado inserido com sucesso!", estado ) );
+            response.setHeader(
+                "Location", 
+                "/api/estados/" + estado.getId()
+            );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Estado inserido com sucesso!", estado )
+            );
 
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir o estado.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao inserir o estado.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -113,7 +135,9 @@ public class EstadoRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPut( HttpServletRequest request, HttpServletResponse response )
+    protected void doPut( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -144,20 +168,33 @@ public class EstadoRestfulServlet extends HttpServlet {
             dao.atualizar( estado );
 
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Estado atualizado com sucesso!", estado ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Estado atualizado com sucesso!", estado )
+            );
 
         } catch ( NaoEncontradoException exc ) {
             status = HttpServletResponse.SC_NOT_FOUND;
-            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( exc.getMessage(), "" )
+            );
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar o estado.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta(
+                    "Erro ao atualizar o estado.",
+                    exc.getMessage()
+                )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -168,7 +205,9 @@ public class EstadoRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doDelete( HttpServletRequest request, HttpServletResponse response )
+    protected void doDelete( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -185,14 +224,20 @@ public class EstadoRestfulServlet extends HttpServlet {
             dao.excluir( estado );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Estado excluído com sucesso!", estado ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Estado excluído com sucesso!", estado )
+            );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir o estado.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Erro ao excluir o estado.", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {

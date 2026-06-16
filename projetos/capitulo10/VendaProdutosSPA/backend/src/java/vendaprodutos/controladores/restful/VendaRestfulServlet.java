@@ -30,13 +30,18 @@ import vendaprodutos.utils.Utils;
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "VendaRestfulServlet", urlPatterns = { "/api/vendas/*" } )
+@WebServlet(
+    name = "VendaRestfulServlet",
+    urlPatterns = { "/api/vendas/*" }
+)
 public class VendaRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    protected void doGet( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -59,7 +64,9 @@ public class VendaRestfulServlet extends HttpServlet {
                     jsonResposta = jsonb.toJson( venda );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Venda não encontrada.", "" ) );
+                    jsonResposta = jsonb.toJson(
+                        new Resposta( "Venda não encontrada.", "" )
+                    );
                 }
                 
             } else {
@@ -70,10 +77,14 @@ public class VendaRestfulServlet extends HttpServlet {
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter venda(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao obter venda(s).", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -84,7 +95,9 @@ public class VendaRestfulServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    protected void doPost( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -114,7 +127,9 @@ public class VendaRestfulServlet extends HttpServlet {
             for ( ItemVendaDTO item : vendaDTO.itens() ) {
                 
                 Produto produto = daoProduto.obterPorId( item.idProduto() );
-                produto.setEstoque( produto.getEstoque().subtract( item.quantidade() ) );
+                produto.setEstoque( 
+                    produto.getEstoque().subtract( item.quantidade() )
+                );
                 
                 ItemVenda novoItem = new ItemVenda();
                 novoItem.setVenda( venda );
@@ -131,14 +146,20 @@ public class VendaRestfulServlet extends HttpServlet {
             
             status = HttpServletResponse.SC_CREATED;
             response.setHeader( "Location", "/api/vendas/" + venda.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Venda inserida com sucesso!", venda ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Venda inserida com sucesso!", venda )
+            );
 
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a venda.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao inserir a venda.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -149,7 +170,9 @@ public class VendaRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPut( HttpServletRequest request, HttpServletResponse response )
+    protected void doPut( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -178,19 +201,27 @@ public class VendaRestfulServlet extends HttpServlet {
                 }
 
                 status = HttpServletResponse.SC_OK;
-                jsonResposta = jsonb.toJson( new Resposta( "Venda cancelada com sucesso!", venda ) );
+                jsonResposta = jsonb.toJson(
+                    new Resposta( "Venda cancelada com sucesso!", venda )
+                );
 
             } else {
                 status = HttpServletResponse.SC_BAD_REQUEST;
-                jsonResposta = jsonb.toJson( new Resposta( "Método inexistente.", pathInfo ) );
+                jsonResposta = jsonb.toJson(
+                    new Resposta( "Método inexistente.", pathInfo )
+                );
             }
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao cancelar a venda.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Erro ao cancelar a venda.", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {

@@ -1,2 +1,5 @@
 Atualizar tutorial da playlist:
 https://www.youtube.com/playlist?list=PLqEuQ0dDknqVcfcBHGaYrET7IBfchVS-U
+
+Importar o utils.js ficou muito grande. talvez quebrar em arquivos parciais só com as funções.
+Pedir para atualizar a ligação linha -> código (após processar tudo).
