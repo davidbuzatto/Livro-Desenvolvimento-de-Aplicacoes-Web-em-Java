@@ -123,7 +123,9 @@ async function carregar() {
         selects.forEach( item => {
             item.select.innerHTML = "";
         });
-        
+
+        Modais.modalAguarde.abrir();
+
         dados.forEach( ( produto, index ) =>{
             
             let linha = document.createElement( "tr" );
@@ -151,6 +153,8 @@ async function carregar() {
             });
 
         });
+
+        Modais.modalAguarde.fechar();
 
     } else {
         Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
@@ -191,8 +195,12 @@ async function salvar() {
             url += `/${obj.id}`;
         }
         
+        Modais.modalAguarde.abrir();
+
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
+
+        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();

@@ -116,7 +116,9 @@ async function carregar() {
     if ( response.ok ) {
         
         tbody.innerHTML = "";
-        
+
+        Modais.modalAguarde.abrir();
+
         dados.forEach( ( venda, index ) =>{
             
             let linha = document.createElement( "tr" );
@@ -150,6 +152,8 @@ async function carregar() {
 
         });
 
+        Modais.modalAguarde.fechar();
+
     } else {
         Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
     }
@@ -175,8 +179,12 @@ async function salvar() {
             itens: itens
         };
         
+        Modais.modalAguarde.abrir();
+
         const response = await Utils.customFetch( `${_urlBase}/vendas`, "POST", obj );
         const dados = await response.json();
+
+        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();
@@ -220,16 +228,16 @@ function cancelarVenda() {
     
 }
 
-function carregarProdutos() {
-    
+async function carregarProdutos() {
+
     Modais.modalAguarde.abrir();
-    
-    Utils.carregarSelect( `${_urlBase}/produtos`, selProduto, { id: "id" }, produto => {
+
+    await Utils.carregarSelect( `${_urlBase}/produtos`, selProduto, { id: "id" }, produto => {
         return `${produto.descricao} (${Utils.formatarDinheiro( produto.valorVenda )} por ${produto.unidadeMedida.sigla})`;
     }, [ "descricao", "valorVenda" ]);
-    
+
     Modais.modalAguarde.fechar();
-    
+
 }
 
 async function cancelarVendaRealizada( idVenda ) {

@@ -100,7 +100,9 @@ async function carregar() {
         selects.forEach( select => {
             select.innerHTML = "";
         });
-        
+
+        Modais.modalAguarde.abrir();
+
         dados.forEach( ( cidade, index ) =>{
             
             let linha = document.createElement( "tr" );
@@ -116,12 +118,14 @@ async function carregar() {
             });
 
             tbody.append( linha );
-            
+
             selects.forEach( select => {
                 select.append( Utils.criarOption( cidade.id, cidade.nome ) );
             });
 
         });
+
+        Modais.modalAguarde.fechar();
 
     } else {
         Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
@@ -152,8 +156,12 @@ async function salvar() {
             url += `/${obj.id}`;
         }
         
+        Modais.modalAguarde.abrir();
+
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
+
+        Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();

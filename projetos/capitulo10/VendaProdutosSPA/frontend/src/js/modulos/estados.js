@@ -151,7 +151,7 @@ async function salvar() {
         }
         
         Modais.modalAguarde.abrir();
-        
+
         const response = await Utils.customFetch( url, metodo, obj );
         const dados = await response.json();
 
