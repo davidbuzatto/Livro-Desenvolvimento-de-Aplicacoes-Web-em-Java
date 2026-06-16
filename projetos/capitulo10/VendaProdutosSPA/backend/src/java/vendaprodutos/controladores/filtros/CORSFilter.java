@@ -35,12 +35,20 @@ public class CORSFilter implements Filter {
             httpResponse.setHeader( "Access-Control-Allow-Origin", "*" );
         } else {
             String origin = httpRequest.getHeader( "Origin" );
-            if ( origin != null && ( origin.equals( "http://localhost:8080" ) || origin.equals( "http://www.outrodominio.com" ) ) ) {
-                httpResponse.setHeader( "Access-Control-Allow-Origin", origin );
+            if ( origin != null && 
+                 ( origin.equals( "http://localhost:8080" ) || 
+                   origin.equals( "http://www.outrodominio.com" ) ) ) {
+                httpResponse.setHeader("Access-Control-Allow-Origin", origin);
             }
         }
-        httpResponse.setHeader( "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" );
-        httpResponse.setHeader( "Access-Control-Allow-Headers", "Content-Type, Authorization" );
+        httpResponse.setHeader( 
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, DELETE, OPTIONS"
+        );
+        httpResponse.setHeader(
+            "Access-Control-Allow-Headers",
+            "Content-Type, Authorization"
+        );
         httpResponse.setHeader( "Access-Control-Max-Age", "3600" );
         
         // se for uma requisição OPTIONS (preflight), retornar OK.

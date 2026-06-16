@@ -179,6 +179,96 @@
 %    minted language=sql%
 %}
 
+\newtcblisting{boxTextCode}[1][]{
+    minted language=text,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
+\newtcblisting{boxJavaCode}[1][]{
+    minted language=java,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
+\newtcblisting{boxJavaScriptCode}[1][]{
+    minted language=javascript,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
+\newtcblisting{boxJsonCode}[1][]{
+    minted language=json,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
+\newtcblisting{boxHTMLCode}[1][]{
+    minted language=html,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
+\newtcblisting{boxSQLCode}[1][]{
+    minted language=sql,
+    minted options={fontsize=\small,linenos,numbersep=3mm,breaklines},
+    colback=corFundoCaixas,
+    colframe=corTema,
+    fonttitle=\bfseries,
+    listing only,
+    left=7mm,
+    enhanced,
+    breakable,
+    drop fuzzy shadow,
+    overlay={\begin{tcbclipinterior}\fill[corTema!40](frame.south west)rectangle([xshift=7mm]frame.north west);\end{tcbclipinterior}},
+    #1
+}
+
 \newtcbinputlisting{\javaCode}[3][]{%
     listing file={#3},
     title=\texttt{\refstepcounter{listagens}\label{listagem:#3}Listagem \thechapter.\thelistagens: #2},

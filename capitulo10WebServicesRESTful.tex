@@ -13,11 +13,7 @@ Mas imagine agora que nosso sistema de vendas precisasse ser consumido também p
 
 É aí que entram os \textit{Web Services} RESTful. Em vez de o servidor gerar HTML, ele passa a expor \textbf{recursos} (estados, cidades, produtos, vendas\ldots) através de uma interface bem definida usando os verbos do próprio protocolo HTTP, devolvendo e recebendo dados em JSON. Qualquer cliente que saiba fazer requisições HTTP e interpretar JSON pode consumi-lo --- seja um navegador, um app mobile, ou outro sistema.
 
-Neste capítulo construiremos um projeto separado em duas partes: o \texttt{backend}, implantado no Apache Tomcat, que expõe os serviços RESTful, e o \texttt{frontend}, servido pelo Vite durante o desenvolvimento, que é uma SPA capaz de realizar todas as operações do sistema consumindo esses serviços.
-
-\begin{saibaMais}
-    O Vite é uma ferramenta de \textit{build} e servidor de desenvolvimento para aplicações Web modernas. Em modo de desenvolvimento ele serve os arquivos estáticos com atualizações instantâneas. Para este capítulo usamos o Vite apenas para servir o \textit{front-end} em \texttt{http://localhost:5173} durante o desenvolvimento, sem nenhum \textit{framework} JavaScript adicional.
-\end{saibaMais}
+Neste capítulo construiremos um projeto separado em duas partes: o \texttt{backend}, implantado no Apache Tomcat, que expõe os serviços RESTful, e o \texttt{frontend}, servido por um servidor HTTP local simples, que é uma SPA capaz de realizar todas as operações do sistema consumindo esses serviços.
 
 
 \section{O que é REST?}
@@ -40,15 +36,13 @@ A Tabela~\ref{tab:cap10VerbosHTTP} mostra o mapeamento que adotamos no nosso sis
 \caption{Mapeamento de verbos HTTP para operações CRUD}
 \label{tab:cap10VerbosHTTP}
 \begin{tabular}{llll}
-\hline
-\textbf{Verbo} & \textbf{URI} & \textbf{Operação} & \textbf{Status de sucesso} \\
-\hline
-GET    & \texttt{/api/estados}    & Listar todos      & 200 OK         \\
-GET    & \texttt{/api/estados/7} & Buscar por id     & 200 OK         \\
-POST   & \texttt{/api/estados}    & Inserir           & 201 Created    \\
-PUT    & \texttt{/api/estados/7} & Atualizar         & 200 OK         \\
-DELETE & \texttt{/api/estados/7} & Excluir           & 200 OK         \\
-\hline
+    \hline
+    \textbf{Verbo} & \textbf{URI}            & \textbf{Operação} & \textbf{Status de sucesso} \\ \hline
+    GET            & \texttt{/api/estados}   & Listar todos      & 200 OK                     \\
+    GET            & \texttt{/api/estados/7} & Buscar por id     & 200 OK                     \\
+    POST           & \texttt{/api/estados}   & Inserir           & 201 Created                \\
+    PUT            & \texttt{/api/estados/7} & Atualizar         & 200 OK                     \\
+    DELETE         & \texttt{/api/estados/7} & Excluir           & 200 OK                     \\ \hline
 \end{tabular}
 \\\textbf{Fonte:} Elaborada pelo autor
 \end{table}
@@ -68,7 +62,7 @@ Você pode pegar os dois projetos prontos nos arquivos deste capítulo. A estrut
 \begin{figure}[!htbp]
     \centering
     \caption{Estrutura de pacotes do \textit{back-end}}
-    \includegraphics[scale=0.6]{imagens/cap10EstruturaPacotes}
+    \includegraphics[scale=0.8]{imagens/cap10EstruturaPacotes}
     \\\textbf{Fonte:} Elaborada pelo autor
     \label{fig:cap10EstruturaPacotes}
 \end{figure}
@@ -87,7 +81,7 @@ Para executar o sistema você precisa ter os dois em funcionamento ao mesmo temp
 
 Antes de ver qualquer Servlet RESTful, precisamos entender um problema que inevitavelmente enfrentamos quando separamos o \textit{front-end} do \textit{back-end} em origens diferentes.
 
-A política de mesma origem (\textit{Same-Origin Policy}) é uma medida de segurança dos navegadores que impede que JavaScript em execução em uma página de uma origem (combinação de esquema, domínio e porta) faça requisições para outra origem sem permissão explícita. No nosso caso, o \textit{front-end} está em \texttt{http://localhost:5173} e o \textit{back-end} está em \texttt{http://localhost:8080}. Portas diferentes --- origens diferentes. Sem nenhuma configuração adicional, o navegador bloqueará todas as requisições do \textit{front-end} para o \textit{back-end}.
+A política de mesma origem (\textit{Same-Origin Policy}) é uma medida de segurança dos navegadores que impede que JavaScript em execução em uma página de uma origem (combinação de esquema, domínio e porta) faça requisições para outra origem sem permissão explícita. No nosso caso, o \textit{front-end} está em \texttt{http://localhost:5500} e o \textit{back-end} está em \texttt{http://localhost:8080}. Portas diferentes --- origens diferentes. Sem nenhuma configuração adicional, o navegador bloqueará todas as requisições do \textit{front-end} para o \textit{back-end}.
 
 CORS é o mecanismo que permite que o servidor diga ao navegador quem tem permissão para acessá-lo. Isso é feito através de cabeçalhos HTTP especiais. Além das requisições normais, o navegador às vezes envia antes uma requisição de \destaque{\textit{preflight}} (método \texttt{OPTIONS}) para perguntar ao servidor o que é permitido. O servidor deve responder a essa requisição com os cabeçalhos corretos ou o navegador bloqueará a requisição real.
 
@@ -227,7 +221,7 @@ Arquivo: \texttt{vendaprodutos/entidades/dto/ItemVendaDTO.java}}{projetos/capitu
 
 O JSON enviado pelo \textit{front-end} para criar uma venda tem a seguinte forma:
 
-\begin{lstlisting}[language=java, caption={Exemplo de JSON para criação de venda}]
+\begin{boxJsonCode}[title=Exemplo de JSON para criação de venda]
 {
     "idCliente": 3,
     "itens": [
@@ -235,7 +229,7 @@ O JSON enviado pelo \textit{front-end} para criar uma venda tem a seguinte forma
         { "idProduto": 5,  "quantidade": 1.5 }
     ]
 }
-\end{lstlisting}
+\end{boxJsonCode}
 
 O JSON-B desserializa esse JSON diretamente em um objeto \texttt{VendaDTO} (linhas 100 a 102 do Servlet). A partir desse DTO, o Servlet constrói os objetos do domínio: busca o cliente pelo id (linha 104), cria a venda com a data atual (linhas 106 a 110), salva a venda (linha 112) e então itera sobre os itens para criar cada \texttt{ItemVenda}, atualizando o estoque do produto no processo (linhas 114 a 128).
 
@@ -438,20 +432,20 @@ Arquivo: \texttt{vendaprodutos/controladores/restful/CidadeRestfulServlet.java}}
 
 O \inlineJavaCode{doGet} e o \inlineJavaCode{doPost} (linhas 31 e 79) são estruturalmente idênticos ao que vimos no \texttt{EstadoRestfulServlet}: o GET distingue listagem de busca por id via \inlineJavaCode{pathInfo}, e o POST lê o corpo JSON, desserializa para \texttt{Cidade} e valida antes de persistir. O que muda é que ao serializar uma cidade com o JSON-B, o JSON resultante inclui o objeto de estado embutido, já que a entidade \texttt{Cidade} tem uma referência a um objeto \texttt{Estado}:
 
-\begin{lstlisting}[language=java, caption={Exemplo de JSON retornado pelo GET de cidades}]
+\begin{boxJsonCode}[title=Exemplo de JSON retornado pelo GET de cidades]
 [
   { "id": 1, "nome": "São Carlos", "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" } },
   { "id": 2, "nome": "Franca",     "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" } }
 ]
-\end{lstlisting}
+\end{boxJsonCode}
 
 O \inlineJavaCode{doPut} (linha 117) é onde a dependência aparece do lado do servidor. Dois DAOs são abertos no \textit{try-with-resources} (linhas 125 e 126): um para cidades e um para estados. Após buscar a cidade existente pelo id e verificar que ela existe (linhas 136 a 140), atualizamos o nome (linha 142) e verificamos se o estado mudou (linha 144): se a cidade já tem o estado que veio do cliente (comparação via \inlineJavaCode{equals}), não fazemos outra ida ao banco; se for diferente, buscamos o objeto \texttt{Estado} completo via \inlineJavaCode{daoEstado.obterPorId} (linha 145). Essa estratégia evita uma consulta ao banco quando o usuário não alterou o estado da cidade.
 
 Perceba que o \textit{front-end} não precisa enviar o objeto \texttt{Estado} completo --- apenas o \texttt{id} é suficiente. O JSON enviado numa atualização de cidade tem a forma:
 
-\begin{lstlisting}[language=java, caption={Exemplo de JSON enviado pelo PUT de cidades}]
+\begin{boxJsonCode}[title=Exemplo de JSON enviado pelo PUT de cidades]
 { "id": 1, "nome": "São Carlos", "estado": { "id": 25 } }
-\end{lstlisting}
+\end{boxJsonCode}
 
 O JSON-B desserializará isso para um objeto \texttt{Cidade} com um \texttt{Estado} que tem apenas o \texttt{id} preenchido --- e é exatamente o suficiente para a comparação e para a busca do estado completo.
 
