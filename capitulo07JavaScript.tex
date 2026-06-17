@@ -447,30 +447,30 @@ Nos exemplos anteriores já utilizamos algumas construções do JavaScript moder
 Uma \destaque{\textit{arrow function}} (função de seta) é uma sintaxe compacta para declarar funções anônimas, introduzida no ES2015. Além da sintaxe menor, ela tem uma diferença semântica importante: não cria seu próprio \inlineJavaScriptCode{this}, herdando o \inlineJavaScriptCode{this} do escopo em que foi definida. Isso a torna a escolha natural para funções de \textit{callback}.
 
 \begin{boxJavaScriptCode}[title=Arrow functions]
-// Função anônima tradicional
-const dobrar = function(x) {
+// função anônima tradicional
+const dobrar = function( x ) {
     return x * 2;
 };
 
-// Arrow function equivalente - retorno implícito quando o corpo
+// arrow function equivalente - retorno implícito quando o corpo
 // é uma única expressão (sem chaves e sem return)
-const dobrar = (x) => x * 2;
+const dobrar = ( x ) => x * 2;
 
-// Os parênteses são opcionais quando há apenas um parâmetro
+// os parênteses são opcionais quando há apenas um parâmetro
 const dobrar = x => x * 2;
 
-// Com múltiplos parâmetros os parênteses são obrigatórios
-const somar = (a, b) => a + b;
+// com múltiplos parâmetros os parênteses são obrigatórios
+const somar = ( a, b ) => a + b;
 
-// Com corpo de múltiplas linhas as chaves e o return são obrigatórios
-const processar = (x) => {
+// com corpo de múltiplas linhas as chaves e o return são obrigatórios
+const processar = ( x ) => {
     const resultado = x * 2;
     return resultado + 1;
 };
 
-// Uso típico como callback - muito mais conciso do que function(n) {...}
+// uso típico como callback - muito mais conciso do que function( n ) {...}
 const numeros = [1, 2, 3, 4];
-numeros.forEach(n => console.log(n)); // imprime 1, 2, 3, 4
+numeros.forEach( n => console.log( n ) ); // imprime 1, 2, 3, 4
 \end{boxJavaScriptCode}
 
 Você já viu \textit{arrow functions} nos exemplos anteriores, passadas como \textit{callbacks} para o \inlineJavaScriptCode{forEach}. Nos capítulos seguintes elas aparecem em praticamente todos os módulos JavaScript dos projetos.
@@ -485,22 +485,28 @@ Você já viu \textit{arrow functions} nos exemplos anteriores, passadas como \t
 É possível definir um valor padrão para um parâmetro de função. Quando o argumento correspondente não for fornecido --- ou for \inlineJavaScriptCode{undefined} --- o valor padrão é usado automaticamente.
 
 \begin{boxJavaScriptCode}[title=Parâmetros com valor padrão]
-// O parâmetro "saudacao" tem o valor padrão "Olá"
-function cumprimentar(nome, saudacao = "Olá") {
+// o parâmetro "saudacao" tem o valor padrão "Olá"
+function cumprimentar( nome, saudacao = "Olá" ) {
     return `${saudacao}, ${nome}!`;
 }
 
-console.log(cumprimentar("Ana"));           // "Olá, Ana!"
-console.log(cumprimentar("Ana", "Oi"));     // "Oi, Ana!"
+console.log( cumprimentar( "Bia" ) );           // "Olá, Bia!"
+console.log( cumprimentar( "Bia", "Oi" ) );     // "Oi, Bia!"
 
 // Combinado com arrow function
-const potencia = (base, expoente = 2) => base ** expoente;
+const potencia = ( base, expoente = 2 ) => base ** expoente;
 
-console.log(potencia(3));    // 9  (3²)
-console.log(potencia(3, 3)); // 27 (3³)
+console.log( potencia( 3 ) );    // 9  (3²)
+console.log( potencia( 3, 3 ) ); // 27 (3³)
 \end{boxJavaScriptCode}
 
-No capítulo~\ref{cap:webservicesRestful}, a função \inlineJavaScriptCode{customFetch} usa esse recurso em sua assinatura --- \inlineJavaScriptCode{customFetch(url, metodo, dados = null, propToken = "token")} ---, tornando os dois últimos argumentos opcionais.
+No capítulo~\ref{cap:webservicesRestful}, a função \inlineJavaScriptCode{customFetch} usa esse recurso em sua assinatura:
+
+\begin{boxJavaScriptCode}
+customFetch( url, metodo, dados = null, propToken = "token" )
+\end{boxJavaScriptCode}
+
+tornando os dois últimos argumentos opcionais.
 
 \begin{saibaMais}
     Documentação sobre parâmetros com valor padrão na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters}.
@@ -515,19 +521,19 @@ Além do \inlineJavaScriptCode{forEach}, \inlineJavaScriptCode{every} e \inlineJ
 const numeros = [1, 2, 3, 4, 5];
 
 // map: transforma cada elemento e retorna um novo array
-const dobrados = numeros.map(n => n * 2);
-console.log(dobrados); // [2, 4, 6, 8, 10]
+const dobrados = numeros.map( n => n * 2 );
+console.log( dobrados ); // [2, 4, 6, 8, 10]
 
 // filter: mantém apenas os elementos que satisfazem a condição
-const pares = numeros.filter(n => n % 2 === 0);
-console.log(pares); // [2, 4]
+const pares = numeros.filter( n => n % 2 === 0 );
+console.log( pares ); // [2, 4]
 
 // map e filter podem ser encadeados
 const dobradosDosImpares = numeros
-    .filter(n => n % 2 !== 0)  // [1, 3, 5]
-    .map(n => n * 2);           // [2, 6, 10]
+    .filter( n => n % 2 !== 0 )   // [1, 3, 5]
+    .map( n => n * 2 );           // [2, 6, 10]
 
-// Exemplo com array de objetos - muito comum ao processar dados de APIs
+// exemplo com array de objetos - muito comum ao processar dados de APIs
 const pessoas = [
     { nome: "Ana",   idade: 30 },
     { nome: "Bruno", idade: 17 },
@@ -535,10 +541,10 @@ const pessoas = [
 ];
 
 const nomesAdultos = pessoas
-    .filter(p => p.idade >= 18)
-    .map(p => p.nome);
+    .filter( p => p.idade >= 18 )
+    .map( p => p.nome );
 
-console.log(nomesAdultos); // ["Ana", "Carla"]
+console.log( nomesAdultos ); // ["Ana", "Carla"]
 \end{boxJavaScriptCode}
 
 \begin{saibaMais}
@@ -552,40 +558,40 @@ console.log(nomesAdultos); // ["Ana", "Carla"]
 A \destaque{desestruturação} (\textit{destructuring}) é uma sintaxe que permite extrair valores de arrays ou propriedades de objetos para variáveis distintas de forma concisa.
 
 \begin{boxJavaScriptCode}[title=Desestruturação de objetos e arrays]
-// --- Desestruturação de objetos ---
+// --- desestruturação de objetos ---
 const produto = { id: 1, descricao: "Caneta", preco: 2.50 };
 
-// Sem desestruturação
+// sem desestruturação
 const id = produto.id;
 const descricao = produto.descricao;
 
-// Com desestruturação (equivalente, mais conciso)
+// com desestruturação (equivalente, mais conciso)
 const { id, descricao, preco } = produto;
-console.log(descricao); // "Caneta"
+console.log( descricao ); // "Caneta"
 
-// Com renomeação da variável extraída
+// com renomeação da variável extraída
 const { descricao: nomeProduto } = produto;
-console.log(nomeProduto); // "Caneta"
+console.log( nomeProduto ); // "Caneta"
 
-// Com valor padrão para propriedades ausentes
+// com valor padrão para propriedades ausentes
 const { descricao, estoque = 0 } = produto;
-console.log(estoque); // 0
+console.log( estoque ); // 0
 
-// --- Desestruturação de arrays ---
-const cores = ["vermelho", "verde", "azul"];
-const [primeira, segunda] = cores;
-console.log(primeira); // "vermelho"
-console.log(segunda);  // "verde"
+// --- desestruturação de arrays ---
+const cores = [ "vermelho", "verde", "azul" ];
+const [ primeira, segunda ] = cores;
+console.log( primeira ); // "vermelho"
+console.log( segunda );  // "verde"
 
-// Ignorando elementos com vírgula
-const [, , terceira] = cores;
-console.log(terceira); // "azul"
+// ignorando elementos com vírgula
+const [ , , terceira ] = cores;
+console.log( terceira ); // "azul"
 
-// --- Desestruturação em parâmetros de funções ---
-function exibir({ descricao, preco }) {
-    console.log(`${descricao}: R$ ${preco.toFixed(2)}`);
+// --- desestruturação em parâmetros de funções ---
+function exibir( { descricao, preco } ) {
+    console.log( `${descricao}: R$ ${preco.toFixed(2)}` );
 }
-exibir(produto); // "Caneta: R$ 2.50"
+exibir( produto ); // "Caneta: R$ 2.50"
 \end{boxJavaScriptCode}
 
 \begin{saibaMais}
@@ -607,28 +613,28 @@ const usuario = {
     endereco: { cidade: "São Carlos" }
 };
 
-// Sem ?. - lança TypeError se "endereco" for null ou undefined
+// sem ?. - lança TypeError se "endereco" for null ou undefined
 const cidade = usuario.endereco.cidade;
 
-// Com ?. - retorna undefined sem lançar erro
+// com ?. - retorna undefined sem lançar erro
 const cidade = usuario?.endereco?.cidade;
-console.log(cidade); // "São Carlos"
+console.log( cidade ); // "São Carlos"
 
 const cep = usuario?.endereco?.cep;
-console.log(cep); // undefined (sem erro)
+console.log( cep ); // undefined (sem erro)
 
-// Também funciona em chamadas de métodos
+// também funciona em chamadas de métodos
 const maiusculo = usuario?.nome?.toUpperCase();
-console.log(maiusculo); // "ANA"
+console.log( maiusculo ); // "ANA"
 
-// --- Coalescência nula (??) ---
+// --- coalescência nula (??) ---
 const apelido = usuario?.apelido ?? "sem apelido";
-console.log(apelido); // "sem apelido"
+console.log( apelido ); // "sem apelido"
 
-// Diferença importante entre ?? e ||
+// diferença importante entre ?? e ||
 const estoque = 0;
-console.log(estoque || 10); // 10 -- indesejado! 0 é falsy, foi substituído
-console.log(estoque ?? 10); // 0  -- correto: ?? só substitui null/undefined
+console.log( estoque || 10 ); // 10 -- indesejado! 0 é falsy, foi substituído
+console.log( estoque ?? 10 ); // 0  -- correto: ?? só substitui null/undefined
 \end{boxJavaScriptCode}
 
 \begin{saibaMais}
@@ -644,37 +650,37 @@ No exemplo 10 deste capítulo usamos a Fetch API com \inlineJavaScriptCode{.then
 As palavras-chave \inlineJavaScriptCode{async} e \inlineJavaScriptCode{await}, introduzidas no ES2017, permitem escrever código assíncrono com a mesma estrutura linear do código síncrono, sem abrir mão das \textit{Promises} por baixo dos panos. Uma função marcada com \inlineJavaScriptCode{async} sempre retorna uma \textit{Promise}, e dentro dela podemos usar \inlineJavaScriptCode{await} para pausar a execução até que uma \textit{Promise} seja resolvida.
 
 \begin{boxJavaScriptCode}[title=async/await vs. Promises com .then()]
-// --- Com .then() (Promises encadeadas) ---
+// --- com .then() (Promises encadeadas) ---
 function buscarProdutos() {
-    fetch("/api/produtos")
-        .then(response => response.json())
-        .then(dados => {
-            console.log(dados);
+    fetch( "/api/produtos" )
+        .then( response => response.json() )
+        .then( dados => {
+            console.log( dados );
         })
-        .catch(erro => {
-            console.error("Erro:", erro);
+        .catch( erro => {
+            console.error( "Erro:", erro );
         });
 }
 
-// --- Com async/await (equivalente, estrutura mais linear e legível) ---
+// --- com async/await (equivalente, estrutura mais linear e legível) ---
 async function buscarProdutos() {
     try {
-        const response = await fetch("/api/produtos");
+        const response = await fetch( "/api/produtos" );
         const dados = await response.json();
-        console.log(dados);
-    } catch (erro) {
-        console.error("Erro:", erro);
+        console.log( dados );
+    } catch ( erro ) {
+        console.error( "Erro:", erro );
     }
 }
 
-// A vantagem fica ainda mais clara com múltiplas operações dependentes
+// a vantagem fica ainda mais clara com múltiplas operações dependentes
 async function salvarERecarregar(cidade) {
-    const response = await fetch("/api/cidades", {
+    const response = await fetch( "/api/cidades", {
         method: "POST",
-        body: JSON.stringify(cidade)
+        body: JSON.stringify( cidade )
     });
     const resultado = await response.json();
-    if (response.ok) {
+    if ( response.ok ) {
         await carregar(); // aguarda o recarregamento antes de continuar
     }
     return resultado;
@@ -701,9 +707,9 @@ Para carregar um arquivo JavaScript como módulo no HTML, basta adicionar o atri
 Dentro dos arquivos JavaScript, usamos \inlineJavaScriptCode{export} para expor o que outros arquivos podem usar, e \inlineJavaScriptCode{import} para consumir o que outros arquivos exportam.
 
 \begin{boxJavaScriptCode}[title=Exportando e importando com módulos ES]
-// --- Em utils.js: exportando ---
+// --- em utils.js: exportando ---
 
-// Named exports: pode haver vários por arquivo
+// named exports: pode haver vários por arquivo
 export function somar(a, b) {
     return a + b;
 }
@@ -711,24 +717,24 @@ export function somar(a, b) {
 export const PI = 3.14159;
 
 export class Calculadora {
-    multiplicar(a, b) { return a * b; }
+    multiplicar( a, b ) { return a * b; }
 }
 
 
-// --- Em app.js: importando ---
+// --- em app.js: importando ---
 
-// Importando itens específicos pelo nome (named imports)
+// importando itens específicos pelo nome (named imports)
 import { somar, PI } from "./utils.js";
-console.log(somar(2, 3)); // 5
-console.log(PI);           // 3.14159
+console.log( somar( 2, 3 ) ); // 5
+console.log( PI );            // 3.14159
 
-// Importando tudo com um alias (namespace import)
+// importando tudo com um alias (namespace import)
 import * as Utils from "./utils.js";
-console.log(Utils.somar(2, 3)); // 5
+console.log( Utils.somar( 2, 3 ) ); // 5
 
 
-// --- Módulos têm escopo próprio ---
-// Variáveis declaradas aqui NÃO são globais
+// --- módulos têm escopo próprio ---
+// variáveis declaradas aqui NÃO são globais
 let contador = 0; // visível apenas dentro deste arquivo
 \end{boxJavaScriptCode}
 
