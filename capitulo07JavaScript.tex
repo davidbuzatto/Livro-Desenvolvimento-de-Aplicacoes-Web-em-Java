@@ -7,7 +7,7 @@
 
 Chegamos a talvez à cereja do bolo, ou à cereja do livro ou então à cereja do desenvolvimento para Web: a linguagem de \textit{script} JavaScript. A primeira coisa que precisamos deixar claro é que Java e JavaScript são duas linguagens diferentes, com sintaxe baseada em C e com construções similares, mas o comum entre as duas para por aqui. A linguagem JavaScript não é uma linguagem orientada a objetos, mas sim baseada em protótipos. Nesse tipo de linguagem não existem classes, mas apenas objetos. Novos objetos são criados a partir de cópias de objetos existentes. O JavaScript ``moderno'', baseado no padrão ECMAScript 2015 (sexta edição), possui algumas construções que lembram aquelas de linguagens orientadas a objetos como classes e herança, mas tudo isso é \textit{syntax sugar} para simplificar coisas que já existiam anteriormente. Outras construções também são suportadas na linguagem como as funções de primeira classe etc.
 
-Neste capítulo não entraremos em detalhes sobre a história da linguagem e da sua evolução, mas sim no que eu acho útil e fundamental para que possamos começar a usá-la. Iremos ter uma visão geral da linguagem como declaração de variáveis, manipulação do \textit{Document Object Model} (DOM) e requisições assíncronas. Durante o capítulo serão apresentadas inúmeras caixas do tipo ``Saiba Mais'' com \textit{links} úteis. A maioria desses links serão da \textit{Mozilla Developer Network}\footnote{\url{https://developer.mozilla.org/}} (MDN), uma referência confiável e oficial da maioria, senão de todas, das tecnologias para Web. Sempre fornecerei os \textit{links} da versão em inglês do site, mas se quiser, você pode verificar a versão em português clicando no botão ``\textit{Change language}'' presente em todas as páginas do site. Sinceramente recomendo a leitura em inglês, pois o texto sempre estará completo, atualizado com a terminologia correta.
+Neste capítulo não entraremos em detalhes sobre a história da linguagem e da sua evolução, mas sim no que eu acho útil e fundamental para que possamos começar a usá-la. Iremos ter uma visão geral da linguagem como declaração de variáveis, manipulação do \textit{Document Object Model} (DOM) e requisições assíncronas. Ao final, apresentamos também os principais recursos do JavaScript moderno --- como \textit{arrow functions}, desestruturação, \texttt{async}/\texttt{await} e módulos ES --- que prepararão você para o desenvolvimento do \textit{front-end} apresentado no capítulo~\ref{cap:webservicesRestful}. Durante o capítulo serão apresentadas inúmeras caixas do tipo ``Saiba Mais'' com \textit{links} úteis. A maioria desses links serão da \textit{Mozilla Developer Network}\footnote{\url{https://developer.mozilla.org/}} (MDN), uma referência confiável e oficial da maioria, senão de todas, das tecnologias para Web. Sempre fornecerei os \textit{links} da versão em inglês do site, mas se quiser, você pode verificar a versão em português clicando no botão ``\textit{Change language}'' presente em todas as páginas do site. Sinceramente recomendo a leitura em inglês, pois o texto sempre estará completo, atualizado com a terminologia correta.
 
 \begin{saibaMais}
     Quer conhecer um pouco mais da história e dos detalhes da linguagem JavaScript? Veja o \textit{link} \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript}.
@@ -437,9 +437,316 @@ Caso tenha interesse em explorar a Canvas API acesse o \textit{link} disponível
 
 
 
+\section{Recursos Modernos do JavaScript}
+
+Nos exemplos anteriores já utilizamos algumas construções do JavaScript moderno --- em especial nas funções de \textit{callback} e nos exemplos assíncronos --- sem formalizá-las. Esta seção preenche essa lacuna, apresentando de forma concisa os recursos da linguagem que você encontrará nos projetos dos capítulos seguintes. Nenhum novo arquivo de projeto será criado: os exemplos são apresentados diretamente no texto para você experimentar no console do navegador (a tecla \texttt{F12} em qualquer navegador moderno abre as ferramentas do desenvolvedor) ou em qualquer editor \textit{online} como o JSFiddle\footnote{\url{https://jsfiddle.net/}}.
+
+
+\subsection{\textit{Arrow Functions}}
+
+Uma \destaque{\textit{arrow function}} (função de seta) é uma sintaxe compacta para declarar funções anônimas, introduzida no ES2015. Além da sintaxe menor, ela tem uma diferença semântica importante: não cria seu próprio \inlineJavaScriptCode{this}, herdando o \inlineJavaScriptCode{this} do escopo em que foi definida. Isso a torna a escolha natural para funções de \textit{callback}.
+
+\begin{boxJavaScriptCode}[title=Arrow functions]
+// Função anônima tradicional
+const dobrar = function(x) {
+    return x * 2;
+};
+
+// Arrow function equivalente - retorno implícito quando o corpo
+// é uma única expressão (sem chaves e sem return)
+const dobrar = (x) => x * 2;
+
+// Os parênteses são opcionais quando há apenas um parâmetro
+const dobrar = x => x * 2;
+
+// Com múltiplos parâmetros os parênteses são obrigatórios
+const somar = (a, b) => a + b;
+
+// Com corpo de múltiplas linhas as chaves e o return são obrigatórios
+const processar = (x) => {
+    const resultado = x * 2;
+    return resultado + 1;
+};
+
+// Uso típico como callback - muito mais conciso do que function(n) {...}
+const numeros = [1, 2, 3, 4];
+numeros.forEach(n => console.log(n)); // imprime 1, 2, 3, 4
+\end{boxJavaScriptCode}
+
+Você já viu \textit{arrow functions} nos exemplos anteriores, passadas como \textit{callbacks} para o \inlineJavaScriptCode{forEach}. Nos capítulos seguintes elas aparecem em praticamente todos os módulos JavaScript dos projetos.
+
+\begin{saibaMais}
+    Documentação sobre \textit{arrow functions} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions}.
+\end{saibaMais}
+
+
+\subsection{Parâmetros com Valor Padrão}
+
+É possível definir um valor padrão para um parâmetro de função. Quando o argumento correspondente não for fornecido --- ou for \inlineJavaScriptCode{undefined} --- o valor padrão é usado automaticamente.
+
+\begin{boxJavaScriptCode}[title=Parâmetros com valor padrão]
+// O parâmetro "saudacao" tem o valor padrão "Olá"
+function cumprimentar(nome, saudacao = "Olá") {
+    return `${saudacao}, ${nome}!`;
+}
+
+console.log(cumprimentar("Ana"));           // "Olá, Ana!"
+console.log(cumprimentar("Ana", "Oi"));     // "Oi, Ana!"
+
+// Combinado com arrow function
+const potencia = (base, expoente = 2) => base ** expoente;
+
+console.log(potencia(3));    // 9  (3²)
+console.log(potencia(3, 3)); // 27 (3³)
+\end{boxJavaScriptCode}
+
+No capítulo~\ref{cap:webservicesRestful}, a função \inlineJavaScriptCode{customFetch} usa esse recurso em sua assinatura --- \inlineJavaScriptCode{customFetch(url, metodo, dados = null, propToken = "token")} ---, tornando os dois últimos argumentos opcionais.
+
+\begin{saibaMais}
+    Documentação sobre parâmetros com valor padrão na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters}.
+\end{saibaMais}
+
+
+\subsection{Funções de Ordem Superior: \texttt{map} e \texttt{filter}}
+
+Além do \inlineJavaScriptCode{forEach}, \inlineJavaScriptCode{every} e \inlineJavaScriptCode{some} que já vimos, o tipo Array possui outros dois métodos de ordem superior muito úteis: \inlineJavaScriptCode{map} e \inlineJavaScriptCode{filter}. Enquanto o \inlineJavaScriptCode{forEach} itera pelo array sem retornar nada, o \inlineJavaScriptCode{map} retorna um novo array com o resultado da transformação de cada elemento, e o \inlineJavaScriptCode{filter} retorna um novo array contendo apenas os elementos que satisfazem uma condição.
+
+\begin{boxJavaScriptCode}[title=map e filter]
+const numeros = [1, 2, 3, 4, 5];
+
+// map: transforma cada elemento e retorna um novo array
+const dobrados = numeros.map(n => n * 2);
+console.log(dobrados); // [2, 4, 6, 8, 10]
+
+// filter: mantém apenas os elementos que satisfazem a condição
+const pares = numeros.filter(n => n % 2 === 0);
+console.log(pares); // [2, 4]
+
+// map e filter podem ser encadeados
+const dobradosDosImpares = numeros
+    .filter(n => n % 2 !== 0)  // [1, 3, 5]
+    .map(n => n * 2);           // [2, 6, 10]
+
+// Exemplo com array de objetos - muito comum ao processar dados de APIs
+const pessoas = [
+    { nome: "Ana",   idade: 30 },
+    { nome: "Bruno", idade: 17 },
+    { nome: "Carla", idade: 25 }
+];
+
+const nomesAdultos = pessoas
+    .filter(p => p.idade >= 18)
+    .map(p => p.nome);
+
+console.log(nomesAdultos); // ["Ana", "Carla"]
+\end{boxJavaScriptCode}
+
+\begin{saibaMais}
+    Documentação sobre \inlineJavaScriptCode{map} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map}.\\
+    Documentação sobre \inlineJavaScriptCode{filter} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter}.
+\end{saibaMais}
+
+
+\subsection{Desestruturação}
+
+A \destaque{desestruturação} (\textit{destructuring}) é uma sintaxe que permite extrair valores de arrays ou propriedades de objetos para variáveis distintas de forma concisa.
+
+\begin{boxJavaScriptCode}[title=Desestruturação de objetos e arrays]
+// --- Desestruturação de objetos ---
+const produto = { id: 1, descricao: "Caneta", preco: 2.50 };
+
+// Sem desestruturação
+const id = produto.id;
+const descricao = produto.descricao;
+
+// Com desestruturação (equivalente, mais conciso)
+const { id, descricao, preco } = produto;
+console.log(descricao); // "Caneta"
+
+// Com renomeação da variável extraída
+const { descricao: nomeProduto } = produto;
+console.log(nomeProduto); // "Caneta"
+
+// Com valor padrão para propriedades ausentes
+const { descricao, estoque = 0 } = produto;
+console.log(estoque); // 0
+
+// --- Desestruturação de arrays ---
+const cores = ["vermelho", "verde", "azul"];
+const [primeira, segunda] = cores;
+console.log(primeira); // "vermelho"
+console.log(segunda);  // "verde"
+
+// Ignorando elementos com vírgula
+const [, , terceira] = cores;
+console.log(terceira); // "azul"
+
+// --- Desestruturação em parâmetros de funções ---
+function exibir({ descricao, preco }) {
+    console.log(`${descricao}: R$ ${preco.toFixed(2)}`);
+}
+exibir(produto); // "Caneta: R$ 2.50"
+\end{boxJavaScriptCode}
+
+\begin{saibaMais}
+    Documentação sobre desestruturação na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment}.
+\end{saibaMais}
+
+
+\subsection{Encadeamento Opcional e Coalescência Nula}
+
+Dois operadores modernos muito úteis ao lidar com dados vindos de APIs são o \destaque{encadeamento opcional} (\inlineJavaScriptCode{?.}) e a \destaque{coalescência nula} (\inlineJavaScriptCode{??}).
+
+O operador \inlineJavaScriptCode{?.} permite acessar propriedades aninhadas de um objeto sem precisar verificar manualmente se cada nível é nulo. Se qualquer parte da cadeia for \inlineJavaScriptCode{null} ou \inlineJavaScriptCode{undefined}, a expressão inteira retorna \inlineJavaScriptCode{undefined} em vez de lançar um \texttt{TypeError}.
+
+O operador \inlineJavaScriptCode{??} retorna o operando da direita apenas quando o da esquerda é \inlineJavaScriptCode{null} ou \inlineJavaScriptCode{undefined}. Ele é diferente do operador lógico \inlineJavaScriptCode{||}, que retorna o operando da direita para qualquer valor \textit{falsy} (como \inlineJavaScriptCode{0}, \inlineJavaScriptCode{""} ou \inlineJavaScriptCode{false}).
+
+\begin{boxJavaScriptCode}[title=Encadeamento opcional e coalescência nula]
+const usuario = {
+    nome: "Ana",
+    endereco: { cidade: "São Carlos" }
+};
+
+// Sem ?. - lança TypeError se "endereco" for null ou undefined
+const cidade = usuario.endereco.cidade;
+
+// Com ?. - retorna undefined sem lançar erro
+const cidade = usuario?.endereco?.cidade;
+console.log(cidade); // "São Carlos"
+
+const cep = usuario?.endereco?.cep;
+console.log(cep); // undefined (sem erro)
+
+// Também funciona em chamadas de métodos
+const maiusculo = usuario?.nome?.toUpperCase();
+console.log(maiusculo); // "ANA"
+
+// --- Coalescência nula (??) ---
+const apelido = usuario?.apelido ?? "sem apelido";
+console.log(apelido); // "sem apelido"
+
+// Diferença importante entre ?? e ||
+const estoque = 0;
+console.log(estoque || 10); // 10 -- indesejado! 0 é falsy, foi substituído
+console.log(estoque ?? 10); // 0  -- correto: ?? só substitui null/undefined
+\end{boxJavaScriptCode}
+
+\begin{saibaMais}
+    Documentação sobre o operador \inlineJavaScriptCode{?.} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining}.\\
+    Documentação sobre o operador \inlineJavaScriptCode{??} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing}.
+\end{saibaMais}
+
+
+\subsection{Programação Assíncrona com \texttt{async} e \texttt{await}}
+
+No exemplo 10 deste capítulo usamos a Fetch API com \inlineJavaScriptCode{.then()} e \inlineJavaScriptCode{.catch()} para lidar com o resultado assíncrono de uma requisição. Essa abordagem funciona bem, mas pode se tornar difícil de ler quando há múltiplas operações assíncronas dependentes uma da outra.
+
+As palavras-chave \inlineJavaScriptCode{async} e \inlineJavaScriptCode{await}, introduzidas no ES2017, permitem escrever código assíncrono com a mesma estrutura linear do código síncrono, sem abrir mão das \textit{Promises} por baixo dos panos. Uma função marcada com \inlineJavaScriptCode{async} sempre retorna uma \textit{Promise}, e dentro dela podemos usar \inlineJavaScriptCode{await} para pausar a execução até que uma \textit{Promise} seja resolvida.
+
+\begin{boxJavaScriptCode}[title=async/await vs. Promises com .then()]
+// --- Com .then() (Promises encadeadas) ---
+function buscarProdutos() {
+    fetch("/api/produtos")
+        .then(response => response.json())
+        .then(dados => {
+            console.log(dados);
+        })
+        .catch(erro => {
+            console.error("Erro:", erro);
+        });
+}
+
+// --- Com async/await (equivalente, estrutura mais linear e legível) ---
+async function buscarProdutos() {
+    try {
+        const response = await fetch("/api/produtos");
+        const dados = await response.json();
+        console.log(dados);
+    } catch (erro) {
+        console.error("Erro:", erro);
+    }
+}
+
+// A vantagem fica ainda mais clara com múltiplas operações dependentes
+async function salvarERecarregar(cidade) {
+    const response = await fetch("/api/cidades", {
+        method: "POST",
+        body: JSON.stringify(cidade)
+    });
+    const resultado = await response.json();
+    if (response.ok) {
+        await carregar(); // aguarda o recarregamento antes de continuar
+    }
+    return resultado;
+}
+\end{boxJavaScriptCode}
+
+No capítulo~\ref{cap:webservicesRestful}, todas as funções que se comunicam com o servidor (\inlineJavaScriptCode{carregar}, \inlineJavaScriptCode{salvar}, \inlineJavaScriptCode{excluir}) são declaradas com \inlineJavaScriptCode{async} e usam \inlineJavaScriptCode{await} para aguardar as respostas.
+
+\begin{saibaMais}
+    Documentação sobre \inlineJavaScriptCode{async}/\inlineJavaScriptCode{await} na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function}.
+\end{saibaMais}
+
+
+\subsection{Módulos ES}
+
+Os \destaque{módulos ES} (\textit{ES Modules}) são o sistema nativo de módulos do JavaScript moderno. Eles permitem dividir o código em arquivos separados, controlando o que cada arquivo expõe e o que cada arquivo consome de outros. Isso é fundamental para a organização de aplicações maiores --- sem módulos, todas as variáveis e funções ficam no escopo global e o risco de conflitos de nome cresce rapidamente.
+
+Para carregar um arquivo JavaScript como módulo no HTML, basta adicionar o atributo \inlineHTMLCode{type="module"} à \textit{tag} \inlineHTMLCode{<script>}:
+
+\begin{boxHTMLCode}
+<script type="module" src="/src/js/app.js"></script>
+\end{boxHTMLCode}
+
+Dentro dos arquivos JavaScript, usamos \inlineJavaScriptCode{export} para expor o que outros arquivos podem usar, e \inlineJavaScriptCode{import} para consumir o que outros arquivos exportam.
+
+\begin{boxJavaScriptCode}[title=Exportando e importando com módulos ES]
+// --- Em utils.js: exportando ---
+
+// Named exports: pode haver vários por arquivo
+export function somar(a, b) {
+    return a + b;
+}
+
+export const PI = 3.14159;
+
+export class Calculadora {
+    multiplicar(a, b) { return a * b; }
+}
+
+
+// --- Em app.js: importando ---
+
+// Importando itens específicos pelo nome (named imports)
+import { somar, PI } from "./utils.js";
+console.log(somar(2, 3)); // 5
+console.log(PI);           // 3.14159
+
+// Importando tudo com um alias (namespace import)
+import * as Utils from "./utils.js";
+console.log(Utils.somar(2, 3)); // 5
+
+
+// --- Módulos têm escopo próprio ---
+// Variáveis declaradas aqui NÃO são globais
+let contador = 0; // visível apenas dentro deste arquivo
+\end{boxJavaScriptCode}
+
+\begin{atencao}
+    Módulos ES só funcionam quando o arquivo HTML é servido por um servidor HTTP --- não funcionam ao abrir o arquivo diretamente no navegador via protocolo \texttt{file://}. Nos projetos deste livro isso não é problema, pois o Apache Tomcat e o \textit{Live Server} fazem esse papel.
+\end{atencao}
+
+No capítulo~\ref{cap:webservicesRestful}, toda a arquitetura do \textit{front-end} é construída com módulos ES: cada cadastro (\texttt{estados.js}, \texttt{cidades.js}, \texttt{produtos.js} etc.) é um módulo independente que exporta apenas a função \inlineJavaScriptCode{iniciar}, e o \texttt{app.js} importa e orquestra todos eles.
+
+\begin{saibaMais}
+    Documentação sobre módulos ES na MDN: \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules}.
+\end{saibaMais}
+
+
+
 \section{Resumo}
 
-Chegamos ao fim de mais um capítulo, onde aprendemos o básico sobre JavaScript que é a linguagem que, invariavelmente, qualquer desenvolvedor Web terá que lidar no seu trabalho. É importante que você tenha um certo domínio sobre a mesma e que, após a leitura e entendimento do capítulo, você seja capaz de continuar seu aprendizado. No próximo capítulo usaremos JavaScript para implementarmos um formulário de venda de produtos, com a definição da quantidade que certo produto será vendido. Usaremos também AJAX para podermos cancelar uma venda. Enfim, isso é assunto para o próximo capítulo!
+Chegamos ao fim de mais um capítulo. Vimos as construções fundamentais do JavaScript --- variáveis, condicionais, laços, arrays, objetos e JSON ---, a manipulação do DOM, o tratamento de eventos, requisições assíncronas com a Fetch API e jQuery, e finalizamos com uma simulação física usando a Canvas API. Na seção de recursos modernos formalizamos as construções que você encontrará nos projetos dos capítulos seguintes: \textit{arrow functions}, parâmetros com valor padrão, \inlineJavaScriptCode{map} e \inlineJavaScriptCode{filter}, desestruturação, encadeamento opcional (\inlineJavaScriptCode{?.}), coalescência nula (\inlineJavaScriptCode{??}), programação assíncrona com \inlineJavaScriptCode{async}/\inlineJavaScriptCode{await} e módulos ES. É importante que você tenha um bom domínio sobre esses recursos e que, após a leitura deste capítulo, seja capaz de continuar seu aprendizado de forma independente. No próximo capítulo usaremos JavaScript para implementar um formulário de venda de produtos e AJAX para o cancelamento de vendas.
 
 
 
