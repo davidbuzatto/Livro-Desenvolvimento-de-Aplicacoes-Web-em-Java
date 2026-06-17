@@ -1,4 +1,4 @@
-﻿<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
@@ -67,7 +67,7 @@
       <input name="cpf"
            type="text"
            size="13"
-           pattern="\d{3}.\d{3}.\d{3}-\d{2}"
+           pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
            placeholder="999.999.999-99"
            required
            value="${requestScope.cliente.cpf}"/>

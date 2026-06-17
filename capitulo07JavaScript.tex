@@ -118,7 +118,7 @@ Na Listagem~\thechapter.\ref{listagem:projetos/capitulo07/ExemplosEmJavaScript/s
 \javaCode{Servlet de tabuada\newline%
 Arquivo: \texttt{exemplosemjavascript/servlets/CalculaTabuadaServlet.java}}{projetos/capitulo07/ExemplosEmJavaScript/src/java/exemplosemjavascript/servlets/CalculaTabuadaServlet.java}
 
-Por fim, na Listagem~\thechapter.\ref{listagem:projetos/capitulo07/ExemplosEmJavaScript/src/java/exemplosemjavascript/servlets/ListagemPessoasServlet.java} é apresentado o código do Servlet \texttt{ListagemPessoasServlet}, mapeado em \texttt{/listarPessoas} que indica ao cliente que os dados que serão retornados irão no formato JavaScript Object Notation\footnote{O formato JSON será tratado no exemplo 05. Por enquanto assuma que é uma forma de codificar os dados de um objeto em forma de texto.} (JSON) (linha 33). Nesse Servlet é criada uma lista de objetos do tipo \texttt{Pessoa}, baseada na quantidade recebida via requisição e essa lista é serializada em JSON usando a camada de \textit{bindind} JSON-B do Java/Jakarta EE. Na linha 35 é criado o objeto serializador e na linha 56 ele é usado, convertendo a lista com os objetos do tipo \texttt{Pessoa} em uma representação em texto, que no nosso caso é o JSON.
+Por fim, na Listagem~\thechapter.\ref{listagem:projetos/capitulo07/ExemplosEmJavaScript/src/java/exemplosemjavascript/servlets/ListagemPessoasServlet.java} é apresentado o código do Servlet \texttt{ListagemPessoasServlet}, mapeado em \texttt{/listarPessoas} que indica ao cliente que os dados que serão retornados irão no formato JavaScript Object Notation\footnote{O formato JSON será tratado no exemplo 05. Por enquanto assuma que é uma forma de codificar os dados de um objeto em forma de texto.} (JSON) (linha 33). Nesse Servlet é criada uma lista de objetos do tipo \texttt{Pessoa}, baseada na quantidade recebida via requisição e essa lista é serializada em JSON usando a camada de \textit{binding} JSON-B do Java/Jakarta EE. Na linha 35 é criado o objeto serializador e na linha 56 ele é usado, convertendo a lista com os objetos do tipo \texttt{Pessoa} em uma representação em texto, que no nosso caso é o JSON.
 
 \javaCode{Servlet de listagem de pessoas usando JSON\newline%
 Arquivo: \texttt{exemplosemjavascript/servlets/ListagemPessoasServlet.java}}{projetos/capitulo07/ExemplosEmJavaScript/src/java/exemplosemjavascript/servlets/ListagemPessoasServlet.java}
@@ -223,7 +223,7 @@ A inserção e remoção de elementos dos arrays podem ser feitas usando os mét
 
 Entre as linhas 24 e 26 usa-se um \inlineJavaScriptCode{for} para iterar pelos elementos do array \inlineJavaScriptCode{a1}. Entre as linhas 30 e 32 usa-se o método \inlineJavaScriptCode{forEach} do objeto Array para iterar pelos elementos, usando uma função de \textit{callback} para processar cada posição. A mesma coisa acontece entre as linhas 34 e 41, com a diferença de se usar a notação de \textit{closure} para a definição da função de \textit{callback} utilizada no método \inlineJavaScriptCode{forEach} de \inlineJavaScriptCode{a2}.
 
-Como mencionado anteriormente, o uso de um \inlineJavaScriptCode{for} padrão -ou mesmo um \inlineJavaScriptCode{forEach}- para \inlineJavaScriptCode{a3} não surtirá efeito, pois esse array está vazio! Nós inserimos quatro propriedades no mesmo, não quatro elementos. Quando usamos um array dessa forma, inclusive poderia ser qualquer objeto, e queremos iterar por essas propriedades temos basicamente duas formas: ou fazemos como entre as linhas 58 e 60, usando um \inlineJavaScriptCode{for ... in} ou obtemos as chaves do objeto como um array e as processamos usando um \inlineJavaScriptCode{forEach} como mostrado entre as linhas 63 e 65.
+Como mencionado anteriormente, o uso de um \inlineJavaScriptCode{for} padrão --- ou mesmo um \inlineJavaScriptCode{forEach} --- para \inlineJavaScriptCode{a3} não surtirá efeito, pois esse array está vazio! Nós inserimos quatro propriedades no mesmo, não quatro elementos. Quando usamos um array dessa forma, inclusive poderia ser qualquer objeto, e queremos iterar por essas propriedades temos basicamente duas formas: ou fazemos como entre as linhas 58 e 60, usando um \inlineJavaScriptCode{for ... in} ou obtemos as chaves do objeto como um array e as processamos usando um \inlineJavaScriptCode{forEach} como mostrado entre as linhas 63 e 65.
 
 Além do método \inlineJavaScriptCode{forEach} existem alguns outros para o processamento dos elementos de um array. Dois desses métodos são mostrados a partir da linha 80: \inlineJavaScriptCode{every} e \inlineJavaScriptCode{some}. Como os nomes sugerem, o primeiro é utilizado com a premissa de testar alguma condição em todos os elementos do array, enquanto o outro espera-se que algum elemento não se enquadre em algo desejado. Podemos utilizar esses métodos para, por exemplo, executar uma busca/pesquisa sequencial/linear no array e parar a iteração quando o elemento for encontrado, retornando um valor verdadeiro ou falso, dependendo da situação e do método empregado. Veja os comentários do exemplo e teste a execução do código para entender exatamente do que se trata.
 
@@ -238,9 +238,9 @@ Arquivo: \texttt{/js/exemplo05.js}}{projetos/capitulo07/ExemplosEmJavaScript/web
 
 Entre as linhas 20 e 43 são declaradas as classes \texttt{Retangulo} e \texttt{Circulo} que herdam de \texttt{Forma}, sobrescrevendo o método \inlineJavaScriptCode{calcularArea()}. Nas linhas 47 e 48 cria-se respectivamente uma instância de \texttt{Retangulo} e uma de \texttt{Circulo}. Entre as linhas 51 e 66 cria-se um novo objeto genérico, usando o inicializador de objetos (abre e fecha chaves). Note que esse objeto e os outros dois tem como tipo \texttt{object} (linhas 69 a 71), mas é possível verificar se são instância de uma determinada classe/tipo usando o operador \inlineJavaScriptCode{instanceof} como visto entre as linhas 74 e 87.
 
-Podemos também representar objetos inteiros como Strings usando a notação de objetos JavaScript, chamada de JSON. Veja na linha 91 onde temos uma String codificando um objeto usando algo similar à notação de inicilização de objetos. Isso é o JSON. Para transformar essa String em um objeto, usa-se o método \inlineJavaScriptCode{parse()} do objeto global \inlineJavaScriptCode{JSON} e, quando se quer o contrário, ou seja, transformar um objeto em uma String no formato JSON, usa-se o método \inlineJavaScriptCode{stringfy()} também do objeto \inlineJavaScriptCode{JSON}. O formato JSON é amplamente utilizado atualmente em detrimento do formado XML, pois é mais enxuto, ou seja, é necessário menos texto para codificar o mesmo objeto em JSON do que em XML. Tanto o formato JSON quanto XML são utilizados para a serialização de objetos, ou seja, transformar uma representação binária, específica de linguagem, em uma representação serial fácil de ser processada e independente de plataforma. O processo de converter um objeto para um formato de intercâmbio de dados é chamado de serialização, enquanto o processo inverso, ou seja, a partir de um formato de intercâmbio de dados gerar um objeto específico de tecnologia é chamado de desserialização.
+Podemos também representar objetos inteiros como Strings usando a notação de objetos JavaScript, chamada de JSON. Veja na linha 91 onde temos uma String codificando um objeto usando algo similar à notação de inicilização de objetos. Isso é o JSON. Para transformar essa String em um objeto, usa-se o método \inlineJavaScriptCode{parse()} do objeto global \inlineJavaScriptCode{JSON} e, quando se quer o contrário, ou seja, transformar um objeto em uma String no formato JSON, usa-se o método \inlineJavaScriptCode{stringify()} também do objeto \inlineJavaScriptCode{JSON}. O formato JSON é amplamente utilizado atualmente em detrimento do formato XML, pois é mais enxuto, ou seja, é necessário menos texto para codificar o mesmo objeto em JSON do que em XML. Tanto o formato JSON quanto XML são utilizados para a serialização de objetos, ou seja, transformar uma representação binária, específica de linguagem, em uma representação serial fácil de ser processada e independente de plataforma. O processo de converter um objeto para um formato de intercâmbio de dados é chamado de serialização, enquanto o processo inverso, ou seja, a partir de um formato de intercâmbio de dados gerar um objeto específico de tecnologia é chamado de desserialização.
 
-O restante do código do exemplo é facilmente entendido ao ser lido. Nas próximas caixas ``Saiba Mais'' há varios links úteis sobre o tema.
+O restante do código do exemplo é facilmente entendido ao ser lido. Nas próximas caixas ``Saiba Mais'' há vários links úteis sobre o tema.
 
 \begin{saibaMais}
     Para saber mais sobre classes em JavaScript, acesse \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes}.
@@ -353,7 +353,7 @@ Nas próximas caixas ``Saiba Mais'' você poderá encontrar mais material sobre 
 \end{saibaMais}
 
 \begin{saibaMais}
-    Mais sobre a API Web Workers: \url{https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_APII}.
+    Mais sobre a API Web Workers: \url{https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API}.
 \end{saibaMais}
 
 
@@ -421,7 +421,7 @@ Além desses, o construtor inicializa os atributos \inlineJavaScriptCode{atrito}
 
 O método \inlineJavaScriptCode{atualizar( delta )} (linha 49) é responsável por atualizar o estado da bolinha a cada quadro da animação. O parâmetro \inlineJavaScriptCode{delta} é a variação de tempo em segundos desde o último quadro. Usando esse valor, a posição da bolinha é atualizada nas linhas 55 e 56 multiplicando a velocidade pelo \inlineJavaScriptCode{delta}, garantindo que o movimento seja independente da taxa de quadros. Em seguida, entre as linhas 59 e 74, são feitas as verificações de colisão com as bordas do \inlineHTMLCode{<canvas>}: se a bolinha ultrapassar alguma borda, ela é reposicionada e sua velocidade é invertida e multiplicada pela elasticidade, simulando a perda de energia na colisão. Nas linhas 77 e 78, as velocidades são recalculadas aplicando o atrito e a gravidade, sendo que a gravidade também é multiplicada por \inlineJavaScriptCode{delta} para manter a simulação independente da taxa de quadros. Caso a bolinha esteja sendo arrastada pelo mouse (bloco \inlineJavaScriptCode{else} a partir da linha 80), sua posição é ajustada para seguir o cursor e sua velocidade é calculada com base no deslocamento entre quadros, para que ao ser solta ela continue se movendo de forma natural.
 
-O método \inlineJavaScriptCode{desenhar( ctx )} (linha 97) realiza o desenho da bolinha no contexto gráfico. O método salva o estado do contexto na linha 98, define a cor de preenchimento, inicia um caminho, desenha um arco completo na linha 101 --que resulta no círculo da bolinha-- e preenche o caminho com a cor definida. Na linha 103 o estado salvo é restaurado, garantindo que as configurações do contexto não se propaguem para os outros elementos desenhados.
+O método \inlineJavaScriptCode{desenhar( ctx )} (linha 97) realiza o desenho da bolinha no contexto gráfico. O método salva o estado do contexto na linha 98, define a cor de preenchimento, inicia um caminho, desenha um arco completo na linha 101 --- que resulta no círculo da bolinha --- e preenche o caminho com a cor definida. Na linha 103 o estado salvo é restaurado, garantindo que as configurações do contexto não se propaguem para os outros elementos desenhados.
 
 O método \inlineJavaScriptCode{intercepta( x, y )} (linha 107) retorna \inlineJavaScriptCode{true} se a coordenada fornecida estiver dentro do círculo da bolinha. O cálculo é feito usando o teorema de Pitágoras de forma otimizada: em vez de calcular a raiz quadrada da distância, compara-se o quadrado da distância com o quadrado do raio.
 
@@ -448,7 +448,7 @@ Uma \destaque{\textit{arrow function}} (função de seta) é uma sintaxe compact
 
 \begin{boxJavaScriptCode}[title=Arrow functions]
 // função anônima tradicional
-const dobrar = function( x ) {
+const dobrarTradicional = function( x ) {
     return x * 2;
 };
 
@@ -457,7 +457,7 @@ const dobrar = function( x ) {
 const dobrar = ( x ) => x * 2;
 
 // os parênteses são opcionais quando há apenas um parâmetro
-const dobrar = x => x * 2;
+const dobrarSemParenteses = x => x * 2;
 
 // com múltiplos parâmetros os parênteses são obrigatórios
 const somar = ( a, b ) => a + b;
@@ -562,8 +562,8 @@ A \destaque{desestruturação} (\textit{destructuring}) é uma sintaxe que permi
 const produto = { id: 1, descricao: "Caneta", preco: 2.50 };
 
 // sem desestruturação
-const id = produto.id;
-const descricao = produto.descricao;
+const idManual = produto.id;
+const descricaoManual = produto.descricao;
 
 // com desestruturação (equivalente, mais conciso)
 const { id, descricao, preco } = produto;
@@ -574,7 +574,7 @@ const { descricao: nomeProduto } = produto;
 console.log( nomeProduto ); // "Caneta"
 
 // com valor padrão para propriedades ausentes
-const { descricao, estoque = 0 } = produto;
+const { estoque = 0 } = produto;
 console.log( estoque ); // 0
 
 // --- desestruturação de arrays ---
@@ -614,7 +614,7 @@ const usuario = {
 };
 
 // sem ?. - lança TypeError se "endereco" for null ou undefined
-const cidade = usuario.endereco.cidade;
+const cidadeDireta = usuario.endereco.cidade;
 
 // com ?. - retorna undefined sem lançar erro
 const cidade = usuario?.endereco?.cidade;
@@ -651,7 +651,7 @@ As palavras-chave \inlineJavaScriptCode{async} e \inlineJavaScriptCode{await}, i
 
 \begin{boxJavaScriptCode}[title=async/await vs. Promises com .then()]
 // --- com .then() (Promises encadeadas) ---
-function buscarProdutos() {
+function buscarProdutosComThen() {
     fetch( "/api/produtos" )
         .then( response => response.json() )
         .then( dados => {
@@ -674,7 +674,7 @@ async function buscarProdutos() {
 }
 
 // a vantagem fica ainda mais clara com múltiplas operações dependentes
-async function salvarERecarregar(cidade) {
+async function salvarERecarregar( cidade ) {
     const response = await fetch( "/api/cidades", {
         method: "POST",
         body: JSON.stringify( cidade )
@@ -710,7 +710,7 @@ Dentro dos arquivos JavaScript, usamos \inlineJavaScriptCode{export} para expor 
 // --- em utils.js: exportando ---
 
 // named exports: pode haver vários por arquivo
-export function somar(a, b) {
+export function somar( a, b ) {
     return a + b;
 }
 
@@ -759,7 +759,7 @@ Chegamos ao fim de mais um capítulo. Vimos as construções fundamentais do Jav
 \section{Projetos}
 
 \begin{projetoSemArquivo}{}{}{}
-    Implemente um cadastro simples (apenas a inserção) de dados de uma ``fruta''. A tabela deve ter como colunas um campo identificador (\inlineSQLCode{INT}), um campo que armazenará o nome da fruta (\inlineSQLCode{VARCHAR}) e um campo para armazenar a cor predominante da fruta (\inlineSQLCode{VARCHAR}). Deve-se listar as frutas cadastrados usando AJAX, montando uma tabela dinamicamente, ao invés de processar os objetos no JSP do lado do servidor. Note que esse projeto é parecido com o Projeto~\ref{cap:padroesDeProjeto}.1 do capítulo~\ref{cap:padroesDeProjeto}.
+    Implemente um cadastro simples (apenas a inserção) de dados de uma ``fruta''. A tabela deve ter como colunas um campo identificador (\inlineSQLCode{INT}), um campo que armazenará o nome da fruta (\inlineSQLCode{VARCHAR}) e um campo para armazenar a cor predominante da fruta (\inlineSQLCode{VARCHAR}). Deve-se listar as frutas cadastradas usando AJAX, montando uma tabela dinamicamente, ao invés de processar os objetos no JSP do lado do servidor. Note que esse projeto é parecido com o Projeto~\ref{cap:padroesDeProjeto}.1 do capítulo~\ref{cap:padroesDeProjeto}.
 \end{projetoSemArquivo}
 
 \begin{projetoSemArquivo}{}{}{}

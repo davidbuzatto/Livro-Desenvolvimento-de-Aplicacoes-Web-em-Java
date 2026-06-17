@@ -1,4 +1,4 @@
-﻿<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
       <input name="cnpj"
            type="text"
            size="18"
-           pattern="\d{2}.\d{3}.\d{3}/\d{4}-\d{2}"
+           pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}"
            placeholder="99.999.999/9999-99"
            required/>
       </td>

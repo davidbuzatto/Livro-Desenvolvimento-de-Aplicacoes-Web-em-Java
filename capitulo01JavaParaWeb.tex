@@ -89,7 +89,7 @@ Na Seção anterior você aprendeu algumas coisas novas\footnote{Provavelmente v
 \end{figure}
 \FloatBarrier
 
-O responsável por processar os dados enviados é um componente de software que é executado no servidor em que a aplicação Web está implantada. Se a aplicação é feita em PHP, um script PHP vai fazer essa validação e retornar algum resultado com base no que foi verificado. Se a aplicação for feita em ASP.NET, Node.js etc. acontece o mesmo, ou seja, algum componente vai tratar a requisição -que enviou o usuário e a senha- e vai validá-la. Em Java é a mesma coisa!
+O responsável por processar os dados enviados é um componente de software que é executado no servidor em que a aplicação Web está implantada. Se a aplicação é feita em PHP, um script PHP vai fazer essa validação e retornar algum resultado com base no que foi verificado. Se a aplicação for feita em ASP.NET, Node.js etc. acontece o mesmo, ou seja, algum componente vai tratar a requisição --- que enviou o usuário e a senha --- e vai validá-la. Em Java é a mesma coisa!
 
 Para que possamos utilizar código Java em nossas aplicações Web, recorremos a alguns componentes que podem ser criados dentro delas, sendo que o tipo principal desses componentes é o Servlet. Você se lembra do nosso exemplo do Facebook? Os desenvolvedores do Facebook, se usassem Java, poderiam ter criado um Servlet para receber os dados do formulário de \textit{login}, processá-los e retornar alguma resposta para o cliente, que no caso, normalmente é um navegador.
 
@@ -104,7 +104,7 @@ Um carro serve para dirigir. Uma televisão para assistir. Uma sandália para an
 
 Tudo evolui. O que não evolui é descartado e/ou substituído. A primeira especificação dos Servlets foi lançada em 1997 e de lá para cá, a especificação foi evoluindo, permitindo que os Servlets se tornassem componentes mais versáteis e mais fáceis de utilizar. Na versão 11.0.22 do Apache Tomcat, que implementa as especificações do Jakarta EE 11, é implementada a especificação 6.1 dos Servlets, a especificação 6.1 das JSPs (JavaServer Pages), entre outras.
 
-Já aprendemos que os Servlets são componentes de uma aplicação Web feita em Java e que têm a capacidade de processar dados enviados a eles e gerar respostas. Um Servlet pode gerar como resposta o código HTML de uma página, entretanto essa abordagem era utilizada nas versões mais antigas dos Servlets e é totalmente desencorajada hoje em dia. Como eu disse agora há pouco, tudo evolui. Para que os desenvolvedores não precisassem mais gerar código HTML dentro do código Java de um Servlet, foram inventadas as páginas JSP. Uma página JSP é um arquivo que pode conter –e geralmente contém– código HTML e que pode interagir diretamente com algumas funcionalidades de uma aplicação Web.
+Já aprendemos que os Servlets são componentes de uma aplicação Web feita em Java e que têm a capacidade de processar dados enviados a eles e gerar respostas. Um Servlet pode gerar como resposta o código HTML de uma página, entretanto essa abordagem era utilizada nas versões mais antigas dos Servlets e é totalmente desencorajada hoje em dia. Como eu disse agora há pouco, tudo evolui. Para que os desenvolvedores não precisassem mais gerar código HTML dentro do código Java de um Servlet, foram inventadas as páginas JSP. Uma página JSP é um arquivo que pode conter --- e geralmente contém --- código HTML e que pode interagir diretamente com algumas funcionalidades de uma aplicação Web.
 
 A rigor, um JSP é processado pelo Contêiner de Servlets e todo o seu conteúdo é traduzido em um Servlet, que por sua vez é compilado e executado pelo Contêiner. Todo esse processo é realizado nos bastidores, então não precisamos nos preocupar com esses detalhes, mas é sempre bom saber um pouquinho como as coisas funcionam não é mesmo?
 
@@ -127,8 +127,12 @@ Você conhece a linguagem Java, aprendeu a teoria e a prática da programação 
     \item Ao acessar esse \textit{link}, a versão 30 do Apache NetBeans será baixada;
     
     \item Baixou? Execute o instalador. As versões atuais dos instaladores NetBeans farão a instalação completa da IDE, bastando seguir o assistente. Essa versão em questão trará uma versão do JDK consigo, no caso, a versão 26. Aguarde o fim da instalação e vamos continuar.
-    
+
 \end{enumerate}
+
+\begin{observacao}
+    O instalador do NetBeans 30 já traz embutido o JDK na versão 26, então você não precisa instalá-lo separadamente. Neste livro, porém, utilizaremos o Java na versão 25. Acontece que a versão 25 é uma versão LTS (\textit{Long-Term Support}, ou suporte de longo prazo), ou seja, uma versão que recebe atualizações e correções de segurança por um período estendido (vários anos), sendo a escolha recomendada para projetos que buscam estabilidade. Já a versão 26 é uma versão intermediária, com suporte de curta duração. Na prática, não há nenhuma diferença significativa entre as duas para o conteúdo que desenvolveremos, então, se preferir, fique à vontade para usar a 26 que acompanha o instalador. Caso queira garantir o uso da versão 25, basta baixá-la separadamente e configurá-la como plataforma Java padrão no NetBeans.
+\end{observacao}
 
 Com o NetBeans instalado, abra-o. Caso o esteja executando pela primeira vez, uma página de boas-vindas será exibida. Você pode fechá-la se quiser, além de marcar para que não seja exibida novamente. Antes de criarmos o nosso primeiro projeto Java Web, precisamos baixar, instalar e configurar o Contêiner de Servlets Apache Tomcat.
 
@@ -289,7 +293,7 @@ Por mais que nosso exemplo não tenha nenhuma utilidade aparente, ele foi import
 
 \section{Resumo}
 
-Neste capítulo aprendemos o que é e como funciona uma aplicação Web em Java. Aprendemos a criar nosso primeiro projeto e alguns detalhes sobre a tecnologia que estamos utilizando. Executamos nossa aplicação e fizemos algumas modificações nela para vermos o que estava sendo feito. Criamos também –de forma manual– um Servlet, que como aprendemos é um dos componentes principais de uma aplicação Web em Java.
+Neste capítulo aprendemos o que é e como funciona uma aplicação Web em Java. Aprendemos a criar nosso primeiro projeto e alguns detalhes sobre a tecnologia que estamos utilizando. Executamos nossa aplicação e fizemos algumas modificações nela para vermos o que estava sendo feito. Criamos também --- de forma manual --- um Servlet, que como aprendemos é um dos componentes principais de uma aplicação Web em Java.
 
 
 \section{Exercícios}

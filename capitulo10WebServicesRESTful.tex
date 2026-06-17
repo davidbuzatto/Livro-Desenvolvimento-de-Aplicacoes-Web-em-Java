@@ -139,7 +139,7 @@ Ambas estendem \inlineJavaCode{RuntimeException}, que é a superclasse de todas 
 
 \section{Os Servlets RESTful}
 
-Todos os nossos Servlets RESTful seguem a mesma estrutura básica: sobreescrevem os métodos \inlineJavaCode{doGet}, \inlineJavaCode{doPost}, \inlineJavaCode{doPut} e \inlineJavaCode{doDelete} do \texttt{HttpServlet}. Em cada método, a estrutura interna é:
+Todos os nossos Servlets RESTful seguem a mesma estrutura básica: sobrescrevem os métodos \inlineJavaCode{doGet}, \inlineJavaCode{doPost}, \inlineJavaCode{doPut} e \inlineJavaCode{doDelete} do \texttt{HttpServlet}. Em cada método, a estrutura interna é:
 
 \begin{enumerate}
     \item Configurar o tipo de conteúdo da resposta como \texttt{application/json};
@@ -444,7 +444,7 @@ O \inlineJavaCode{doGet} e o \inlineJavaCode{doPost} (linhas 34 e 90) são estru
     "id": 1,
     "nome": "São Carlos",
     "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" }
-  }, { 
+  }, {
     "id": 2,
     "nome": "Franca",
     "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" }
@@ -474,7 +474,7 @@ O \textit{front-end} do cadastro de cidades está no módulo \texttt{cidades.js}
 \javaScriptCode{Módulo de cidades\newline%
 Arquivo: \texttt{src/js/modulos/cidades.js}}{projetos/capitulo10/VendaProdutosSPA/frontend/src/js/modulos/cidades.js}
 
-O módulo importa três dependências (linhas 6 a 9): \texttt{ContainerUtilizadoError}, o módulo de estados (\texttt{Estados}), os modais (\texttt{Modais}) e os utilitários (\texttt{Utils}). A dependência com \texttt{Estados} é necessária porque o select de estados no formulário de cidades precisa ser atualizado toda vez que o cadastro de estados sofrer alguma alteração.
+O módulo importa quatro dependências (linhas 6 a 9): \texttt{ContainerUtilizadoError}, o módulo de estados (\texttt{Estados}), os modais (\texttt{Modais}) e os utilitários (\texttt{Utils}). A dependência com \texttt{Estados} é necessária porque o select de estados no formulário de cidades precisa ser atualizado toda vez que o cadastro de estados sofrer alguma alteração.
 
 \subsubsection{A Inicialização e o Select Dependente}
 
