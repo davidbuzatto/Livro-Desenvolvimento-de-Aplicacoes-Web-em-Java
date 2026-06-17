@@ -52,7 +52,10 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divProdutos", "/public/fragmentos/cruds/produtos.html" ).then( () => {
+        Utils.carregarFragmento(
+            "divProdutos",
+            "/public/fragmentos/cruds/produtos.html"
+        ).then( () => {
             
             objSelecionado = null;
             dados = null;
@@ -94,8 +97,16 @@ export function iniciar( urlBase ) {
             btnNovo.addEventListener( "click", resetarFormulario );
 
             carregar();
-            Utils.carregarSelect( `${_urlBase}/fornecedores`, selFornecedor, { id: "id", label: "razaoSocial" } );
-            Utils.carregarSelect( `${_urlBase}/unidadesMedida`, selUnidadeMedida, { id: "id", label: "sigla" } );
+            Utils.carregarSelect( 
+                `${_urlBase}/fornecedores`,
+                selFornecedor, 
+                { id: "id", label: "razaoSocial" }
+            );
+            Utils.carregarSelect( 
+                `${_urlBase}/unidadesMedida`,
+                selUnidadeMedida,
+                { id: "id", label: "sigla" }
+            );
             inicializado = true;
         
         }).catch( error => {
@@ -132,8 +143,16 @@ async function carregar() {
 
             linha.dataset.indice = index;
             linha.append( Utils.criarTd( produto.descricao ) );
-            linha.append( Utils.criarTd( Utils.formatarDinheiro( produto.valorVenda ) ) );
-            linha.append( Utils.criarTd( Utils.formatarNumeroBrasil( produto.estoque ) ) );
+            linha.append( 
+                Utils.criarTd( 
+                    Utils.formatarDinheiro( produto.valorVenda )
+                )
+            );
+            linha.append(
+                Utils.criarTd(
+                    Utils.formatarNumeroBrasil( produto.estoque )
+                )
+            );
             linha.append( Utils.criarTd( produto.fornecedor.razaoSocial ) );
             linha.append( Utils.criarTd( produto.unidadeMedida.sigla ) );
 
@@ -148,7 +167,9 @@ async function carregar() {
             selects.forEach( item => {
                 let select = item.select;
                 let formatador = item.formatador;
-                let label = formatador ? formatador( produto ) : produto.descricao;
+                let label = formatador ? 
+                            formatador( produto ) :
+                            produto.descricao;
                 select.append( Utils.criarOption( produto.id, label ) );
             });
 
@@ -157,7 +178,10 @@ async function carregar() {
         Modais.modalAguarde.fechar();
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir(
+            "ERRO",
+            Utils.montarMensagemErro( dados )
+        );
     }
 
 }
@@ -206,7 +230,10 @@ async function salvar() {
             resetarFormulario();
             carregar();
         } else {
-            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir(
+                "ERRO",
+                Utils.montarMensagemErro( dados )
+            );
         }
 
     }
@@ -237,7 +264,10 @@ async function excluir() {
                     resetarFormulario();
                     carregar();
                 } else {
-                    Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                    Modais.modalMensagem.abrir(
+                        "ERRO",
+                        Utils.montarMensagemErro( dados )
+                    );
                 }
                 
             }

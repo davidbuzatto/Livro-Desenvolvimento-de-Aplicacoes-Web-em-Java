@@ -42,7 +42,10 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divEstados", "/public/fragmentos/cruds/estados.html" ).then( () => {
+        Utils.carregarFragmento( 
+            "divEstados", 
+            "/public/fragmentos/cruds/estados.html"
+        ).then( () => {
             
             objSelecionado = null;
             dados = null;
@@ -124,7 +127,10 @@ async function carregar() {
         Modais.modalAguarde.fechar();
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir( 
+            "ERRO",
+            Utils.montarMensagemErro( dados )
+        );
     }
 
 }
@@ -161,7 +167,10 @@ async function salvar() {
             resetarFormulario();
             carregar();
         } else {
-            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir(
+                "ERRO",
+                Utils.montarMensagemErro( dados )
+            );
         }
 
     }
@@ -192,7 +201,10 @@ async function excluir() {
                     resetarFormulario();
                     carregar();
                 } else {
-                    Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                    Modais.modalMensagem.abrir(
+                        "ERRO",
+                        Utils.montarMensagemErro( dados )
+                    );
                 }
                 
             }

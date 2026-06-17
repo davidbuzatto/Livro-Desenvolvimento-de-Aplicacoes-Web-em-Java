@@ -1,17 +1,17 @@
 package vendaprodutos.controladores.restful;
 
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import vendaprodutos.dao.ClienteDAO;
 import vendaprodutos.excecoes.ValidacaoException;
 import vendaprodutos.dao.ItemVendaDAO;

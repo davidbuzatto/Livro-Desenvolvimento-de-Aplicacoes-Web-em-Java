@@ -2,13 +2,13 @@ package vendaprodutos.controladores.restful;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import vendaprodutos.dao.CidadeDAO;
 import vendaprodutos.dao.EstadoDAO;
@@ -22,13 +22,18 @@ import vendaprodutos.excecoes.ValidacaoException;
  * 
  * @author Prof. Dr. David Buzatto
  */
-@WebServlet( name = "CidadeRestfulServlet", urlPatterns = { "/api/cidades/*" } )
+@WebServlet(
+    name = "CidadeRestfulServlet",
+    urlPatterns = { "/api/cidades/*" }
+)
 public class CidadeRestfulServlet extends HttpServlet {
     
     private Jsonb jsonb = JsonbBuilder.create();
     
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    protected void doGet( 
+        HttpServletRequest request,
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -51,7 +56,9 @@ public class CidadeRestfulServlet extends HttpServlet {
                     jsonResposta = jsonb.toJson( cidade );
                 } else {
                     status = HttpServletResponse.SC_NOT_FOUND;
-                    jsonResposta = jsonb.toJson( new Resposta( "Cidade não encontrada.", "" ) );
+                    jsonResposta = jsonb.toJson(
+                        new Resposta( "Cidade não encontrada.", "" )
+                    );
                 }
                 
             } else {
@@ -62,10 +69,14 @@ public class CidadeRestfulServlet extends HttpServlet {
             
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao obter cidade(s).", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Erro ao obter cidade(s).", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -76,7 +87,9 @@ public class CidadeRestfulServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    protected void doPost( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -95,15 +108,24 @@ public class CidadeRestfulServlet extends HttpServlet {
             dao.salvar( cidade );
             
             status = HttpServletResponse.SC_CREATED;
-            response.setHeader( "Location", "/api/cidades/" + cidade.getId() );
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade inserida com sucesso!", cidade ) );
+            response.setHeader(
+                "Location",
+                "/api/cidades/" + cidade.getId()
+            );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Cidade inserida com sucesso!", cidade )
+            );
 
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao inserir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Erro ao inserir a cidade.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -114,7 +136,9 @@ public class CidadeRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPut( HttpServletRequest request, HttpServletResponse response )
+    protected void doPut( 
+        HttpServletRequest request, 
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -142,27 +166,39 @@ public class CidadeRestfulServlet extends HttpServlet {
             cidade.setNome( cidadeRecebida.getNome() );
 
             if ( !cidade.getEstado().equals( cidadeRecebida.getEstado() ) ) {
-                cidade.setEstado( daoEstado.obterPorId( cidadeRecebida.getEstado().getId() ) );
+                cidade.setEstado( 
+                    daoEstado.obterPorId( cidadeRecebida.getEstado().getId() )
+                );
             }
         
             Utils.validar( cidade, "id" );
             daoCidade.atualizar( cidade );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade atualizada com sucesso!", cidade ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "Cidade atualizada com sucesso!", cidade )
+            );
 
         } catch ( NaoEncontradoException exc ) {
             status = HttpServletResponse.SC_NOT_FOUND;
-            jsonResposta = jsonb.toJson( new Resposta( exc.getMessage(), "" ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( exc.getMessage(), "" )
+            );
         } catch ( ValidacaoException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "Dados inválidos.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Dados inválidos.", exc.getMessage() )
+            );
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao atualizar a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao atualizar a cidade.", exc.getMessage())
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson( 
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {
@@ -173,7 +209,9 @@ public class CidadeRestfulServlet extends HttpServlet {
     }
     
     @Override
-    protected void doDelete( HttpServletRequest request, HttpServletResponse response )
+    protected void doDelete(
+        HttpServletRequest request,
+        HttpServletResponse response )
         throws ServletException, IOException {
         
         response.setContentType( "application/json" );
@@ -190,14 +228,20 @@ public class CidadeRestfulServlet extends HttpServlet {
             dao.excluir( cidade );
             
             status = HttpServletResponse.SC_OK;
-            jsonResposta = jsonb.toJson( new Resposta( "Cidade excluída com sucesso!", cidade ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Cidade excluída com sucesso!", cidade )
+            );
 
         } catch ( SQLException exc ) {
             status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            jsonResposta = jsonb.toJson( new Resposta( "Erro ao excluir a cidade.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "Erro ao excluir a cidade.", exc.getMessage() )
+            );
         } catch ( NumberFormatException exc ) {
             status = HttpServletResponse.SC_BAD_REQUEST;
-            jsonResposta = jsonb.toJson( new Resposta( "ID inválido.", exc.getMessage() ) );
+            jsonResposta = jsonb.toJson(
+                new Resposta( "ID inválido.", exc.getMessage() )
+            );
         }
         
         try ( PrintWriter out = response.getWriter() ) {

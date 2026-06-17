@@ -43,7 +43,10 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divCidades", "/public/fragmentos/cruds/cidades.html" ).then( () => {
+        Utils.carregarFragmento(
+            "divCidades",
+            "/public/fragmentos/cruds/cidades.html"
+        ).then( () => {
             
             objSelecionado = null;
             dados = null;
@@ -72,7 +75,11 @@ export function iniciar( urlBase ) {
             btnNovo.addEventListener( "click", resetarFormulario );
 
             carregar();
-            Utils.carregarSelect( `${_urlBase}/estados`, selEstado, { id: "id", label: "nome" } );
+            Utils.carregarSelect( 
+                `${_urlBase}/estados`,
+                selEstado,
+                { id: "id", label: "nome" }
+            );
             inicializado = true;
         
         }).catch( error => {
@@ -128,7 +135,10 @@ async function carregar() {
         Modais.modalAguarde.fechar();
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir(
+            "ERRO",
+            Utils.montarMensagemErro( dados )
+        );
     }
 
 }
@@ -167,7 +177,10 @@ async function salvar() {
             resetarFormulario();
             carregar();
         } else {
-            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir(
+                "ERRO",
+                Utils.montarMensagemErro( dados )
+            );
         }
 
     }
@@ -198,7 +211,10 @@ async function excluir() {
                     resetarFormulario();
                     carregar();
                 } else {
-                    Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                    Modais.modalMensagem.abrir(
+                        "ERRO",
+                        Utils.montarMensagemErro( dados )
+                    );
                 }
                 
             }

@@ -7,9 +7,25 @@ import { ContainerUtilizadoError } from "../erros/ContainerUtilizadoError.js";
 import * as Modais from "./modais.js";
 
 // formatadores
-export const fmtNumeroBrasil = new Intl.NumberFormat( "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-export const fmtNumeroUS = new Intl.NumberFormat( "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-export const fmtMonetario = new Intl.NumberFormat( "pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const fmtNumeroBrasil = new Intl.NumberFormat( 
+    "pt-BR", { 
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+    }
+);
+export const fmtNumeroUS = new Intl.NumberFormat( 
+    "en-US", { 
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }
+);
+export const fmtMonetario = new Intl.NumberFormat( 
+    "pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }
+);
 export const fmtDataBrasil = new Intl.DateTimeFormat( "pt-BR" );
 
 export function formatarNumeroBrasil( numero ) {
@@ -29,7 +45,8 @@ export function formatarDataBrasil( data ) {
 }
 
 /**
- * Função customizada de "fetch" que carrega o token JWT e envia na requisição.
+ * Função customizada de "fetch" que carrega o token JWT e envia na
+ * requisição.
  * 
  * @param {*} url A url do recurso.
  * @param {*} metodo O método que será utilizado.
@@ -38,10 +55,13 @@ export function formatarDataBrasil( data ) {
  * 
  * @returns A promise da requisição.
  */
-export async function customFetch( url, metodo, dados = null, propToken = "token" ) {
+export async function customFetch( url, metodo, dados = null, 
+                                   propToken = "token" ) {
 
     const controller = new AbortController();
-    const timeoutId = setTimeout( () => controller.abort(), 30000 ); // 30 segundos
+
+    // 30 segundos
+    const timeoutId = setTimeout( () => controller.abort(), 30000 );
 
     try {
 
@@ -88,7 +108,10 @@ export function criarTd( dados ) {
     return td;
 }
 
-export function criarTdBoolean( objeto, propriedade, funcaoClicar, textoTrue = "sim", textoFalse = "não", corTrue = "#198754", corFalse = "#dc3545" ) {
+export function criarTdBoolean( objeto, propriedade, funcaoClicar,
+                                textoTrue = "sim", textoFalse = "não",
+                                corTrue = "#198754",
+                                corFalse = "#dc3545" ) {
     
     let td = criarTd( "" );
     td.style.textAlign = "center";
@@ -112,13 +135,16 @@ export function criarTdBoolean( objeto, propriedade, funcaoClicar, textoTrue = "
     
 }
 
-export function criarOption( valor, label, objeto = null, propriedadesDataset = null ) {
+export function criarOption( valor, label, objeto = null, 
+                             propriedadesDataset = null ) {
     let opt = document.createElement( "option" );
     opt.value = valor;
     opt.textContent = label;
     if ( objeto && propriedadesDataset ) {
         propriedadesDataset.forEach( propriedade => {
-            opt.dataset[propriedade] = objeto[propriedade] ? objeto[propriedade] : null;
+            opt.dataset[propriedade] =
+                objeto[propriedade] ? 
+                objeto[propriedade] : null;
         });
     }
     return opt;
@@ -127,14 +153,18 @@ export function criarOption( valor, label, objeto = null, propriedadesDataset = 
 /**
  * Carrega dados de um fragmento para um container.
  * 
- * @param {*} idContainer id do container que receberá o código HTML carregado.
+ * @param {*} idContainer id do container que receberá o código HTML
+ * carregado.
  * @param {*} url URL do fragmento.
- * @param {*} replaceObj objeto que contém propriedades quer serão utilizadas para substituir itens dentro do fragmento carregado.
- * No fragmento as posições quer serão substituídas devem ter o formato {{propriedade}}.
+ * @param {*} replaceObj objeto que contém propriedades quer serão
+ * utilizadas para substituir itens dentro do fragmento carregado.
+ * No fragmento as posições quer serão substituídas devem ter o
+ * formato {{propriedade}}.
  * 
  * @returns a promise de carregamento.
  */
-export async function carregarFragmento( idContainer, url, replaceObj = null ) {    
+export async function carregarFragmento( idContainer, url,
+                                         replaceObj = null ) {    
 
     const node = document.getElementById( idContainer );
 
@@ -154,7 +184,9 @@ export async function carregarFragmento( idContainer, url, replaceObj = null ) {
         }).then( html => {
             if ( replaceObj ) {
                 for ( const property in replaceObj ) {
-                    html = html.replaceAll( `{{${property}}}`, replaceObj[property] );
+                    html = html.replaceAll( 
+                        `{{${property}}}`, replaceObj[property]
+                    );
                 }
             }
             node.dataset.usado = true;
@@ -164,7 +196,9 @@ export async function carregarFragmento( idContainer, url, replaceObj = null ) {
         });
 
     } else {
-        throw new ContainerUtizadoError( `O nó de id=${idContainer} já foi usado!` );
+        throw new ContainerUtizadoError( 
+            `O nó de id=${idContainer} já foi usado!`
+        );
     }
 
 }
@@ -225,10 +259,13 @@ export function esconderMostrar( idEsconder, idMostrar ) {
  * 
  * @param {*} url A url que será requisitada.
  * @param {*} select O select alvo.
- * @param {*} propriedades As propriedades que serão lidas dos objetos resultantes.
+ * @param {*} propriedades As propriedades que serão lidas dos objetos
+ * resultantes.
  * Os objetos devem vir na resposta codificados na propriedade items.
  */
-export async function carregarSelect( url, select, propriedades, funcaoLabel = null, propriedadesDataset = null ) {
+export async function carregarSelect( url, select, propriedades, 
+                                      funcaoLabel = null,
+                                      propriedadesDataset = null ) {
 
     const response = await customFetch( url, "GET" );
     const data = await response.json();
@@ -237,9 +274,23 @@ export async function carregarSelect( url, select, propriedades, funcaoLabel = n
         select.innerHTML = "";
         data.forEach( ( dado, index ) =>{
             if ( funcaoLabel ) {
-                select.append( criarOption( dado[propriedades.id], funcaoLabel( dado ), dado, propriedadesDataset ) );
+                select.append( 
+                    criarOption( 
+                        dado[propriedades.id], 
+                        funcaoLabel( dado ), 
+                        dado,
+                        propriedadesDataset
+                    )
+                );
             } else {
-                select.append( criarOption( dado[propriedades.id], dado[propriedades.label], dado, propriedadesDataset ) );
+                select.append( 
+                    criarOption(
+                        dado[propriedades.id],
+                        dado[propriedades.label],
+                        dado,
+                        propriedadesDataset
+                    )
+                );
             }
         });
     } else {
@@ -249,8 +300,8 @@ export async function carregarSelect( url, select, propriedades, funcaoLabel = n
 }
 
 /**
- * Configura as mensagens de validação dos campos de formulário a cada interação
- * do usuário.
+ * Configura as mensagens de validação dos campos de formulário a cada
+ * interação do usuário.
  * 
  * @example
  * const campos = [
@@ -259,11 +310,11 @@ export async function carregarSelect( url, select, propriedades, funcaoLabel = n
  * ];
  * configurarValidacaoCamposAoMudarEstado(campos);
  * 
- * @param {Array<{campo: HTMLElement, div: HTMLElement, valueMissing?: string, typeMismatch?: string, patternMismatch?: string, valid?: string, tooLong?: string, tooShort?: string, rangeOverflow?: string, rangeUnderflow?: string}>} camposValidacao
- * um array de itens de validação, compostos por um campo que é um componente de
- * formulário e uma div onde será configurada a mensagem de validação. Cada item
- * de validação pode também ser configurado com uma ou mais mensagens
- * personalizadas para serem usadas na exibição do status da validação daquele
+ * @param camposValidacao Um array de itens de validação, compostos por
+ * um campo que é um componente de formulário e uma div onde será
+ * configurada a mensagem de validação. Cada item de validação pode
+ * também ser configurado com uma ou mais mensagens personalizadas
+ * para serem usadas na exibição do status da validação daquele
  * componente, sendo elas:
  *     - patternMismatch: padrão inválido
  *     - tooLong: muito longo (maior que maxlength)
@@ -298,8 +349,9 @@ export function configurarValidacaoCamposAoMudarEstado( camposValidacao ) {
 }
 
 /**
- * Executa a validação de um formulário. Primeiramente, limpa todas as mensagens
- * de erro e posteriormente executa a verificação usando a Constraint Validation API nativa.
+ * Executa a validação de um formulário. Primeiramente, limpa todas as
+ * mensagens de erro e posteriormente executa a verificação usando a
+ * Constraint Validation API nativa.
  * 
  * @example
  * if ( validarFormulario( camposValidacao ) ) {
@@ -308,11 +360,11 @@ export function configurarValidacaoCamposAoMudarEstado( camposValidacao ) {
  *     // Há erros - mensagens já foram exibidas
  * }
  * 
- * @param {Array<{campo: HTMLElement, div: HTMLElement, valueMissing?: string, typeMismatch?: string, patternMismatch?: string, valid?: string, tooLong?: string, tooShort?: string, rangeOverflow?: string, rangeUnderflow?: string}>} camposValidacao
- * um array de itens de validação, compostos por um campo que é um componente de
- * formulário e uma div onde será configurada a mensagem de validação. Cada item
- * de validação pode também ser configurado com uma ou mais mensagens
- * personalizadas para serem usadas na exibição do status da validação daquele
+ * @param camposValidacao Um array de itens de validação, compostos
+ * por um campo que é um componente de formulário e uma div onde será
+ * configurada a mensagem de validação. Cada item de validação pode
+ * também ser configurado com uma ou mais mensagens personalizadas
+ * para serem usadas na exibição do status da validação daquele
  * componente, sendo elas:
  *     - patternMismatch: padrão inválido
  *     - tooLong: muito longo (maior que maxlength)
@@ -323,7 +375,8 @@ export function configurarValidacaoCamposAoMudarEstado( camposValidacao ) {
  *     - valid: se o campo é válido
  *     - valueMissing: se o campo for obrigatório (required)
  * 
- * @returns {boolean} Verdadeiro se o formulário for válido, falso caso contrário.
+ * @returns {boolean} Verdadeiro se o formulário for válido,
+ * falso caso contrário.
  */
 export function validarFormulario( form, camposValidacao ) {
 
@@ -341,11 +394,12 @@ export function validarFormulario( form, camposValidacao ) {
 }
 
 /**
- * Limpa o formulário, resetando todos os componentes e limpando as mensagens
- * de validação.
+ * Limpa o formulário, resetando todos os componentes e limpando as
+ * mensagens de validação.
  * 
  * @param {*} form O formulário.
- * @param {*} camposValidacao Os campos de validação caso o formulário possua campos que precisam ser validados.
+ * @param {*} camposValidacao Os campos de validação caso o formulário
+ * possua campos que precisam ser validados.
  */
 export function limparFormulario( form, camposValidacao = null ) {
     if ( camposValidacao ) {
@@ -358,11 +412,11 @@ export function limparFormulario( form, camposValidacao = null ) {
  * Configura as mensagens de validação de um conjunto de campos de formulário
  * em suas respectivas divs.
  * 
- * @param {Array<{campo: HTMLElement, div: HTMLElement, valueMissing?: string, typeMismatch?: string, patternMismatch?: string, valid?: string, tooLong?: string, tooShort?: string, rangeOverflow?: string, rangeUnderflow?: string}>} camposValidacao
- * um array de itens de validação, compostos por um campo que é um componente de
- * formulário e uma div onde será configurada a mensagem de validação. Cada item
- * de validação pode também ser configurado com uma ou mais mensagens
- * personalizadas para serem usadas na exibição do status da validação daquele
+ * @param camposValidacao Um array de itens de validação, compostos por
+ * um campo que é um componente de formulário e uma div onde será
+ * configurada a mensagem de validação. Cada item de validação pode
+ * também ser configurado com uma ou mais mensagens personalizadas
+ * para serem usadas na exibição do status da validação daquele
  * componente, sendo elas:
  *     - patternMismatch: padrão inválido
  *     - tooLong: muito longo (maior que maxlength)
@@ -380,8 +434,8 @@ export function configurarMensagensValidacao( camposValidacao ) {
 }
 
 /**
- * Configura as mensagens de validação customizadas para um conjunto de campos
- * de formulário.
+ * Configura as mensagens de validação customizadas para um conjunto de
+ * campos de formulário.
  * 
  * @param {*} camposValidacao 
  */
@@ -395,11 +449,11 @@ export function configurarMensagensValidacaoCustomizada( camposValidacao ) {
  * Limpa as mensagens de validação de um conjunto de campos de formulário
  * de suas respectivas divs.
  * 
- * @param {Array<{campo: HTMLElement, div: HTMLElement, valueMissing?: string, typeMismatch?: string, patternMismatch?: string, valid?: string, tooLong?: string, tooShort?: string, rangeOverflow?: string, rangeUnderflow?: string}>} camposValidacao
- * um array de itens de validação, compostos por um campo que é um componente de
- * formulário e uma div onde será configurada a mensagem de validação. Cada item
- * de validação pode também ser configurado com uma ou mais mensagens
- * personalizadas para serem usadas na exibição do status da validação daquele
+ * @param camposValidacao Um array de itens de validação, compostos por
+ * um campo que é um componente de formulário e uma div onde será
+ * configurada a mensagem de validação. Cada item de validação pode
+ * também ser configurado com uma ou mais mensagens personalizadas
+ * para serem usadas na exibição do status da validação daquele
  * componente, sendo elas:
  *     - patternMismatch: padrão inválido
  *     - tooLong: muito longo (maior que maxlength)
@@ -433,21 +487,22 @@ export function limparMensagensValidacao( form, camposValidacao ) {
 /**
  * Configura a mensagem de validação de um campo de formulário em uma div.
  * 
- * Se o campo for válido e houver mensagem de sucesso configurada (propriedade 'valid'),
- * ela será exibida. Caso contrário, a div ficará vazia.
+ * Se o campo for válido e houver mensagem de sucesso configurada
+ * (propriedade 'valid'), ela será exibida. Caso contrário, a div ficará
+ * vazia.
  * 
- * Para campos inválidos, prioriza mensagens personalizadas sobre a mensagem
- * padrão do navegador (validationMessage).
+ * Para campos inválidos, prioriza mensagens personalizadas sobre a
+ * mensagem padrão do navegador (validationMessage).
  * 
  * Automaticamente gerencia atributos ARIA para acessibilidade:
  * - aria-invalid="true" para campos inválidos
  * - aria-describedby conecta o campo com a mensagem de erro
  * 
- * @param {{campo: HTMLElement, div: HTMLElement, valueMissing?: string, typeMismatch?: string, patternMismatch?: string, valid?: string, tooLong?: string, tooShort?: string, rangeOverflow?: string, rangeUnderflow?: string}} item
- * um item de validação, composto por um campo que é um componente de
- * formulário e uma div onde será configurada a mensagem de validação. Cada item
- * de validação pode também ser configurado com uma ou mais mensagens
- * personalizadas para serem usadas na exibição do status da validação daquele
+ * @param camposValidacao Um array de itens de validação, compostos por
+ * um campo que é um componente de formulário e uma div onde será
+ * configurada a mensagem de validação. Cada item de validação pode
+ * também ser configurado com uma ou mais mensagens personalizadas
+ * para serem usadas na exibição do status da validação daquele
  * componente, sendo elas:
  *     - patternMismatch: padrão inválido
  *     - tooLong: muito longo (maior que maxlength)
@@ -502,7 +557,8 @@ function configurarMensagemValidacao( item ) {
  * Configura validações customizadas para um campo de formulário.
  * 
  * Atualmente suporta:
- *  - igualA: verifica se o valor de um campo é igual ao valor de outro campo;
+ *  - igualA: verifica se o valor de um campo é igual ao valor de outro
+ *            campo;
  *  - cpf: verifica se o valor de um campo é um CPF válido; 
  *  - cnpj: verifica se o valor de um campo é um CNPJ válido.
  * 
@@ -566,7 +622,8 @@ function configurarMensagemValidacaoCustomizada( item ) {
  * Valida uma string verificando se é um CPF válido.
  * 
  * @param {*} cpf O CPF a ser validado.
- * @returns {boolean} Verdadeiro caso o CPF seja válido, falso caso contrário.
+ * @returns {boolean} Verdadeiro caso o CPF seja válido, falso caso
+ * contrário.
  */
 export function validarCPF( cpf ) {
     
@@ -601,7 +658,8 @@ export function validarCPF( cpf ) {
  * Valida uma string verificando se é um CNPJ válido.
  * 
  * @param {string} cnpj O CNPJ a ser validado.
- * @returns {boolean} Verdadeiro caso o CNPJ seja válido, falso caso contrário.
+ * @returns {boolean} Verdadeiro caso o CNPJ seja válido, falso caso
+ * contrário.
  */
 export function validarCNPJ( cnpj ) {
     
@@ -672,7 +730,8 @@ export function montarMensagemErro( objErro ) {
 }
 
 /**
- * A partir de uma URL base gera uma URL com parâmetros codificados para uso do método GET.
+ * A partir de uma URL base gera uma URL com parâmetros codificados para
+ * uso do método GET.
  * 
  * @param {*} urlBase A URL base que será usada.
  * @param {*} parametros Os parâmetros que serão adicionados.

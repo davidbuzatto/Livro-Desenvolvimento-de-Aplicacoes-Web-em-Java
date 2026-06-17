@@ -59,12 +59,17 @@ export class Modal {
         
     }
     
-    abrir( titulo = null, mensagem = null, funcaoOk = null, funcaoCancelar = null ) {
+    abrir( titulo = null, mensagem = null, funcaoOk = null,
+           funcaoCancelar = null ) {
         
         if ( !this.aberto ) {
             
-            const tituloModal = this.divContainer.querySelector( ".titulo-modal" );
-            const corpoModal = this.divContainer.querySelector( ".corpo-modal" );
+            const tituloModal = this.divContainer.querySelector(
+                ".titulo-modal"
+            );
+            const corpoModal = this.divContainer.querySelector(
+                ".corpo-modal"
+            );
             this.funcaoOk = funcaoOk;
             this.funcaoCancelar = funcaoCancelar;
             

@@ -92,11 +92,11 @@ Arquivo: \texttt{vendaprodutos/controladores/filtros/CORSFilter.java}}{projetos/
 
 Veja que na linha 18 o filtro é configurado para interceptar qualquer requisição cujo caminho comece com \texttt{/api/*}, que é exatamente o prefixo de todos os nossos Servlets RESTful. Independentemente do que for requisitado, esse filtro sempre rodará primeiro.
 
-A constante \inlineJavaCode{BLOQUEAR_POR_DOMINIO} na linha 21 controla o comportamento do cabeçalho \texttt{Access-Control-Allow-Origin}. Quando \inlineJavaCode{false}, o cabeçalho é configurado com \texttt{*} (linha 35), o que significa que qualquer origem pode fazer requisições ao servidor. Isso é adequado para desenvolvimento e para APIs públicas. Quando \inlineJavaCode{true} (linhas 37 a 41), o servidor verifica se a origem da requisição está em uma lista de permitidas e, somente nesse caso, devolve a origem no cabeçalho --- o que é o comportamento correto para sistemas em produção.
+A constante \inlineJavaCode{BLOQUEAR_POR_DOMINIO} na linha 21 controla o comportamento do cabeçalho \texttt{Access-Control-Allow-Origin}. Quando \inlineJavaCode{false}, o cabeçalho é configurado com \texttt{*} (linha 35), o que significa que qualquer origem pode fazer requisições ao servidor. Isso é adequado para desenvolvimento e para APIs públicas. Quando \inlineJavaCode{true} (linhas 37 a 45), o servidor verifica se a origem da requisição está em uma lista de permitidas e, somente nesse caso, devolve a origem no cabeçalho --- o que é o comportamento correto para sistemas em produção.
 
-Os outros cabeçalhos (linhas 42 a 44) definem quais métodos HTTP são permitidos, quais cabeçalhos podem ser enviados nas requisições e por quanto tempo o resultado do \textit{preflight} pode ser cacheado pelo navegador (3600 segundos = 1 hora).
+Os outros cabeçalhos (linhas 47 a 55) definem quais métodos HTTP são permitidos, quais cabeçalhos podem ser enviados nas requisições e por quanto tempo o resultado do \textit{preflight} pode ser cacheado pelo navegador (3600 segundos = 1 hora).
 
-Por fim, entre as linhas 47 e 50, o filtro verifica se a requisição é um \textit{preflight} (método \texttt{OPTIONS}). Se for, responde imediatamente com status 200 e encerra sem passar para a cadeia de filtros --- o que é o comportamento correto, pois o Servlet não deveria nem ver uma requisição de \textit{preflight}.
+Por fim, entre as linhas 58 e 61, o filtro verifica se a requisição é um \textit{preflight} (método \texttt{OPTIONS}). Se for, responde imediatamente com status 200 e encerra sem passar para a cadeia de filtros --- o que é o comportamento correto, pois o Servlet não deveria nem ver uma requisição de \textit{preflight}.
 
 \begin{atencao}
     Com \inlineJavaCode{BLOQUEAR_POR_DOMINIO = false} e \texttt{Access-Control-Allow-Origin: *}, qualquer site na internet pode fazer requisições ao seu servidor. Em desenvolvimento isso é conveniente, mas em produção você deve sempre restringir às origens conhecidas e confiáveis.
@@ -124,9 +124,9 @@ Antes de vermos os Servlets, há dois métodos da classe \texttt{Utils} que são
 \javaCode{Classe \texttt{Utils} com os novos métodos\newline%
 Arquivo: \texttt{vendaprodutos/utils/Utils.java}}{projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/utils/Utils.java}
 
-O método \inlineJavaCode{obterDados} (linha 236) lê o corpo completo da requisição HTTP como uma \texttt{String}. Em vez de parâmetros de formulário (como nos capítulos anteriores, onde usávamos \inlineJavaCode{request.getParameter(...)}), os Servlets RESTful recebem os dados como JSON no corpo da requisição. Esse método encapsula a leitura desse corpo linha a linha usando um \texttt{BufferedReader}.
+O método \inlineJavaCode{obterDados} (linha 233) lê o corpo completo da requisição HTTP como uma \texttt{String}. Em vez de parâmetros de formulário (como nos capítulos anteriores, onde usávamos \inlineJavaCode{request.getParameter(...)}), os Servlets RESTful recebem os dados como JSON no corpo da requisição. Esse método encapsula a leitura desse corpo linha a linha usando um \texttt{BufferedReader}.
 
-O método \inlineJavaCode{validar} (linha 190) é praticamente o mesmo do capítulo~\ref{cap:sistemaVendaProdutos}, mas com uma diferença crucial: em vez de lançar \texttt{SQLException}, agora lança \inlineJavaCode{ValidacaoException}, que é uma exceção não verificada (\textit{unchecked}) de nossa autoria. Isso permite que a exceção de validação se propague naturalmente pelos métodos dos DAOs (que lançam \texttt{SQLException}) sem precisar ser declarada em suas assinaturas. As classes de exceção são apresentadas nas Listagens~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/excecoes/ValidacaoException.java} e~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/excecoes/NaoEncontradoException.java}.
+O método \inlineJavaCode{validar} (linha 189) é praticamente o mesmo do capítulo~\ref{cap:sistemaVendaProdutos}, mas com uma diferença crucial: em vez de lançar \texttt{SQLException}, agora lança \inlineJavaCode{ValidacaoException}, que é uma exceção não verificada (\textit{unchecked}) de nossa autoria. Isso permite que a exceção de validação se propague naturalmente pelos métodos dos DAOs (que lançam \texttt{SQLException}) sem precisar ser declarada em suas assinaturas. As classes de exceção são apresentadas nas Listagens~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/excecoes/ValidacaoException.java} e~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/excecoes/NaoEncontradoException.java}.
 
 \javaCode{\texttt{ValidacaoException}\newline%
 Arquivo: \texttt{vendaprodutos/excecoes/ValidacaoException.java}}{projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/excecoes/ValidacaoException.java}
@@ -149,7 +149,7 @@ Todos os nossos Servlets RESTful seguem a mesma estrutura básica: sobreescrevem
     \item Escrever o JSON na resposta.
 \end{enumerate}
 
-O campo \inlineJavaCode{jsonb} declarado em cada Servlet (linha 27 do \texttt{EstadoRestfulServlet}) é uma instância de \inlineJavaCode{Jsonb}, a interface principal da API Jakarta JSON-B. Com ela, \inlineJavaCode{jsonb.toJson(objeto)} serializa qualquer objeto Java para JSON e\\\inlineJavaCode{jsonb.fromJson(string, Classe.class)} faz o caminho inverso.
+O campo \inlineJavaCode{jsonb} declarado em cada Servlet (linha 30 do \texttt{EstadoRestfulServlet}) é uma instância de \inlineJavaCode{Jsonb}, a interface principal da API Jakarta JSON-B. Com ela, \inlineJavaCode{jsonb.toJson(objeto)} serializa qualquer objeto Java para JSON e\\\inlineJavaCode{jsonb.fromJson(string, Classe.class)} faz o caminho inverso.
 
 \begin{saibaMais}
     A Jakarta JSON-B (\textit{JSON Binding}) é a especificação padrão do Jakarta EE para mapeamento entre objetos Java e JSON. Ela funciona de forma similar ao JAXB para XML: usa reflexão para inspecionar os campos e acessores do objeto e gera o JSON correspondente. A implementação de referência é o Yasson. Por padrão, ela usa os nomes dos campos Java como nomes das propriedades JSON, o que em nosso caso é exatamente o comportamento desejado.
@@ -169,25 +169,25 @@ Vamos percorrer cada método.
 
 A anotação \inlineJavaCode{@WebServlet} na linha 24 mapeia este Servlet para \texttt{/api/estados/*}. O asterisco significa que qualquer caminho que comece com \texttt{/api/estados/} também será tratado por ele. Isso nos permite usar um único Servlet para tanto a listagem (\texttt{GET /api/estados/}) quanto a busca por id (\texttt{GET /api/estados/7}).
 
-Dentro do \inlineJavaCode{doGet} (linha 30), a distinção entre os dois casos é feita pelo \inlineJavaCode{pathInfo} (linha 40). Quando a URL é apenas \texttt{/api/estados/}, o \inlineJavaCode{pathInfo} é \inlineJavaCode{null} ou \texttt{"/"}. Quando há um id, como em \texttt{/api/estados/7}, o \inlineJavaCode{pathInfo} é \texttt{"/7"}. Neste último caso (linha 45), extraímos o id removendo a barra inicial com \inlineJavaCode{substring(1)} e convertemos para \texttt{Long}. Se o estado existir, devolvemos ele serializado diretamente (linha 50) --- sem o envelope \texttt{Resposta}, pois neste caso o JSON do estado já é a resposta completa. Se não existir (linha 52), devolvemos um \texttt{Resposta} com status 404.
+Dentro do \inlineJavaCode{doGet} (linha 33), a distinção entre os dois casos é feita pelo \inlineJavaCode{pathInfo} (linha 45). Quando a URL é apenas \texttt{/api/estados/}, o \inlineJavaCode{pathInfo} é \inlineJavaCode{null} ou \texttt{"/"}. Quando há um id, como em \texttt{/api/estados/7}, o \inlineJavaCode{pathInfo} é \texttt{"/7"}. Neste último caso (linha 50), extraímos o id removendo a barra inicial com \inlineJavaCode{substring(1)} e convertemos para \texttt{Long}. Se o estado existir, devolvemos ele serializado diretamente (linha 55) --- sem o envelope \texttt{Resposta}, pois neste caso o JSON do estado já é a resposta completa. Se não existir (linha 57), devolvemos um \texttt{Resposta} com status 404.
 
-Para a listagem (linha 59), simplesmente devolvemos a lista inteira serializada como um array JSON.
+Para a listagem (linha 66), simplesmente devolvemos a lista inteira serializada como um array JSON.
 
 \subsubsection{doPost --- Inserção}
 
-No \inlineJavaCode{doPost} (linha 78), o JSON com os dados do novo estado vem no corpo da requisição. Usamos \inlineJavaCode{Utils.obterDados(request)} para ler esse corpo como \texttt{String} e então o \inlineJavaCode{jsonb.fromJson(...)} para desserializá-lo para um objeto \texttt{Estado} (linhas 88 a 91).
+No \inlineJavaCode{doPost} (linha 89), o JSON com os dados do novo estado vem no corpo da requisição. Usamos \inlineJavaCode{Utils.obterDados(request)} para ler esse corpo como \texttt{String} e então o \inlineJavaCode{jsonb.fromJson(...)} para desserializá-lo para um objeto \texttt{Estado} (linhas 101 a 104).
 
-Em seguida, validamos o objeto com \inlineJavaCode{Utils.validar(estado, "id")} (linha 93) ignorando o campo \texttt{id}, pois um estado novo ainda não tem identificador. Se a validação falhar, \inlineJavaCode{ValidacaoException} será lançada e capturada pelo \inlineJavaCode{catch} da linha 100, resultando em uma resposta 400 com a descrição dos erros. Se tudo estiver correto, o estado é salvo (linha 94) e respondemos com status 201 (Created), adicionando o cabeçalho \texttt{Location} com o endereço do novo recurso.
+Em seguida, validamos o objeto com \inlineJavaCode{Utils.validar(estado, "id")} (linha 106) ignorando o campo \texttt{id}, pois um estado novo ainda não tem identificador. Se a validação falhar, \inlineJavaCode{ValidacaoException} será lançada e capturada pelo \inlineJavaCode{catch} da linha 118, resultando em uma resposta 400 com a descrição dos erros. Se tudo estiver correto, o estado é salvo (linha 107) e respondemos com status 201 (Created), adicionando o cabeçalho \texttt{Location} com o endereço do novo recurso.
 
 \subsubsection{doPut --- Atualização}
 
-No \inlineJavaCode{doPut} (linha 116), a URL inclui o id do estado a ser atualizado (ex.: \texttt{PUT /api/estados/7}) e o corpo da requisição contém os novos dados.
+No \inlineJavaCode{doPut} (linha 138), a URL inclui o id do estado a ser atualizado (ex.: \texttt{PUT /api/estados/7}) e o corpo da requisição contém os novos dados.
 
-O ponto mais importante aqui é que não atualizamos cegamente o objeto recebido --- primeiro buscamos o estado existente no banco de dados pelo id (linha 134). Se ele não existir, lançamos \inlineJavaCode{NaoEncontradoException} (linha 137), que resulta em uma resposta 404. Isso é fundamental: precisamos do objeto existente para garantir que não estamos sobrescrevendo campos que o cliente não enviou. Só então transferimos os novos valores (linhas 140 e 141) e validamos/atualizamos.
+O ponto mais importante aqui é que não atualizamos cegamente o objeto recebido --- primeiro buscamos o estado existente no banco de dados pelo id (linha 158). Se ele não existir, lançamos \inlineJavaCode{NaoEncontradoException} (linha 161), que resulta em uma resposta 404. Isso é fundamental: precisamos do objeto existente para garantir que não estamos sobrescrevendo campos que o cliente não enviou. Só então transferimos os novos valores (linhas 164 e 165) e validamos/atualizamos.
 
 \subsubsection{doDelete --- Exclusão}
 
-O \inlineJavaCode{doDelete} (linha 171) é o mais simples. Extraímos o id da URL, buscamos o estado e chamamos \inlineJavaCode{dao.excluir(estado)}. Aqui não adicionamos verificação de nulo antes da exclusão porque, se o estado não existir, o DAO tentará excluir um objeto nulo e lançará \texttt{SQLException}, que cai no \inlineJavaCode{catch} de erros do servidor. Isso poderia ser melhorado com um \inlineJavaCode{NaoEncontradoException}, mas optamos por manter o exemplo simples.
+O \inlineJavaCode{doDelete} (linha 208) é o mais simples. Extraímos o id da URL, buscamos o estado e chamamos \inlineJavaCode{dao.excluir(estado)}. Aqui não adicionamos verificação de nulo antes da exclusão porque, se o estado não existir, o DAO tentará excluir um objeto nulo e lançará \texttt{SQLException}, que cai no \inlineJavaCode{catch} de erros do servidor. Isso poderia ser melhorado com um \inlineJavaCode{NaoEncontradoException}, mas optamos por manter o exemplo simples.
 
 
 \subsection{O Servlet de Produtos --- Múltiplos DAOs no PUT}
@@ -197,7 +197,7 @@ O Servlet de produtos segue a mesma estrutura do de estados, mas com uma peculia
 \javaCode{Servlet RESTful para Produtos\newline%
 Arquivo: \texttt{vendaprodutos/controladores/restful/ProdutoRestfulServlet.java}}{projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/controladores/restful/ProdutoRestfulServlet.java}
 
-Veja o \inlineJavaCode{doPut} (linha 118). Três DAOs são abertos no \textit{try-with-resources} (linhas 126 a 128): um para produtos, um para fornecedores e um para unidades de medida. Após buscar o produto existente (linha 138) e verificar que ele existe (linha 140), atualizamos os campos simples (linhas 144 a 148). Mas para os relacionamentos (linhas 149 a 155), verificamos se o fornecedor ou a unidade de medida enviados pelo cliente são diferentes dos que o produto já tem, usando o método \inlineJavaCode{equals}. Só se houver mudança fazemos a consulta ao banco para obter o objeto completo. Essa verificação evita buscas desnecessárias ao banco de dados.
+Veja o \inlineJavaCode{doPut} (linha 140). Três DAOs são abertos no \textit{try-with-resources} (linhas 150 a 152): um para produtos, um para fornecedores e um para unidades de medida. Após buscar o produto existente (linha 162) e verificar que ele existe (linha 164), atualizamos os campos simples (linhas 168 a 171). Mas para os relacionamentos (linhas 173 a 187), verificamos se o fornecedor ou a unidade de medida enviados pelo cliente são diferentes dos que o produto já tem, usando o método \inlineJavaCode{equals}. Só se houver mudança fazemos a consulta ao banco para obter o objeto completo. Essa verificação evita buscas desnecessárias ao banco de dados.
 
 
 \subsection{O Servlet de Vendas --- DTOs e Sub-recursos}
@@ -209,7 +209,7 @@ Arquivo: \texttt{vendaprodutos/controladores/restful/VendaRestfulServlet.java}}{
 
 \subsubsection{O Problema da Inserção de Vendas}
 
-No \inlineJavaCode{doPost} (linha 87), criar uma venda envolve mais do que os dados de uma única entidade. O cliente precisa enviar o id do cliente e uma lista de itens, cada um com o id do produto e a quantidade. Não podemos usar a classe \texttt{Venda} diretamente para desserialização porque ela contém um objeto \texttt{Cliente} completo e uma lista de \texttt{ItemVenda} que só faz sentido após a venda ser criada.
+No \inlineJavaCode{doPost} (linha 98), criar uma venda envolve mais do que os dados de uma única entidade. O cliente precisa enviar o id do cliente e uma lista de itens, cada um com o id do produto e a quantidade. Não podemos usar a classe \texttt{Venda} diretamente para desserialização porque ela contém um objeto \texttt{Cliente} completo e uma lista de \texttt{ItemVenda} que só faz sentido após a venda ser criada.
 
 A solução é usar um \textbf{DTO} (\textit{Data Transfer Object}). Criamos dois \textit{records} específicos para receber os dados do cliente:
 
@@ -231,13 +231,13 @@ O JSON enviado pelo \textit{front-end} para criar uma venda tem a seguinte forma
 }
 \end{boxJsonCode}
 
-O JSON-B desserializa esse JSON diretamente em um objeto \texttt{VendaDTO} (linhas 100 a 102 do Servlet). A partir desse DTO, o Servlet constrói os objetos do domínio: busca o cliente pelo id (linha 104), cria a venda com a data atual (linhas 106 a 110), salva a venda (linha 112) e então itera sobre os itens para criar cada \texttt{ItemVenda}, atualizando o estoque do produto no processo (linhas 114 a 128).
+O JSON-B desserializa esse JSON diretamente em um objeto \texttt{VendaDTO} (linhas 113 a 115 do Servlet). A partir desse DTO, o Servlet constrói os objetos do domínio: busca o cliente pelo id (linha 117), cria a venda com a data atual (linhas 119 a 122), salva a venda (linha 125) e então itera sobre os itens para criar cada \texttt{ItemVenda}, atualizando o estoque do produto no processo (linhas 127 a 145).
 
 \subsubsection{O Cancelamento --- Sub-recurso via PUT}
 
 Cancelar uma venda não é exatamente uma atualização de recurso --- é uma ação. Uma abordagem RESTful comum para isso é criar um sub-recurso que representa essa ação: \texttt{PUT /api/vendas/cancelar/7} cancela a venda de id 7.
 
-No \inlineJavaCode{doPut} (linha 152), o \inlineJavaCode{pathInfo} pode ser \texttt{/cancelar/7}, que é o único caso que suportamos. Se o caminho começar com \texttt{"/cancelar/"} (linha 166), extraímos o id, buscamos a venda, marcamos como cancelada e devolvemos os itens ao estoque (linhas 170 a 178). Se o caminho for qualquer outra coisa, respondemos com 400 (linha 184).
+No \inlineJavaCode{doPut} (linha 173), o \inlineJavaCode{pathInfo} pode ser \texttt{/cancelar/7}, que é o único caso que suportamos. Se o caminho começar com \texttt{"/cancelar/"} (linha 189), extraímos o id, buscamos a venda, marcamos como cancelada e devolvemos os itens ao estoque (linhas 191 a 201). Se o caminho for qualquer outra coisa, respondemos com 400 (linha 209).
 
 \begin{saibaMais}
     Em APIs REST mais formais, ações como ``cancelar'' costumam ser modeladas de formas diferentes por diferentes equipes. Algumas usam \texttt{PATCH} (atualização parcial do recurso), outras criam sub-recursos (\texttt{/vendas/7/cancelamento}), outras preferem um \textit{endpoint} de ação explícito. Nenhuma dessas abordagens é errada --- o importante é ser consistente em toda a API.
@@ -289,21 +289,21 @@ Arquivo: \texttt{src/js/modulos/utils.js}}{projetos/capitulo10/VendaProdutosSPA/
 
 \subsubsection{customFetch --- Requisições com Timeout}
 
-A função \inlineJavaScriptCode{customFetch} (linha 41) é um invólucro ao redor da \textit{Fetch API} nativa do navegador. A \textit{Fetch API} é a forma moderna de fazer requisições HTTP em JavaScript, substituindo o antigo \texttt{XMLHttpRequest}.
+A função \inlineJavaScriptCode{customFetch} (linha 58) é um invólucro ao redor da \textit{Fetch API} nativa do navegador. A \textit{Fetch API} é a forma moderna de fazer requisições HTTP em JavaScript, substituindo o antigo \texttt{XMLHttpRequest}.
 
-O primeiro problema que \inlineJavaScriptCode{customFetch} resolve é o \textit{timeout}. A \textit{Fetch API} nativa não tem suporte a \textit{timeout} --- uma requisição pode ficar pendente indefinidamente. Resolvemos isso com um \inlineJavaScriptCode{AbortController} (linha 43). Um \inlineJavaScriptCode{setTimeout} de 30 segundos chama \inlineJavaScriptCode{controller.abort()} se a requisição não terminar nesse tempo (linha 44), o que fará a \textit{Fetch API} lançar um erro com o nome \texttt{"AbortError"}, capturado no bloco \inlineJavaScriptCode{catch} (linha 76).
+O primeiro problema que \inlineJavaScriptCode{customFetch} resolve é o \textit{timeout}. A \textit{Fetch API} nativa não tem suporte a \textit{timeout} --- uma requisição pode ficar pendente indefinidamente. Resolvemos isso com um \inlineJavaScriptCode{AbortController} (linha 61). Um \inlineJavaScriptCode{setTimeout} de 30 segundos chama \inlineJavaScriptCode{controller.abort()} se a requisição não terminar nesse tempo (linha 64), o que fará a \textit{Fetch API} lançar um erro com o nome \texttt{"AbortError"}, capturado no bloco \inlineJavaScriptCode{catch} (linha 96).
 
-O segundo problema que a função resolve é a configuração de cabeçalhos padrão (linhas 48 a 51): \texttt{Accept: application/json} diz ao servidor que o cliente espera JSON de volta, e \texttt{Content-Type: application/json} diz ao servidor que o corpo da requisição está em JSON. As linhas 53 a 57 adicionam o cabeçalho \texttt{Authorization} com um token JWT caso exista um no \texttt{localStorage} --- nossa aplicação não usa autenticação, mas a função já está preparada para isso.
+O segundo problema que a função resolve é a configuração de cabeçalhos padrão (linhas 68 a 71): \texttt{Accept: application/json} diz ao servidor que o cliente espera JSON de volta, e \texttt{Content-Type: application/json} diz ao servidor que o corpo da requisição está em JSON. As linhas 73 a 78 adicionam o cabeçalho \texttt{Authorization} com um token JWT caso exista um no \texttt{localStorage} --- nossa aplicação não usa autenticação, mas a função já está preparada para isso.
 
 \subsubsection{carregarFragmento --- Carregamento Lazy de HTML}
 
-A função \inlineJavaScriptCode{carregarFragmento} (linha 137) é responsável pelo carregamento de fragmentos HTML sob demanda. Ela recebe o id do elemento container que receberá o HTML e a URL do fragmento.
+A função \inlineJavaScriptCode{carregarFragmento} (linha 166) é responsável pelo carregamento de fragmentos HTML sob demanda. Ela recebe o id do elemento container que receberá o HTML e a URL do fragmento.
 
-A verificação de \inlineJavaScriptCode{node.dataset.usado} (linha 146) é fundamental. Ela evita que um mesmo fragmento seja carregado múltiplas vezes no mesmo container --- o que aconteceria toda vez que o usuário navegasse para aquela seção e o código chamasse \inlineJavaScriptCode{carregarFragmento} novamente. Se o container já foi usado, uma \inlineJavaScriptCode{ContainerUtilizadoError} é lançada, que cada módulo trata de forma específica (simplesmente ignorando, pois o fragmento já está carregado).
+A verificação de \inlineJavaScriptCode{node.dataset.usado} (linha 176) é fundamental. Ela evita que um mesmo fragmento seja carregado múltiplas vezes no mesmo container --- o que aconteceria toda vez que o usuário navegasse para aquela seção e o código chamasse \inlineJavaScriptCode{carregarFragmento} novamente. Se o container já foi usado, uma \inlineJavaScriptCode{ContainerUtilizadoError} é lançada, que cada módulo trata de forma específica (simplesmente ignorando, pois o fragmento já está carregado).
 
 \subsubsection{carregarSelect --- Populando Selects via REST}
 
-A função \inlineJavaScriptCode{carregarSelect} (linha 231) faz uma requisição GET a uma URL e usa o array de objetos retornado para popular um elemento \inlineHTMLCode{<select>}. Ela recebe um objeto \texttt{propriedades} que indica quais campos do objeto devem ser usados como valor e como rótulo das opções. Opcionalmente, pode receber uma \texttt{funcaoLabel} para formatar o rótulo de forma customizada (como no caso de produtos, onde exibimos a descrição, o valor e a unidade de medida). As propriedades do objeto que precisam ficar disponíveis na \inlineHTMLCode{<option>} como atributos \texttt{data-*} são passadas em \texttt{propriedadesDataset}.
+A função \inlineJavaScriptCode{carregarSelect} (linha 266) faz uma requisição GET a uma URL e usa o array de objetos retornado para popular um elemento \inlineHTMLCode{<select>}. Ela recebe um objeto \texttt{propriedades} que indica quais campos do objeto devem ser usados como valor e como rótulo das opções. Opcionalmente, pode receber uma \texttt{funcaoLabel} para formatar o rótulo de forma customizada (como no caso de produtos, onde exibimos a descrição, o valor e a unidade de medida). As propriedades do objeto que precisam ficar disponíveis na \inlineHTMLCode{<option>} como atributos \texttt{data-*} são passadas em \texttt{propriedadesDataset}.
 
 
 \subsection{O Módulo de Modais --- \texttt{modais.js}}
@@ -313,11 +313,11 @@ A SPA tem três tipos de modais: um de ``aguarde'' (para cobrir a tela durante r
 \javaScriptCode{Módulo de gerenciamento de modais\newline%
 Arquivo: \texttt{src/js/modulos/modais.js}}{projetos/capitulo10/VendaProdutosSPA/frontend/src/js/modulos/modais.js}
 
-A classe \texttt{Modal} (linha 6) recebe no construtor o id do elemento HTML que representa o modal. No método \inlineJavaScriptCode{iniciar} (linha 18) configura os \textit{listeners} dos botões de fechar, OK e cancelar. O método \inlineJavaScriptCode{abrir} (linha 62) exibe o modal, atualiza título e mensagem se fornecidos, e guarda as funções de \textit{callback} para OK e cancelar. O método \inlineJavaScriptCode{fechar} (linha 86) esconde o modal.
+A classe \texttt{Modal} (linha 6) recebe no construtor o id do elemento HTML que representa o modal. No método \inlineJavaScriptCode{iniciar} (linha 18) configura os \textit{listeners} dos botões de fechar, OK e cancelar. O método \inlineJavaScriptCode{abrir} (linha 62) exibe o modal, atualiza título e mensagem se fornecidos, e guarda as funções de \textit{callback} para OK e cancelar. O método \inlineJavaScriptCode{fechar} (linha 91) esconde o modal.
 
-O controle do estado \inlineJavaScriptCode{this.aberto} (linhas 64 e 79) garante que um modal não seja aberto duas vezes --- o que causaria problemas com os \textit{callbacks} sendo sobrescritos. O modal de aguarde é aberto sem argumentos (título, mensagem e \textit{callbacks} são opcionais) e fechado explicitamente após a conclusão da requisição.
+O controle do estado \inlineJavaScriptCode{this.aberto} (linhas 65 e 92) garante que um modal não seja aberto duas vezes --- o que causaria problemas com os \textit{callbacks} sendo sobrescritos. O modal de aguarde é aberto sem argumentos (título, mensagem e \textit{callbacks} são opcionais) e fechado explicitamente após a conclusão da requisição.
 
-No fim do arquivo, as três instâncias de modais são exportadas como variáveis do módulo, e a função \inlineJavaScriptCode{iniciar} (linha 101) cria as três instâncias. Essa função é chamada uma única vez pelo \inlineJavaScriptCode{app.js} no início da aplicação.
+No fim do arquivo, as três instâncias de modais são exportadas como variáveis do módulo, e a função \inlineJavaScriptCode{iniciar} (linha 106) cria as três instâncias. Essa função é chamada uma única vez pelo \inlineJavaScriptCode{app.js} no início da aplicação.
 
 
 \subsection{A Classe \texttt{ContainerUtilizadoError}}
@@ -349,23 +349,23 @@ Entre as linhas 11 e 37, o módulo declara suas variáveis. Elas são declaradas
 
 A função exportada \inlineJavaScriptCode{iniciar} (linha 39) é o ponto de entrada do módulo. Ela é chamada pelo \texttt{app.js} quando o usuário clica no item de menu de estados.
 
-O bloco \inlineJavaScriptCode{if (!inicializado)} (linha 41) garante que a inicialização aconteça apenas uma vez. Na primeira chamada, carregamos o fragmento HTML com \inlineJavaScriptCode{Utils.carregarFragmento} (linha 45), que retorna uma \textit{Promise}. Dentro do \inlineJavaScriptCode{.then()} (linha 46), após o HTML estar no DOM, capturamos referências a todos os elementos, configuramos os \textit{event listeners} dos botões e chamamos \inlineJavaScriptCode{carregar()} para buscar os dados iniciais.
+O bloco \inlineJavaScriptCode{if (!inicializado)} (linha 41) garante que a inicialização aconteça apenas uma vez. Na primeira chamada, carregamos o fragmento HTML com \inlineJavaScriptCode{Utils.carregarFragmento} (linha 45), que retorna uma \textit{Promise}. Dentro do \inlineJavaScriptCode{.then()} (linha 48), após o HTML estar no DOM, capturamos referências a todos os elementos, configuramos os \textit{event listeners} dos botões e chamamos \inlineJavaScriptCode{carregar()} para buscar os dados iniciais.
 
-Na segunda chamada (bloco \inlineJavaScriptCode{else}, linha 80), o fragmento já está carregado mas os dados podem estar desatualizados, então apenas chamamos \inlineJavaScriptCode{carregar()} novamente.
+Na segunda chamada (bloco \inlineJavaScriptCode{else}, linha 83), o fragmento já está carregado mas os dados podem estar desatualizados, então apenas chamamos \inlineJavaScriptCode{carregar()} novamente.
 
 \subsubsection{As Funções \texttt{carregar}, \texttt{salvar} e \texttt{excluir}}
 
-A função \inlineJavaScriptCode{carregar} (linha 86) é \inlineJavaScriptCode{async}: ela usa \inlineJavaScriptCode{await} para esperar pela resposta do servidor sem bloquear o \textit{thread} principal do navegador. O modal de aguarde é aberto antes do loop que constrói as linhas da tabela e fechado depois --- isso é necessário porque o processamento da listagem é a parte potencialmente mais perceptível ao usuário, especialmente com conexões mais lentas.
+A função \inlineJavaScriptCode{carregar} (linha 89) é \inlineJavaScriptCode{async}: ela usa \inlineJavaScriptCode{await} para esperar pela resposta do servidor sem bloquear o \textit{thread} principal do navegador. O modal de aguarde é aberto antes do loop que constrói as linhas da tabela e fechado depois --- isso é necessário porque o processamento da listagem é a parte potencialmente mais perceptível ao usuário, especialmente com conexões mais lentas.
 
 Para cada estado retornado, criamos um elemento \inlineHTMLCode{<tr>}, adicionamos \textit{dataset} com o índice, configuramos células com os dados e adicionamos um \textit{listener} de clique que, ao ser acionado, popula o formulário e destaca a linha selecionada. Também atualizamos quaisquer selects externos que tenham sido registrados via \inlineJavaScriptCode{adicionarSelectExterno}.
 
-A função \inlineJavaScriptCode{salvar} (linha 132) determina se é uma inserção ou uma atualização baseando-se em \inlineJavaScriptCode{objSelecionado}: se for \inlineJavaScriptCode{null}, é uma inserção com POST; caso contrário, é uma atualização com PUT, adicionando o id à URL. A validação do formulário usa a \textit{Constraint Validation API} nativa do navegador via \inlineJavaScriptCode{Utils.validarFormulario}, que não faz requisição ao servidor --- apenas verifica as restrições definidas no HTML (\texttt{required}, \texttt{minlength}, \texttt{pattern}, etc.).
+A função \inlineJavaScriptCode{salvar} (linha 138) determina se é uma inserção ou uma atualização baseando-se em \inlineJavaScriptCode{objSelecionado}: se for \inlineJavaScriptCode{null}, é uma inserção com POST; caso contrário, é uma atualização com PUT, adicionando o id à URL. A validação do formulário usa a \textit{Constraint Validation API} nativa do navegador via \inlineJavaScriptCode{Utils.validarFormulario}, que não faz requisição ao servidor --- apenas verifica as restrições definidas no HTML (\texttt{required}, \texttt{minlength}, \texttt{pattern}, etc.).
 
 \begin{saibaMais}
     A \textit{Constraint Validation API} é uma API nativa do HTML5 que permite validar formulários sem JavaScript adicional, usando apenas atributos HTML como \texttt{required}, \texttt{minlength}, \texttt{maxlength}, \texttt{pattern}, \texttt{min}, \texttt{max} e \texttt{type}. Via JavaScript, podemos acessar \texttt{campo.validity} (que contém um objeto com propriedades booleanas como \texttt{valueMissing}, \texttt{patternMismatch}, etc.) e \texttt{campo.validationMessage} (a mensagem de erro padrão do navegador, traduzida para o idioma do sistema). Isso elimina a necessidade de bibliotecas de validação para casos comuns.
 \end{saibaMais}
 
-A função \inlineJavaScriptCode{excluir} (linha 171) abre primeiro o modal de confirmação. Só após o usuário confirmar é que a requisição DELETE é enviada ao servidor. O modal de aguarde é aberto dentro do \textit{callback} de confirmação (linha 180), garantindo simetria com o fechamento após a resposta (linha 189).
+A função \inlineJavaScriptCode{excluir} (linha 180) abre primeiro o modal de confirmação. Só após o usuário confirmar é que a requisição DELETE é enviada ao servidor. O modal de aguarde é aberto dentro do \textit{callback} de confirmação (linha 189), garantindo simetria com o fechamento após a resposta (linha 198).
 
 
 \subsection{O Módulo de Produtos --- Selects Dependentes}
@@ -375,9 +375,9 @@ O módulo de produtos, na Listagem~\thechapter.\ref{listagem:projetos/capitulo10
 \javaScriptCode{Módulo de produtos\newline%
 Arquivo: \texttt{src/js/modulos/produtos.js}}{projetos/capitulo10/VendaProdutosSPA/frontend/src/js/modulos/produtos.js}
 
-Na função \inlineJavaScriptCode{iniciar} (linha 49), após carregar o fragmento e capturar as referências aos elementos, fazemos duas coisas importantes. Primeiro, registramos os selects do formulário de produtos nos módulos de Fornecedores e UnidadesMedida (linhas 89 e 90) via \inlineJavaScriptCode{adicionarSelectExterno}. Isso garante que quando esses cadastros forem atualizados (um novo fornecedor for cadastrado, por exemplo), os selects do formulário de produtos também sejam atualizados automaticamente.
+Na função \inlineJavaScriptCode{iniciar} (linha 49), após carregar o fragmento e capturar as referências aos elementos, fazemos duas coisas importantes. Primeiro, registramos os selects do formulário de produtos nos módulos de Fornecedores e UnidadesMedida (linhas 92 e 93) via \inlineJavaScriptCode{adicionarSelectExterno}. Isso garante que quando esses cadastros forem atualizados (um novo fornecedor for cadastrado, por exemplo), os selects do formulário de produtos também sejam atualizados automaticamente.
 
-Segundo, iniciamos o carregamento dos selects diretamente com \inlineJavaScriptCode{Utils.carregarSelect} (linhas 97 e 98), caso os módulos de fornecedores e unidades de medida ainda não tenham sido inicializados. Isso garante que o formulário de produtos funcione corretamente independentemente da ordem em que o usuário navega pela aplicação.
+Segundo, iniciamos o carregamento dos selects diretamente com \inlineJavaScriptCode{Utils.carregarSelect} (linhas 100 e 105), caso os módulos de fornecedores e unidades de medida ainda não tenham sido inicializados. Isso garante que o formulário de produtos funcione corretamente independentemente da ordem em que o usuário navega pela aplicação.
 
 Ao atualizar um produto, enviamos os dados completos incluindo o id do fornecedor e o id da unidade de medida, que o \textit{back-end} usará para buscar e associar os objetos corretos --- exatamente como vimos no \texttt{ProdutoRestfulServlet}.
 
@@ -391,25 +391,31 @@ Arquivo: \texttt{src/js/modulos/vendas.js}}{projetos/capitulo10/VendaProdutosSPA
 
 O estado do carrinho é mantido no array \inlineJavaScriptCode{itensVenda} (linha 44). Cada item do carrinho tem o id do produto, a descrição para exibição, o valor de venda e a quantidade. Esse array é construído na memória do navegador e só vai ao servidor quando o usuário confirmar a venda.
 
-A função \inlineJavaScriptCode{adicionarItem} (linha 271) verifica se o produto já existe no carrinho (usando \inlineJavaScriptCode{Array.some}): se existir, incrementa a quantidade; se não, adiciona um novo item. A função \inlineJavaScriptCode{atualizarListaItens} (linha 358) reconstrói o \inlineHTMLCode{<select>} que exibe os itens do carrinho e atualiza o total.
+A função \inlineJavaScriptCode{adicionarItem} (linha 312) verifica se o produto já existe no carrinho (usando \inlineJavaScriptCode{Array.some}): se existir, incrementa a quantidade; se não, adiciona um novo item. A função \inlineJavaScriptCode{atualizarListaItens} (linha 402) reconstrói o \inlineHTMLCode{<select>} que exibe os itens do carrinho e atualiza o total.
 
-Na função \inlineJavaScriptCode{salvar} (linha 163), construímos o objeto que será enviado ao servidor: apenas os ids dos produtos e as quantidades (linhas 169 a 175), no formato que o \texttt{VendaDTO} do \textit{back-end} espera. Isso é importante --- não enviamos os objetos completos, apenas os dados mínimos necessários. O \textit{back-end} buscará os objetos completos no banco de dados.
+Na função \inlineJavaScriptCode{salvar} (linha 182), construímos o objeto que será enviado ao servidor: apenas os ids dos produtos e as quantidades (linhas 191 a 202), no formato que o \texttt{VendaDTO} do \textit{back-end} espera. Isso é importante --- não enviamos os objetos completos, apenas os dados mínimos necessários. O \textit{back-end} buscará os objetos completos no banco de dados.
 
-A função \inlineJavaScriptCode{cancelarVendaRealizada} (linha 243) lida com o cancelamento de vendas já registradas. Ela recebe o id da venda e faz um \texttt{PUT /api/vendas/cancelar/\{id\}}. Se o carrinho da nova venda em andamento estiver vazio, o cancelamento de navegação (botão ``Cancelar'' do formulário de nova venda, linha 207) vai direto, sem confirmação. Se houver itens no carrinho, abre o modal de confirmação antes de descartar.
+A função \inlineJavaScriptCode{cancelarVendaRealizada} (linha 281) lida com o cancelamento de vendas já registradas. Ela recebe o id da venda e faz um \texttt{PUT /api/vendas/cancelar/\{id\}}. Se o carrinho da nova venda em andamento estiver vazio, o cancelamento de navegação (botão ``Cancelar'' do formulário de nova venda, linha 239) vai direto, sem confirmação. Se houver itens no carrinho, abre o modal de confirmação antes de descartar.
 
 
 \subsection{O \texttt{app.js} --- Roteamento \textit{Frameworkless}}
 
-O arquivo \texttt{app.js} é o ponto de entrada da SPA. Ele é o único módulo que não é importado por nenhum outro --- é o topo da hierarquia de dependências. Ele é referenciado diretamente no HTML principal com \inlineHTMLCode{<script type="module" src="/src/js/app.js"></script>}. Sua implementação está na Listagem~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/frontend/src/js/app.js}.
+O arquivo \texttt{app.js} é o ponto de entrada da SPA. Ele é o único módulo que não é importado por nenhum outro --- é o topo da hierarquia de dependências. Ele é referenciado diretamente no HTML principal com:
+
+\begin{boxHTMLCode}
+<script type="module" src="/src/js/app.js"></script>
+\end{boxHTMLCode}
+
+Sua implementação está na Listagem~\thechapter.\ref{listagem:projetos/capitulo10/VendaProdutosSPA/frontend/src/js/app.js}.
 
 \javaScriptCode{Módulo principal da SPA\newline%
 Arquivo: \texttt{src/js/app.js}}{projetos/capitulo10/VendaProdutosSPA/frontend/src/js/app.js}
 
 A URL base do \textit{back-end} é definida na última linha do arquivo, a única que precisaria ser alterada para apontar para um servidor diferente em produção.
 
-A função \inlineJavaScriptCode{prepararMenu} (linha 24) configura um \textit{listener} de clique para cada item do menu. Ao clicar, dois passos acontecem: primeiro, \inlineJavaScriptCode{esconderTodosContaineres} (linha 67) esconde todos os containers de cadastro e exibe apenas o do cadastro selecionado; segundo, chama a função \inlineJavaScriptCode{iniciar} do módulo correspondente, passando a URL base.
+A função \inlineJavaScriptCode{prepararMenu} (linha 24) configura um \textit{listener} de clique para cada item do menu. Ao clicar, dois passos acontecem: primeiro, \inlineJavaScriptCode{esconderTodosContaineres} (linha 91) esconde todos os containers de cadastro e exibe apenas o do cadastro selecionado; segundo, chama a função \inlineJavaScriptCode{iniciar} do módulo correspondente, passando a URL base.
 
-\inlineJavaScriptCode{esconderTodosContaineres} (linha 67) usa \inlineJavaScriptCode{document.querySelectorAll(".container-cadastro")} para selecionar todos os elementos com aquela classe CSS, adiciona a classe \texttt{escondido} a todos e depois remove essa classe do container desejado. Isso é a essência do roteamento \textit{frameworkless}: não há histórico de navegação gerenciado, não há URLs de rota --- apenas mostrar e esconder \texttt{div}s.
+\inlineJavaScriptCode{esconderTodosContaineres} (linha 91) usa\\ \inlineJavaScriptCode{document.querySelectorAll(".container-cadastro")}\\para selecionar todos os elementos com aquela classe CSS, adiciona a classe \texttt{escondido} a todos e depois remove essa classe do container desejado. Isso é a essência do roteamento \textit{frameworkless}: não há histórico de navegação gerenciado, não há URLs de rota --- apenas mostrar e esconder \texttt{div}s.
 
 Note que \inlineJavaScriptCode{Modais.iniciar()} (linha 19) é chamado uma única vez na inicialização, criando as três instâncias da classe \texttt{Modal} que serão usadas por todos os módulos. E \inlineJavaScriptCode{document.getElementById("itemMenuHome").click()} (linha 21) simula um clique no item de Home logo na inicialização, o que aciona o \textit{listener} configurado em \inlineJavaScriptCode{prepararMenu}, resultando em todos os containers sendo escondidos exceto o de Home.
 
@@ -430,21 +436,32 @@ O Servlet de cidades está na Listagem~\thechapter.\ref{listagem:projetos/capitu
 \javaCode{Servlet RESTful para Cidades\newline%
 Arquivo: \texttt{vendaprodutos/controladores/restful/CidadeRestfulServlet.java}}{projetos/capitulo10/VendaProdutosSPA/backend/src/java/vendaprodutos/controladores/restful/CidadeRestfulServlet.java}
 
-O \inlineJavaCode{doGet} e o \inlineJavaCode{doPost} (linhas 31 e 79) são estruturalmente idênticos ao que vimos no \texttt{EstadoRestfulServlet}: o GET distingue listagem de busca por id via \inlineJavaCode{pathInfo}, e o POST lê o corpo JSON, desserializa para \texttt{Cidade} e valida antes de persistir. O que muda é que ao serializar uma cidade com o JSON-B, o JSON resultante inclui o objeto de estado embutido, já que a entidade \texttt{Cidade} tem uma referência a um objeto \texttt{Estado}:
+O \inlineJavaCode{doGet} e o \inlineJavaCode{doPost} (linhas 34 e 90) são estruturalmente idênticos ao que vimos no \texttt{EstadoRestfulServlet}: o GET distingue listagem de busca por id via \inlineJavaCode{pathInfo}, e o POST lê o corpo JSON, desserializa para \texttt{Cidade} e valida antes de persistir. O que muda é que ao serializar uma cidade com o JSON-B, o JSON resultante inclui o objeto de estado embutido, já que a entidade \texttt{Cidade} tem uma referência a um objeto \texttt{Estado}:
 
 \begin{boxJsonCode}[title=Exemplo de JSON retornado pelo GET de cidades]
 [
-  { "id": 1, "nome": "São Carlos", "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" } },
-  { "id": 2, "nome": "Franca",     "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" } }
+  {
+    "id": 1,
+    "nome": "São Carlos",
+    "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" }
+  }, { 
+    "id": 2,
+    "nome": "Franca",
+    "estado": { "id": 25, "nome": "São Paulo", "sigla": "SP" }
+  }
 ]
 \end{boxJsonCode}
 
-O \inlineJavaCode{doPut} (linha 117) é onde a dependência aparece do lado do servidor. Dois DAOs são abertos no \textit{try-with-resources} (linhas 125 e 126): um para cidades e um para estados. Após buscar a cidade existente pelo id e verificar que ela existe (linhas 136 a 140), atualizamos o nome (linha 142) e verificamos se o estado mudou (linha 144): se a cidade já tem o estado que veio do cliente (comparação via \inlineJavaCode{equals}), não fazemos outra ida ao banco; se for diferente, buscamos o objeto \texttt{Estado} completo via \inlineJavaCode{daoEstado.obterPorId} (linha 145). Essa estratégia evita uma consulta ao banco quando o usuário não alterou o estado da cidade.
+O \inlineJavaCode{doPut} (linha 139) é onde a dependência aparece do lado do servidor. Dois DAOs são abertos no \textit{try-with-resources} (linhas 149 e 150): um para cidades e um para estados. Após buscar a cidade existente pelo id e verificar que ela existe (linhas 160 a 164), atualizamos o nome (linha 166) e verificamos se o estado mudou (linha 168): se a cidade já tem o estado que veio do cliente (comparação via \inlineJavaCode{equals}), não fazemos outra ida ao banco; se for diferente, buscamos o objeto \texttt{Estado} completo via \inlineJavaCode{daoEstado.obterPorId} (linha 170). Essa estratégia evita uma consulta ao banco quando o usuário não alterou o estado da cidade.
 
 Perceba que o \textit{front-end} não precisa enviar o objeto \texttt{Estado} completo --- apenas o \texttt{id} é suficiente. O JSON enviado numa atualização de cidade tem a forma:
 
 \begin{boxJsonCode}[title=Exemplo de JSON enviado pelo PUT de cidades]
-{ "id": 1, "nome": "São Carlos", "estado": { "id": 25 } }
+{
+  "id": 1,
+  "nome": "São Carlos",
+  "estado": { "id": 25 }
+}
 \end{boxJsonCode}
 
 O JSON-B desserializará isso para um objeto \texttt{Cidade} com um \texttt{Estado} que tem apenas o \texttt{id} preenchido --- e é exatamente o suficiente para a comparação e para a busca do estado completo.
@@ -463,33 +480,43 @@ O módulo importa três dependências (linhas 6 a 9): \texttt{ContainerUtilizado
 
 Na função \inlineJavaScriptCode{iniciar} (linha 40), dentro do \inlineJavaScriptCode{.then()} do \inlineJavaScriptCode{carregarFragmento}, há duas linhas que merecem atenção especial.
 
-A linha 68 registra o select de estados do formulário de cidades (\texttt{selEstado}) no módulo de estados via \inlineJavaScriptCode{Estados.adicionarSelectExterno(selEstado)}. Isso faz com que o array \inlineJavaScriptCode{selects} do módulo de estados passe a conter uma referência a esse select. Na prática, sempre que o módulo de estados recarregar sua lista (após inserir, atualizar ou excluir um estado), ele percorrerá esse array e atualizará todos os selects registrados --- inclusive o do formulário de cidades. Assim o select de estados no formulário de cidades sempre reflete o estado atual do banco de dados, mesmo que o usuário tenha feito alterações no cadastro de estados nessa mesma sessão.
+A linha 71 registra o select de estados do formulário de cidades (\texttt{selEstado}) no módulo de estados via \inlineJavaScriptCode{Estados.adicionarSelectExterno(selEstado)}. Isso faz com que o array \inlineJavaScriptCode{selects} do módulo de estados passe a conter uma referência a esse select. Na prática, sempre que o módulo de estados recarregar sua lista (após inserir, atualizar ou excluir um estado), ele percorrerá esse array e atualizará todos os selects registrados --- inclusive o do formulário de cidades. Assim o select de estados no formulário de cidades sempre reflete o estado atual do banco de dados, mesmo que o usuário tenha feito alterações no cadastro de estados nessa mesma sessão.
 
-A linha 75 complementa isso com uma carga inicial: \inlineJavaScriptCode{Utils.carregarSelect(`\${_urlBase}/estados`, selEstado, \{ id: "id", label: "nome" \})} busca os estados do servidor e popula o select imediatamente. Isso é necessário porque o módulo de estados pode ainda não ter sido inicializado (ou seja, o usuário pode ter acessado cidades diretamente, sem passar por estados), então não podemos depender apenas do mecanismo de \inlineJavaScriptCode{adicionarSelectExterno} para a carga inicial.
+A linha 78 complementa isso com uma carga inicial:
+
+\begin{boxJavaScriptCode}
+Utils.carregarSelect( 
+    `${_urlBase}/estados`,
+    selEstado,
+    { id: "id", label: "nome" }
+);
+\end{boxJavaScriptCode}
+
+Esse método busca os estados do servidor e popula o select imediatamente. Isso é necessário porque o módulo de estados pode ainda não ter sido inicializado (ou seja, o usuário pode ter acessado cidades diretamente, sem passar por estados), então não podemos depender apenas do mecanismo de \inlineJavaScriptCode{adicionarSelectExterno} para a carga inicial.
 
 \subsubsection{Carregando e Exibindo as Cidades}
 
-A função \inlineJavaScriptCode{carregar} (linha 90) segue o padrão já visto: requisição GET, espera pela resposta, limpa a tabela e reconstrói as linhas. Note na linha 112 que exibimos a sigla do estado na tabela (\inlineJavaScriptCode{cidade.estado.sigla}) --- isso é possível porque o JSON do servidor inclui o objeto de estado completo dentro de cada cidade, conforme vimos no exemplo de resposta do GET acima.
+A função \inlineJavaScriptCode{carregar} (linha 97) segue o padrão já visto: requisição GET, espera pela resposta, limpa a tabela e reconstrói as linhas. Note na linha 119 que exibimos a sigla do estado na tabela (\inlineJavaScriptCode{cidade.estado.sigla}) --- isso é possível porque o JSON do servidor inclui o objeto de estado completo dentro de cada cidade, conforme vimos no exemplo de resposta do GET acima.
 
-O \textit{listener} de clique nas linhas (linha 114) usa o \texttt{dataset.indice} da linha clicada para recuperar o objeto cidade correspondente do array \inlineJavaScriptCode{dados}. Isso evita qualquer parsing de DOM para recuperar os dados --- os objetos já estão em memória no array.
+O \textit{listener} de clique nas linhas (linha 121) usa o \texttt{dataset.indice} da linha clicada para recuperar o objeto cidade correspondente do array \inlineJavaScriptCode{dados}. Isso evita qualquer parsing de DOM para recuperar os dados --- os objetos já estão em memória no array.
 
-Também nas linhas 122 a 124, após construir cada linha da tabela, o módulo percorre o array \inlineJavaScriptCode{selects} e adiciona uma \inlineHTMLCode{<option>} com o id e o nome da cidade em cada select externo registrado. Isso é o mecanismo simétrico ao que vimos em estados: quando o cadastro de cidades é atualizado, os selects de fornecedores e clientes (que também têm um select de cidade) são atualizados automaticamente.
+Também nas linhas 129 a 131, após construir cada linha da tabela, o módulo percorre o array \inlineJavaScriptCode{selects} e adiciona uma \inlineHTMLCode{<option>} com o id e o nome da cidade em cada select externo registrado. Isso é o mecanismo simétrico ao que vimos em estados: quando o cadastro de cidades é atualizado, os selects de fornecedores e clientes (que também têm um select de cidade) são atualizados automaticamente.
 
 \subsubsection{Salvando --- Inserção e Atualização}
 
-A função \inlineJavaScriptCode{salvar} (linha 136) é onde a diferença entre inserção e atualização fica mais clara. Se \inlineJavaScriptCode{objSelecionado} é \inlineJavaScriptCode{null} (nenhuma cidade foi selecionada na tabela), é uma inserção: criamos um objeto literal com o nome e o estado (apenas o id do estado, não o objeto completo) e enviamos com POST. Se há uma cidade selecionada, é uma atualização: modificamos o objeto existente no lugar e enviamos com PUT para \texttt{/api/cidades/\{id\}}.
+A função \inlineJavaScriptCode{salvar} (linha 146) é onde a diferença entre inserção e atualização fica mais clara. Se \inlineJavaScriptCode{objSelecionado} é \inlineJavaScriptCode{null} (nenhuma cidade foi selecionada na tabela), é uma inserção: criamos um objeto literal com o nome e o estado (apenas o id do estado, não o objeto completo) e enviamos com POST. Se há uma cidade selecionada, é uma atualização: modificamos o objeto existente no lugar e enviamos com PUT para \texttt{/api/cidades/\{id\}}.
 
 Esse padrão de reusar o objeto \inlineJavaScriptCode{objSelecionado} na atualização em vez de criar um novo tem uma vantagem: o objeto já tem todos os campos que o servidor espera (incluindo o \texttt{id}), e apenas atualizamos os que o usuário pode ter mudado. Assim não corremos o risco de perder campos que não estão no formulário.
 
 \subsubsection{Excluindo com Confirmação}
 
-A função \inlineJavaScriptCode{excluir} (linha 177) demonstra o fluxo assíncrono com dois modais em sequência. O modal de confirmação é aberto de forma síncrona (ele apenas exibe a caixa de diálogo e registra o \textit{callback}). Quando o usuário clicar em ``OK'', o \textit{callback} assíncrono é executado: abre o modal de aguarde, faz a requisição DELETE e, após a resposta, fecha o modal de aguarde e recarrega a lista.
+A função \inlineJavaScriptCode{excluir} (linha 190) demonstra o fluxo assíncrono com dois modais em sequência. O modal de confirmação é aberto de forma síncrona (ele apenas exibe a caixa de diálogo e registra o \textit{callback}). Quando o usuário clicar em ``OK'', o \textit{callback} assíncrono é executado: abre o modal de aguarde, faz a requisição DELETE e, após a resposta, fecha o modal de aguarde e recarrega a lista.
 
-É importante notar que o \textit{callback} passado para \inlineJavaScriptCode{Modais.modalConfirmacao.abrir} é declarado como \inlineJavaScriptCode{async} (linha 184) --- isso é necessário para que possamos usar \inlineJavaScriptCode{await} dentro dele. Um \textit{callback} regular (não \inlineJavaScriptCode{async}) não aceitaria \inlineJavaScriptCode{await}.
+É importante notar que o \textit{callback} passado para \inlineJavaScriptCode{Modais.modalConfirmacao.abrir} é declarado como \inlineJavaScriptCode{async} (linha 197) --- isso é necessário para que possamos usar \inlineJavaScriptCode{await} dentro dele. Um \textit{callback} regular (não \inlineJavaScriptCode{async}) não aceitaria \inlineJavaScriptCode{await}.
 
 \subsubsection{Preenchendo e Resetando o Formulário}
 
-As funções \inlineJavaScriptCode{preencherFormulario} (linha 213) e \inlineJavaScriptCode{resetarFormulario} (linha 219) são auxiliares simples. \inlineJavaScriptCode{preencherFormulario} é chamada quando o usuário clica em uma linha da tabela: limpa as mensagens de validação e popula os campos com os dados da cidade selecionada. Para o select de estados, basta atribuir o id do estado à propriedade \inlineJavaScriptCode{value} do elemento \inlineHTMLCode{<select>} (linha 216) --- o navegador selecionará automaticamente a opção cujo \texttt{value} corresponde ao id.
+As funções \inlineJavaScriptCode{preencherFormulario} (linha 229) e \inlineJavaScriptCode{resetarFormulario} (linha 235) são auxiliares simples. \inlineJavaScriptCode{preencherFormulario} é chamada quando o usuário clica em uma linha da tabela: limpa as mensagens de validação e popula os campos com os dados da cidade selecionada. Para o select de estados, basta atribuir o id do estado à propriedade \inlineJavaScriptCode{value} do elemento \inlineHTMLCode{<select>} (linha 232) --- o navegador selecionará automaticamente a opção cujo \texttt{value} corresponde ao id.
 
 \inlineJavaScriptCode{resetarFormulario} faz o caminho inverso: limpa o formulário, define \inlineJavaScriptCode{objSelecionado} como \inlineJavaScriptCode{null} e remove o destaque de seleção de todas as linhas da tabela. É chamada tanto ao clicar em ``Novo'' quanto após uma operação bem-sucedida de inserção, atualização ou exclusão.
 

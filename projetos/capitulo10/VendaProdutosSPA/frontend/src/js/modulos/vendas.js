@@ -49,7 +49,10 @@ export function iniciar( urlBase ) {
 
         _urlBase = urlBase;
         
-        Utils.carregarFragmento( "divVendas", "/public/fragmentos/cruds/vendas.html" ).then( () => {
+        Utils.carregarFragmento(
+            "divVendas",
+            "/public/fragmentos/cruds/vendas.html"
+        ).then( () => {
             
             dados = null;
             
@@ -87,9 +90,14 @@ export function iniciar( urlBase ) {
             resetarFormulario();
             atualizarListaItens();
             
-            Utils.carregarSelect( `${_urlBase}/clientes`, selCliente, { id: "id" }, cliente => {
-                return `${cliente.nome} ${cliente.sobrenome}`;
-            });
+            Utils.carregarSelect( 
+                `${_urlBase}/clientes`,
+                selCliente,
+                { id: "id" },
+                cliente => {
+                    return `${cliente.nome} ${cliente.sobrenome}`;
+                }
+            );
             
             carregarProdutos();
             
@@ -124,8 +132,16 @@ async function carregar() {
             let linha = document.createElement( "tr" );
 
             linha.dataset.indice = index;
-            linha.append( Utils.criarTd( Utils.formatarDataBrasil( venda.data ) ) );
-            linha.append( Utils.criarTd( `${venda.cliente.nome} ${venda.cliente.sobrenome}` ) );
+            linha.append( 
+                Utils.criarTd(
+                    Utils.formatarDataBrasil( venda.data )
+                )
+            );
+            linha.append(
+                Utils.criarTd(
+                    `${venda.cliente.nome} ${venda.cliente.sobrenome}`
+                )
+            );
             
             if ( venda.cancelada ) {
                 let td = Utils.criarTd( "" );
@@ -155,7 +171,10 @@ async function carregar() {
         Modais.modalAguarde.fechar();
 
     } else {
-        Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+        Modais.modalMensagem.abrir(
+            "ERRO",
+            Utils.montarMensagemErro( dados )
+        );
     }
 
 }
@@ -163,7 +182,10 @@ async function carregar() {
 async function salvar() {
 
     if ( itensVenda.length === 0 ) {
-        Modais.modalMensagem.abrir( "ERRO", "Uma Venda precisa conter pelo menos um Item da Venda!" );
+        Modais.modalMensagem.abrir(
+            "ERRO",
+            "Uma Venda precisa conter pelo menos um Item da Venda!"
+        );
     } else {
 
         let itens = [];
@@ -181,16 +203,26 @@ async function salvar() {
         
         Modais.modalAguarde.abrir();
 
-        const response = await Utils.customFetch( `${_urlBase}/vendas`, "POST", obj );
+        const response = await Utils.customFetch( 
+            `${_urlBase}/vendas`,
+            "POST",
+            obj
+        );
         const dados = await response.json();
 
         Modais.modalAguarde.fechar();
 
         if ( response.ok ) {
             resetarFormulario();
-            Modais.modalMensagem.abrir( "Aviso", "Venda realizada com sucesso!" );
+            Modais.modalMensagem.abrir(
+                "Aviso",
+                "Venda realizada com sucesso!"
+            );
         } else {
-            Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+            Modais.modalMensagem.abrir(
+                "ERRO",
+                Utils.montarMensagemErro( dados )
+            );
         }
 
     }
@@ -232,9 +264,15 @@ async function carregarProdutos() {
 
     Modais.modalAguarde.abrir();
 
-    await Utils.carregarSelect( `${_urlBase}/produtos`, selProduto, { id: "id" }, produto => {
-        return `${produto.descricao} (${Utils.formatarDinheiro( produto.valorVenda )} por ${produto.unidadeMedida.sigla})`;
-    }, [ "descricao", "valorVenda" ]);
+    await Utils.carregarSelect( 
+        `${_urlBase}/produtos`,
+        selProduto,
+        { id: "id" },
+        produto => {
+            return `${produto.descricao} (${Utils.formatarDinheiro( produto.valorVenda )} por ${produto.unidadeMedida.sigla})`;
+        },
+        [ "descricao", "valorVenda" ]
+    );
 
     Modais.modalAguarde.fechar();
 
@@ -260,7 +298,10 @@ async function cancelarVendaRealizada( idVenda ) {
             if ( response.ok ) {
                 carregar();
             } else {
-                Modais.modalMensagem.abrir( "ERRO", Utils.montarMensagemErro( dados ) );
+                Modais.modalMensagem.abrir(
+                    "ERRO",
+                    Utils.montarMensagemErro( dados )
+                );
             }
 
         }
@@ -298,7 +339,10 @@ function adicionarItem() {
         txtQuantidade.value = "";
         
     } else {
-        Modais.modalMensagem.abrir( "ERRO", "Forneça uma quantidade maior que zero!" );
+        Modais.modalMensagem.abrir(
+            "ERRO",
+            "Forneça uma quantidade maior que zero!"
+        );
     }
     
     atualizarListaItens();
