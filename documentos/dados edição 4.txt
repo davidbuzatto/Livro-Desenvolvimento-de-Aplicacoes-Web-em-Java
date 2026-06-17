@@ -4,5 +4,10 @@ Subtítulo: Atualizado para Java 25 e Jakarta EE 11
 Edição: 4ª
 Palavras chave: web, java, javascript, html
 ISBN: 978-65-02-17708-2
+Distribuição: digital
+Tipo do arquivo: PDF
+Cidade: Vargem Grande do Sul
+Estado: São Paulo
+
 
 Sinopse: Desenvolvimento de Aplicações Web em Java e Outras Tecnologias é um guia prático e progressivo que conduz o leitor da fundamentação à construção de sistemas Web completos. Escrito em linguagem acessível e didática, o livro parte do funcionamento do protocolo HTTP, Servlets e JSPs e avança por Expression Language, JSTL e os padrões de projeto Factory, DAO e MVC, integrando aplicações a bancos de dados relacionais. Em seguida, introduz JavaScript moderno, manipulação do DOM e requisições assíncronas (AJAX e Fetch API), culminando na criação de Web Services RESTful e de uma Single Page Application em JavaScript puro. Atualizada para Java 25 e Jakarta EE 11 (Apache Tomcat), esta quarta edição reúne teoria, exemplos comentados e projetos práticos, sendo ideal para estudantes e profissionais que desejam dominar o desenvolvimento Web com Java.
